@@ -52,30 +52,4 @@ export class Template {
     this.rating = rating;
   }
 
-	// @Id
-	// @GeneratedValue(strategy = GenerationType.IDENTITY)
-	// @Column(name = "id")
-	// private Integer id;
-
-
-	// @ManyToOne
-	// @JoinColumn(name = "user_id")
-	// private User user;
-
-	// @ManyToMany(mappedBy = "favorites")
-	// private List<User> users;
-
-	// @OneToMany(mappedBy = "template")
-	// private List<Comments> commentss;
-
-	// @ManyToMany
-	// @JoinTable(name = "parent_child_template", joinColumns = @JoinColumn(name = "parent_id"), inverseJoinColumns = @JoinColumn(name = "child_id"))
-	// private List<Template> subTemplates;
-
-	// @ManyToMany(mappedBy = "subTemplates")
-	// private List<Template> parentTemplates;
-
-	// @OneToMany(mappedBy = "template")
-	// private List<Rating> ratings;
-
 }
