@@ -32,6 +32,7 @@ class UserTest {
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
 		user = em.find(User.class, 1);
+		
 	}
 
 	@AfterEach
@@ -42,7 +43,14 @@ class UserTest {
 	
 	@Test
 	void test() {
-		assertEquals("admin",user.getUsername());
+		assertEquals("nealabc",user.getUsername());
+		assertEquals("nealabc",user.getPassword());
+		assertEquals(true,user.getEnabled());
+		assertEquals("nealabc@aol.com",user.getEmail());
+		assertEquals(null,user.getRole());
+		assertEquals(null,user.getOrganizationId());
+		assertEquals("Java Enitiy Mapping",user.getTemplates().get(0).getName());
+		
 	}
 	
 
