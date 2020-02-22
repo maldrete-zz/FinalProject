@@ -15,27 +15,33 @@ import com.skilldistillery.frameworkautomation.entities.User;
 import com.skilldistillery.frameworkautomation.services.AuthService;
 
 @RestController
-@CrossOrigin({"*", "http://localhost:4200"})
+@CrossOrigin({ "*", "http://localhost:4200" })
 public class AuthController {
 	@Autowired
 	private AuthService authService;
-	
+
 	@PostMapping("/register")
 	public User register(@RequestBody User user, HttpServletResponse res) {
 
-	    if (user == null) {
-	        res.setStatus(400);
-	    }
+		System.out.println(user);
+		if (user == null) {
+			res.setStatus(400);
+		}
 
-	    user = authService.register(user);
+		user = authService.register(user);
 
-	    return user;
+		return user;
 	}
 
 	@GetMapping("/authenticate")
-	public Principal authenticate(Principal principal) {
-	    return principal;
-	}
+	public Boolean authenticate(Principal principal) {
+		User user = authService.getUserbyUsername(principal.getName());
+		if (user == null) {
+			return false;
+		} else {
+			return true;
+		}
 
+	}
 
 }
