@@ -1,3 +1,4 @@
+import { AuthService } from './services/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -11,6 +12,8 @@ import { UserProfileComponent } from './util/user/user-profile/user-profile.comp
 import { ResultsComponent } from './util/search/results/results.component';
 import { GenerateComponent } from './util/generator/generate/generate.component';
 import { CreateTemplateComponent } from './util/generator/create-template/create-template.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,9 +29,11 @@ import { CreateTemplateComponent } from './util/generator/create-template/create
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
