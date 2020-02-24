@@ -32,7 +32,7 @@ public class AuthServiceIMPL implements AuthService {
 
 	@Override
 	public User getUserbyUsername(String username) {
-		return repo.findByUsername(username);
+		return repo.findByUsernameAndEnabledTrue(username);
 	}
 
 }

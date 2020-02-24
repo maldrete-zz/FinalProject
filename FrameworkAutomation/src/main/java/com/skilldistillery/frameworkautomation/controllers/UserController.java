@@ -33,19 +33,18 @@ public class UserController {
 	}
 	
 	@PutMapping("me")
-	public User editUser(@RequestBody User user, Integer id) {
-		User managedUser = svc.findUserByID(id);
-		
-		managedUser = svc.updateUser(user, id);
-		return user;
+	public User editUser(@RequestBody User user, Principal principal) {
+		// principal allows us for check to see if we are updating the user thats is logged in.
+		user.setUsername(principal.getName());
+		return svc.updateUser(user);
 		
 	}
 	
 	
 	
 	@DeleteMapping("me")
-	public Boolean deleteUser(String username) {
-		User user = svc.findByUsername(username);
+	public Boolean deleteUser(Principal principal) {
+		User user = svc.findByUsername(principal.getName());
 		user.setEnabled(false);
 		return false;
 	}
