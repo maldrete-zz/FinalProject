@@ -18,7 +18,6 @@ public class AuthServiceIMPL implements AuthService {
 
 	@Override
 	public User register(User user) {
-		
 		String encodedPW = encoder.encode(user.getPassword());
 		user.setPassword(encodedPW); // only persist encoded password
 
