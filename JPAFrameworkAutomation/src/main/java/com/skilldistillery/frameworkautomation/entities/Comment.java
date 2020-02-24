@@ -12,8 +12,8 @@ import javax.persistence.ManyToOne;
 
 
 @Entity
-@Table(name="comments")
-public class Comments {
+@Table(name="comment")
+public class Comment {
 
 	// F I E L D S
 	@Id
@@ -31,7 +31,7 @@ public class Comments {
 
 
 	@ManyToOne
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_username")
 	private User user;
 
 
@@ -40,14 +40,10 @@ public class Comments {
 	private Template template;
 
 
-
-	
 	// C O N S T R U C T O R S
-	public Comments() {
+	public Comment() {
 		super();
 	}
-
-
 
 	// G E T T E R S _ A N D _ S E T T E R S
 	public Integer getId() {
@@ -86,9 +82,5 @@ public class Comments {
 	}
 
 
-
-	// A D D E R S
-
-	
 }	
 

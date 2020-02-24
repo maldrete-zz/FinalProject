@@ -45,16 +45,19 @@ public class Template {
 
 	@Column(name = "instructions")
 	private String instructions;
+	
+	@Column(name = "enabled")
+	private Boolean enabled;
 
 	@ManyToOne
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_username")
 	private User user;
 
 	@ManyToMany(mappedBy = "favorites")
 	private List<User> users;
 
 	@OneToMany(mappedBy = "template")
-	private List<Comments> commentss;
+	private List<Comment> comments;
 
 	@ManyToMany
 	@JoinTable(name = "parent_child_template", joinColumns = @JoinColumn(name = "parent_id"), inverseJoinColumns = @JoinColumn(name = "child_id"))
@@ -152,13 +155,7 @@ public class Template {
 		this.users = users;
 	}
 
-	public List<Comments> getCommentss() {
-		return commentss;
-	}
 
-	public void setCommentss(List<Comments> commentss) {
-		this.commentss = commentss;
-	}
 
 	public List<Template> getSubTemplates() {
 		return subTemplates;
@@ -184,6 +181,22 @@ public class Template {
 		this.parentTemplates = parentTemplates;
 	}
 
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
 	// A D D E R S
 	public void addUser(User user) {
 		if (users == null) {
@@ -203,23 +216,23 @@ public class Template {
 
 	}
 
-	public void addComments(Comments comments) {
-		if (commentss == null) {
-			commentss = new ArrayList<>();
+	public void addComment(Comment comment) {
+		if (comments == null) {
+			comments = new ArrayList<>();
 		}
-		if (!commentss.contains(comments)) {
-			commentss.add(comments);
-			if (comments.getTemplate() != null) {
-				comments.getTemplate().getCommentss().remove(comments);
+		if (!comments.contains(comment)) {
+			comments.add(comment);
+			if (comment.getTemplate() != null) {
+				comment.getTemplate().getComments().remove(comment);
 			}
 		}
-		comments.setTemplate(this);
+		comment.setTemplate(this);
 	}
 
-	public void removeComments(Comments comments) {
-		comments.setTemplate(null);
-		if (commentss != null) {
-			commentss.remove(comments);
+	public void removeComment(Comment comment) {
+		comment.setTemplate(null);
+		if (comments != null) {
+			comments.remove(comment);
 		}
 
 	}
