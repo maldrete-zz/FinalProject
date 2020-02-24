@@ -29,6 +29,7 @@ public class AuthController {
 		}
 
 		user = authService.register(user);
+		user.setPassword("");
 
 		return user;
 	}

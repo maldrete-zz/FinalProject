@@ -32,7 +32,7 @@ public class User {
 	@Column(name = "password")
 	private String password;
 
-
+	@JsonIgnore
 	@Column(name = "enabled")
 	private Boolean enabled;
 
