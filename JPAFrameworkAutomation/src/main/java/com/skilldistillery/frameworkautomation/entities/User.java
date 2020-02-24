@@ -22,12 +22,10 @@ import javax.persistence.JoinTable;
 public class User {
 
 	// F I E L D S
+
+
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
-
-
 	@Column(name = "username")
 	private String username;
 
@@ -43,8 +41,8 @@ public class User {
 	private String email;
 
 
-	@Column(name = "organization_id")
-	private Integer organizationId;
+	@Column(name = "organization_name")
+	private String organizationName;
 
 
 	@Column(name = "role")
@@ -57,14 +55,14 @@ public class User {
 
 	@ManyToMany
 	@JoinTable(name="favorites",
-		joinColumns=@JoinColumn(name="user_id"),
+		joinColumns=@JoinColumn(name="user_username"),
 		inverseJoinColumns=@JoinColumn(name="template_id")
 	)
 	private List<Template> favorites;
 
 
 	@OneToMany(mappedBy="user")
-	private List<Comments> commentss;
+	private List<Comment> comments;
 
 
 	@OneToMany(mappedBy="user")
@@ -81,12 +79,6 @@ public class User {
 
 
 	// G E T T E R S _ A N D _ S E T T E R S
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getUsername() {
 		return username;
@@ -117,13 +109,6 @@ public class User {
 	}
 
 
-	public Integer getOrganizationId() {
-		return organizationId;
-	}
-	public void setOrganizationId(Integer organizationId) {
-		this.organizationId = organizationId;
-	}
-
 	public String getRole() {
 		return role;
 	}
@@ -145,18 +130,36 @@ public class User {
 		this.favorites = favorites;
 	}
 
-	public List<Comments> getCommentss() {
-		return commentss;
-	}
-	public void setCommentss(List<Comments> commentss) {
-		this.commentss = commentss;
-	}
 
 	public List<Rating> getRatings() {
 		return ratings;
 	}
 	public void setRatings(List<Rating> ratings) {
 		this.ratings = ratings;
+	}
+
+
+
+	public String getOrganizationName() {
+		return organizationName;
+	}
+
+
+
+	public void setOrganizationName(String organizationName) {
+		this.organizationName = organizationName;
+	}
+
+
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
 
@@ -201,23 +204,23 @@ public class User {
 		}
 	
 	}
-	public void addComments (Comments comments) {
-		if (commentss == null) {
-			commentss = new ArrayList<>();
+	public void addComment (Comment comment) {
+		if (comments == null) {
+			comments = new ArrayList<>();
 		}
-		if (!commentss.contains(comments)) {
-			commentss.add(comments);
-			if(comments.getUser() != null){
-				comments.getUser().getCommentss().remove(comments);
+		if (!comments.contains(comment)) {
+			comments.add(comment);
+			if(comment.getUser() != null){
+				comment.getUser().getComments().remove(comment);
 			}
 		}
-			comments.setUser(this);
+			comment.setUser(this);
 	}
 	
-	public void removeComments(Comments comments){
-		comments.setUser(null);
-		if(commentss != null){
-			commentss.remove(comments);
+	public void removeComment(Comment comment){
+		comment.setUser(null);
+		if(comments != null){
+			comments.remove(comment);
 		}
 	
 	}
@@ -243,14 +246,13 @@ public class User {
 	
 	}
 
+
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
-				+ ", email=" + email + ", organizationId=" + organizationId + ", role=" + role + "]";
+		return "User [username=" + username + ", password=" + password + ", enabled=" + enabled + ", email=" + email
+				+ ", organizationName=" + organizationName + ", role=" + role + "]";
 	}
-	
-	
-	
 
 	
 }	

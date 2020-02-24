@@ -9,11 +9,10 @@ public interface UserService {
 //	==> put request
 //	==> delete request
 	
-	public User findUserByID(int id);
 	
-	public User updateUser(User user, int id);
+	public User updateUser(User updatedUser);
 	
-	public boolean deleteUser(int id);
+	public boolean deleteUser(String username);
 	
 	public User findByUsername(String username);
 	

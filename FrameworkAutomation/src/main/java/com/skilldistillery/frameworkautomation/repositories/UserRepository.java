@@ -4,8 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.skilldistillery.frameworkautomation.entities.User;
 
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, String> {
 	
-	User findByUsername(String username);
+	public User findByUsernameAndEnabledTrue(String username);
 
 }

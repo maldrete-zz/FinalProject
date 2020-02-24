@@ -48,7 +48,6 @@ class UserTest {
 		assertEquals(true,user.getEnabled());
 		assertEquals("nealabc@aol.com",user.getEmail());
 		assertEquals(null,user.getRole());
-		assertEquals(null,user.getOrganizationId());
 		assertEquals("Java Enitiy Mapping",user.getTemplates().get(0).getName());
 		
 	}
