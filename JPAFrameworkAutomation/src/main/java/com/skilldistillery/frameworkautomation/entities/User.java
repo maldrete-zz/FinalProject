@@ -29,10 +29,11 @@ public class User {
 	@Column(name = "username")
 	private String username;
 
+	@JsonIgnore
 	@Column(name = "password")
 	private String password;
 
-
+	@JsonIgnore
 	@Column(name = "enabled")
 	private Boolean enabled;
 
@@ -74,6 +75,13 @@ public class User {
 	// C O N S T R U C T O R S
 	public User() {
 		super();
+	}
+	
+	public User (UserToRegister usertoRegister) {
+		this.username = usertoRegister.getUsername();
+		this.password = usertoRegister.getPassword();
+		this.email = usertoRegister.getEmail();
+		this.organizationName = usertoRegister.getOrganizationName();
 	}
 
 

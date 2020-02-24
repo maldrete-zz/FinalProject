@@ -18,15 +18,22 @@ public class UserServiceIMPL implements UserService {
 	@Autowired
 	private TemplateRepository tempRepo;
 
-
 	@Override
 	public User updateUser(User updatedUser) {
 //		Optional<User> managedUser = repo.findById(updatedUser.getUsername() );
 //		updatedUser = managedUser.get();
-		
+
 		// check to see if updated user is ACTUALLY updated **************
-		repo.saveAndFlush(updatedUser);
-		return updatedUser;
+		User olduser = repo.findByUsernameAndEnabledTrue(updatedUser.getUsername());
+		
+		if (updatedUser.getEmail() != null) {
+			olduser.setEmail(updatedUser.getEmail());
+		}
+		if (updatedUser.getOrganizationName() != null) {
+			olduser.setOrganizationName(updatedUser.getOrganizationName());
+		}
+		repo.saveAndFlush(olduser);
+		return olduser;
 	}
 
 	@Override
@@ -40,7 +47,6 @@ public class UserServiceIMPL implements UserService {
 	public User findByUsername(String username) {
 		User user = repo.findByUsernameAndEnabledTrue(username);
 		// check to see if managed user password is empty string *******************888
-		user.setPassword("");
 		return user;
 	}
 

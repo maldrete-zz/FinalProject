@@ -1,5 +1,7 @@
 package com.skilldistillery.frameworkautomation.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,10 @@ public class AuthServiceIMPL implements AuthService {
 
 	@Override
 	public User register(User user) {
+		Optional<User> optionalUser = repo.findById(user.getUsername());
+		if(optionalUser.isPresent()) {
+			throw new RuntimeException("Username alreadys exists");
+		}
 		String encodedPW = encoder.encode(user.getPassword());
 		user.setPassword(encodedPW); // only persist encoded password
 
