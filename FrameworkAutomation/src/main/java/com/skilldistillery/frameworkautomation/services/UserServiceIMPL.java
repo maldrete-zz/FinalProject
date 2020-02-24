@@ -47,7 +47,6 @@ public class UserServiceIMPL implements UserService {
 	public User findByUsername(String username) {
 		User user = repo.findByUsernameAndEnabledTrue(username);
 		// check to see if managed user password is empty string *******************888
-		user.setPassword("");
 		return user;
 	}
 

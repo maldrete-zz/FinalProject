@@ -1,6 +1,7 @@
 package com.skilldistillery.frameworkautomation.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,47 +12,84 @@ import com.skilldistillery.frameworkautomation.repositories.UserRepository;
 
 @Service
 public class TemplateServiceIMPL implements TemplateService {
-	
+
 	@Autowired
 	private TemplateRepository repo;
-	
+
 	@Autowired
 	private UserRepository userRepo;
 
 	@Override
-	public Template findParentTemplateByID(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public Template updateTemplate(Template newTemplate, int id) {
+		Optional<Template> managedTemplate = repo.findById(id);
+		if (managedTemplate.isPresent()) {
+			Template oldTemplate = managedTemplate.get();
 
-	@Override
-	public List<Template> findSubTemplates() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+			if (newTemplate.getName() != null) {
+				oldTemplate.setName(newTemplate.getName());
+			}
+			if (newTemplate.getExtension() != null) {
+				oldTemplate.setExtension(newTemplate.getExtension());
+			}
+			if (newTemplate.getContent() != null) {
+				oldTemplate.setContent(newTemplate.getContent());
+			}
+			if (newTemplate.getTemplateType() != null) {
+				oldTemplate.setTemplateType(newTemplate.getTemplateType());
+			}
+			if (newTemplate.getDescription() != null) {
+				oldTemplate.setDescription(newTemplate.getDescription());
+			}
+			if (newTemplate.getAccess() != null) {
+				oldTemplate.setAccess(newTemplate.getAccess());
+			}
+			if (newTemplate.getInstructions() != null) {
+				oldTemplate.setInstructions(newTemplate.getInstructions());
+			}
 
-	@Override
-	public Template updateTemplate(Template template, int id) {
-		// TODO Auto-generated method stub
-		return null;
+			newTemplate = repo.saveAndFlush(oldTemplate);
+			return newTemplate;
+
+		} else {
+			throw new RuntimeException("template not found");
+		}
+
 	}
 
 	@Override
 	public Template createTemplate(Template template) {
-		// TODO Auto-generated method stub
-		return null;
+		template.setId(0);
+		Template newTemplate = repo.saveAndFlush(template);
+		return newTemplate;
 	}
 
 	@Override
 	public boolean deleteTemplateById(int id) {
-		// TODO Auto-generated method stub
-		return false;
+
+		Optional<Template> managedTemplate = repo.findById(id);
+		if (managedTemplate.isPresent()) {
+			Template template = managedTemplate.get();
+			if (template.getParentTemplates().size() == 0) {
+				repo.delete(template);
+			} else {
+				template.setEnabled(false);
+			}
+			return true;
+		} else {
+			throw new RuntimeException("template not found");
+		}
 	}
-	
-	
 
+	@Override
+	public Template findTemplateById(Integer id) {
+		Optional<Template> managedTemplate = repo.findById(id);
+		if (managedTemplate.isPresent()) {
 
-	
-	
+			return managedTemplate.get();
+		} else {
+			throw new RuntimeException("id not found");
+		}
+
+	}
 
 }

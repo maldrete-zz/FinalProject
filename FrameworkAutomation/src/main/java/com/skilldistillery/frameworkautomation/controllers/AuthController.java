@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.frameworkautomation.entities.User;
+import com.skilldistillery.frameworkautomation.entities.UserToRegister;
 import com.skilldistillery.frameworkautomation.services.AuthService;
 
 @RestController
@@ -21,15 +22,13 @@ public class AuthController {
 	private AuthService authService;
 
 	@PostMapping("/register")
-	public User register(@RequestBody User user, HttpServletResponse res) {
-
-		System.out.println(user);
-		if (user == null) {
+	public User register(@RequestBody UserToRegister userToRegister, HttpServletResponse res) {
+		if (userToRegister == null) {
 			res.setStatus(400);
 		}
-
+		
+		User user = new User(userToRegister);
 		user = authService.register(user);
-		user.setPassword("");
 
 		return user;
 	}

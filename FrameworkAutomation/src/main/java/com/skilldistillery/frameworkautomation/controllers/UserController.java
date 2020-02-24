@@ -29,7 +29,6 @@ public class UserController {
 	@GetMapping("me")
 	public User getUser(Principal principal) {
 		User user = svc.findByUsername(principal.getName());
-		user.setPassword("");
 		return user;
 	}
 	
@@ -38,7 +37,6 @@ public class UserController {
 		// principal allows us for check to see if we are updating the user thats is logged in.
 		user.setUsername(principal.getName());
 		user = svc.updateUser(user);
-		user.setPassword("");
 		return user;
 	}
 	

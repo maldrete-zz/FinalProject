@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.JoinColumn;
 import java.util.List;
 import javax.persistence.ManyToMany;
@@ -49,6 +51,7 @@ public class Template {
 	@Column(name = "enabled")
 	private Boolean enabled;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "user_username")
 	private User user;
@@ -63,6 +66,7 @@ public class Template {
 	@JoinTable(name = "parent_child_template", joinColumns = @JoinColumn(name = "parent_id"), inverseJoinColumns = @JoinColumn(name = "child_id"))
 	private List<Template> subTemplates;
 
+	@JsonIgnore
 	@ManyToMany(mappedBy = "subTemplates")
 	private List<Template> parentTemplates;
 
