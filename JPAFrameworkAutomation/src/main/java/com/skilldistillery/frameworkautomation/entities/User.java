@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -28,7 +30,6 @@ public class User {
 
 	@Column(name = "username")
 	private String username;
-
 
 	@Column(name = "password")
 	private String password;
