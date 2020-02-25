@@ -12,4 +12,6 @@ export class GenerateComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+
 }

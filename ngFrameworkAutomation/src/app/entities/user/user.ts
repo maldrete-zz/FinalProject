@@ -1,4 +1,4 @@
-import { Review } from "./../review/review";
+import { Rating } from "./../rating/rating";
 import { Template } from "../template/template";
 
 export class User {
@@ -13,7 +13,7 @@ export class User {
   templates: Template[];
   favorites: Template[];
   commentss: Comment[];
-  rating: Review[];
+  rating: Rating[];
 
   // C O N S T R U C T O R
   constructor(
@@ -27,7 +27,7 @@ export class User {
     templates?: Template[],
     favorites?: Template[],
     commentss?: Comment[],
-    rating?: Review[]
+    rating?: Rating[]
   ) {
     this.id = id;
     this.username = username;
