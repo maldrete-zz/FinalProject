@@ -7,10 +7,11 @@
   <input type="submit" value="submit me morty" (click)="print()">
 </form>
 
-<div *ngFor="let key of getKeys()">
+<span *ngFor="let key of getKeys(); index as i" >
+  {{ parsedTemplate[i]  }}
   {{ arguments[key] }}
-</div>
+</span>
 
-<p>
+<!-- <p>
   {{ template.content }}
-</p>
+</p> -->
