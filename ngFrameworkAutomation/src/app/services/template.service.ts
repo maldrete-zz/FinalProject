@@ -39,6 +39,7 @@ export class TemplateService {
 
     */
     let options = {};
+
     if (credentials) {
       options = {
         headers: {
