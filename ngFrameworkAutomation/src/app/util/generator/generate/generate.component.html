@@ -1,1 +1,14 @@
 <p>generate works!</p>
+
+ <form #fieldForm="ngForm" >
+   <div *ngFor="let key of getKeys()">
+      {{ key }}<input type="text" name="texteditor" [(ngModel)]="arguments[key]">
+  </div>
+  <input type="submit" value="submit me morty" (click)="print()">
+</form>
+
+<div *ngFor="let key of getKeys()">
+  {{ arguments[key] }}
+</div>
+
+
