@@ -1,3 +1,4 @@
+import { KeyValuePair } from './../key-value-pair';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -14,8 +15,8 @@ import { Template } from 'src/app/entities/template/template';
 export class GenerateComponent implements OnInit {
 
   private template: Template;
-
-  private arguments = {};
+  private keyValuePair: KeyValuePair;
+   arguments = {};
 
   constructor(private http: HttpClient, private currentroute: ActivatedRoute, private svc: TemplateService) { }
 
@@ -23,15 +24,20 @@ export class GenerateComponent implements OnInit {
     let templateId = this.currentroute.snapshot.paramMap.get('id');
     console.log(templateId, this.currentroute);
     this.svc.show(parseInt(templateId)).subscribe(
-      data => { this.compileTemplates(data); },
-      err => { console.error(err); }
+      data => {
+        this.template = data;
+        this.compileTemplates(data);
+      },
+      err => {
+        console.error(err);
+      }
     );
   }
 
   compileTemplates(data: Template) {
     //Input data into fields
-    this.template = data;
-    let templateString = this.template.content;
+    let myTemplate = data;
+    let templateString = myTemplate.content;
     /*
     Create a regex that captures things that look like ?{data}?
     Then we itterate through the string that is the template to find those values
@@ -48,11 +54,21 @@ export class GenerateComponent implements OnInit {
       this.arguments[regexArg[1]] = "";
       templateString = templateString.substr(regexArg.index + 1, templateString.length);
     }
+
+    for (let i = 0; i < myTemplate.subTemplates.length; i++){
+      this.compileTemplates(myTemplate.subTemplates[i]);
+    }
     console.log(this.arguments);
 
   }
 
+  print(){
+    console.log(this.arguments);
+  }
 
+  getKeys(): string[] {
+    return Object.getOwnPropertyNames(this.arguments);
+  }
 
 
 
