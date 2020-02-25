@@ -31,7 +31,7 @@ public class TemplateController {
 	private UserService userSvc;
 
 	@GetMapping("templates")
-	public List<String> findTemplateById() {
+	public List<String> findAllTemplatesById() {
 		return svc.getAllActiveTemplates(); // gets template names
 	}
 
