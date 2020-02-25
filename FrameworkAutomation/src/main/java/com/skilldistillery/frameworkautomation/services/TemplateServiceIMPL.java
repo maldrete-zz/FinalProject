@@ -18,6 +18,12 @@ public class TemplateServiceIMPL implements TemplateService {
 
 	@Autowired
 	private UserRepository userRepo;
+	
+
+	@Override
+	public List<String> getAllActiveTemplates() {
+		return repo.findNamesofTemplates();
+	}
 
 	@Override
 	public Template updateTemplate(Template newTemplate, int id) {
@@ -46,6 +52,12 @@ public class TemplateServiceIMPL implements TemplateService {
 			if (newTemplate.getInstructions() != null) {
 				oldTemplate.setInstructions(newTemplate.getInstructions());
 			}
+			if (newTemplate.getSubTemplates() != null) {
+				oldTemplate.setSubTemplates(newTemplate.getSubTemplates());
+			}
+			if (newTemplate.getParentTemplates() != null) {
+				oldTemplate.setParentTemplates(newTemplate.getParentTemplates());
+			}
 
 			newTemplate = repo.saveAndFlush(oldTemplate);
 			return newTemplate;
@@ -73,6 +85,7 @@ public class TemplateServiceIMPL implements TemplateService {
 				repo.delete(template);
 			} else {
 				template.setEnabled(false);
+				repo.saveAndFlush(template);
 			}
 			return true;
 		} else {
