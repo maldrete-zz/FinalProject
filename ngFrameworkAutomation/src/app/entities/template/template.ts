@@ -1,25 +1,25 @@
-import { Comments } from './../comments/comments';
+import { Comment } from './../comments/comment';
 import { User } from './../user/user';
-import { Review } from '../review/review';
+import { Rating } from '../rating/rating';
 export class Template {
 
-    // F I E L D S
-    id: number;
-    name: string;
-    extension: string;
-    content: string;
-    access: boolean;
-    templateType: string;
-    description: string;
-    instructions: string;
-    user: User;
-    users: User[];
-    commentss: Comments[];
-    subTemplates: Template[];
-    parentTemplates: Template[];
-    rating: Review[];
+  // F I E L D S
+  id: number;
+  name: string;
+  extension: string;
+  content: string;
+  access: boolean;
+  templateType: string;
+  description: string;
+  instructions: string;
+  user: User;
+  favorites: User[];
+  comments: Comment[];
+  subTemplates: Template[];
+  parentTemplates: Template[];
+  rating: Rating[];
 
-      // C O N S T R U C T O R
+  // C O N S T R U C T O R
   constructor(
     id?: number,
     name?: string,
@@ -30,11 +30,11 @@ export class Template {
     description?: string,
     instructions?: string,
     user?: User,
-    users?: User[],
-    commentss?: Comments[],
+    favorites?: User[],
+    comments?: Comment[],
     subTemplates?: Template[],
     parentTemplates?: Template[],
-    rating?: Review[]
+    rating?: Rating[]
   ) {
     this.id = id;
     this.name = name;
@@ -45,8 +45,8 @@ export class Template {
     this.description = description;
     this.instructions = instructions;
     this.user = user;
-    this.users = users;
-    this.commentss = commentss;
+    this.favorites = favorites;
+    this.comments = comments;
     this.subTemplates = subTemplates;
     this.parentTemplates = parentTemplates;
     this.rating = rating;

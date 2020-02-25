@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { User } from '../entities/user/user';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,7 @@ export class AuthService {
       .get(this.url + 'authenticate', httpOptions)
       .pipe(
         tap((res) => {
-          localStorage.setItem('credentials' , credentials);
+          localStorage.setItem('credentials', credentials);
           return res;
         }),
         catchError((err: any) => {
@@ -43,12 +44,12 @@ export class AuthService {
   register(user: User) {
     // create request to register a new account
     return this.http.post(this.url + 'register', user)
-    .pipe(
-      catchError((err: any) => {
-        console.log(err);
-        return throwError('AuthService.register(): error registering user.');
-      })
-    );
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError('AuthService.register(): error registering user.');
+        })
+      );
   }
 
   logout() {

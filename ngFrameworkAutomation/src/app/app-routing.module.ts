@@ -8,11 +8,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 const routes: Routes = [
-  {path: 'home', component: LandingPageComponent},
-  {path: 'results', component: ResultsComponent},
-  {path: 'generator', component: GenerateComponent},
-  {path: 'creator', component: CreateTemplateComponent},
-  {path: 'register', component: RegisterComponent}
+  { path: 'home', component: LandingPageComponent },
+  { path: 'results', component: ResultsComponent },
+  { path: 'templates/:id', component: GenerateComponent },
+  { path: 'creator', component: CreateTemplateComponent },
+  { path: 'register', component: RegisterComponent }
 ];
 
 @NgModule({
