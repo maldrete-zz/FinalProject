@@ -1,6 +1,7 @@
 package com.skilldistillery.frameworkautomation.controllers;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,11 +30,17 @@ public class TemplateController {
 	@Autowired
 	private UserService userSvc;
 
+	@GetMapping("templates")
+	public List<String> findTemplateById() {
+		return svc.getAllActiveTemplates(); // gets template names
+	}
+
 	@PostMapping("templates")
 	public Template createTemplate(@RequestBody Template template, Principal principal) {
 		User user = userSvc.findByUsername(principal.getName());
 		template.setUser(user);
-
+		template.setAccess(true);
+		template.setEnabled(true);
 		Template newTemplate = svc.createTemplate(template);
 
 		return newTemplate;
@@ -64,6 +71,40 @@ public class TemplateController {
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	@PutMapping("templates/{id}/subtemplates/{subId}")
+	public Template addSubtemplateToTemplate(@PathVariable Integer id, @PathVariable Integer subId,
+			Principal principal) {
+		Template parentTemplate = svc.findTemplateById(id);
+		Template subTemplate = svc.findTemplateById(subId);
+
+		if (parentTemplate.getUser().getUsername().equals(principal.getName())) {
+			parentTemplate.addSubTemplate(subTemplate);
+			svc.updateTemplate(parentTemplate, id);
+			svc.updateTemplate(subTemplate, subId);
+			return parentTemplate;
+
+		} else {
+			throw new RuntimeException("You do not own this template");
+		}
+	}
+
+	@DeleteMapping("templates/{id}/subtemplates/{subId}")
+	public Template deleteSubtemplateToTemplate(@PathVariable Integer id, @PathVariable Integer subId,
+			Principal principal) {
+		Template parentTemplate = svc.findTemplateById(id);
+		Template subTemplate = svc.findTemplateById(subId);
+
+		if (parentTemplate.getUser().getUsername().equals(principal.getName())) {
+			parentTemplate.removeSubTemplate(subTemplate);
+			svc.updateTemplate(parentTemplate, id);
+			svc.updateTemplate(subTemplate, subId);
+			return parentTemplate;
+
+		} else {
+			throw new RuntimeException("You do not own this template");
 		}
 	}
 
