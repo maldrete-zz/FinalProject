@@ -14,7 +14,7 @@ import { Template } from 'src/app/entities/template/template';
 })
 export class GenerateComponent implements OnInit {
 
-  private template: Template;
+   template: Template = new Template();
   private keyValuePair: KeyValuePair;
    arguments = {};
 
