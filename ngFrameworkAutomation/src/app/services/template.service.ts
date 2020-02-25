@@ -2,7 +2,7 @@ import { Template } from './../entities/template/template';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { DatePipe } from '@angular/common';
+// import { DatePipe } from '@angular/common'; whats this for
 import { AuthService } from './auth.service';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -13,8 +13,8 @@ import { catchError } from 'rxjs/operators';
 export class TemplateService {
 
 
-  private url = environment.baseUrl + 'api/template';
-  constructor(private http: HttpClient, private datepipe: DatePipe, private authSvc: AuthService) { }
+  private url = environment.baseUrl + 'api/templates';
+  constructor(private http: HttpClient, private authSvc: AuthService) { }
   // M e t h o d s
   index(): Observable<Template[]> {
     const credentials = this.authSvc.getCredentials();
@@ -33,11 +33,20 @@ export class TemplateService {
   }
   show(id: number): Observable<Template> {
     const credentials = this.authSvc.getCredentials();
-    const options = {
-      headers: {
-        Authorization: 'Basic ' + credentials
-      }
-    };
+    /*
+    If the user has credentials, use the credentials
+    otherwise dont use any headers
+
+    */
+    let options = {};
+    if (credentials) {
+      options = {
+        headers: {
+          Authorization: 'Basic ' + credentials
+        }
+      };
+    }
+
     return this.http.get<Template>(this.url + '/' + id, options).pipe(
       catchError((err: any) => {
         console.log('templateService.show(): Error retrieving single template');
@@ -92,6 +101,6 @@ export class TemplateService {
         return throwError(err);
       })
     );
- }
+  }
 
 }
