@@ -14,9 +14,9 @@ import { Template } from 'src/app/entities/template/template';
 })
 export class GenerateComponent implements OnInit {
 
-  private template: Template;
-  private keyValuePair: KeyValuePair;
+   template: Template = new Template();
    arguments = {};
+   parsedTemplate = [];
 
   constructor(private http: HttpClient, private currentroute: ActivatedRoute, private svc: TemplateService) { }
 
@@ -49,16 +49,22 @@ export class GenerateComponent implements OnInit {
     while (true) {
       let regexArg = regexp.exec(templateString);
       if (!regexArg) {
+        this.parsedTemplate.push(templateString);
         break;
       }
+      //starts with the whole string. template string is the remaing string that we have.
+      // regex tracks are first hits. which gives our value from first hit on regex string to the end of the regex string
+      // takes out the regex looks rest of the string for another regex. we split apart the text in to array split by regex
+      this.parsedTemplate.push(templateString.substr(0, regexArg.index));
       this.arguments[regexArg[1]] = "";
-      templateString = templateString.substr(regexArg.index + 1, templateString.length);
+      templateString = templateString.substr(regexArg.index + regexArg[0].length, templateString.length);
     }
 
     for (let i = 0; i < myTemplate.subTemplates.length; i++){
       this.compileTemplates(myTemplate.subTemplates[i]);
     }
     console.log(this.arguments);
+    console.log(this.parsedTemplate);
 
   }
 
