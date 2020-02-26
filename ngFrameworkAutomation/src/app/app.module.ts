@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { AceModule } from 'ngx-ace-wrapper';
 import { ACE_CONFIG } from 'ngx-ace-wrapper';
 import { AceConfigInterface } from 'ngx-ace-wrapper';
+import { FormPipe } from './util/generator/form.pipe';
 
 const DEFAULT_ACE_CONFIG: AceConfigInterface = {
 };
@@ -31,7 +32,8 @@ const DEFAULT_ACE_CONFIG: AceConfigInterface = {
     UserProfileComponent,
     ResultsComponent,
     GenerateComponent,
-    CreateTemplateComponent
+    CreateTemplateComponent,
+    FormPipe
   ],
   imports: [
     BrowserModule,
