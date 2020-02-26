@@ -1,0 +1,158 @@
+.page-header {
+  position: relative;
+width: 911px;
+height: 123px;
+left: 310px;
+top: -35px;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 78px;
+line-height: 91px;
+text-align: center;
+
+color: #D9B310;
+}
+
+.form {
+  position: absolute;
+width: 677px;
+height: 550px;
+left: calc(50% - 677px/2 + 10.5px);
+top: calc(50% - 550px/2 + 34px);
+
+background: #4399E9;
+border-radius: 50px;
+}
+
+.email-slot {
+  position: relative;
+width: 287px;
+height: 43px;
+top: 100px;
+left: 260px;
+
+background: rgba(29, 39, 49, 0.6);
+border-radius: 20px;
+}
+.email-text {
+  position: relative;
+  width: 186px;
+  height: 40px;
+  left: 35px;
+  top: 100px;
+
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 42px;
+  text-align: center;
+
+  color: #FFFFFF;
+}
+
+.username-slot {
+  position: relative;
+width: 287px;
+height: 43px;
+top: 75px;
+left: 200px;
+
+background: rgba(29, 39, 49, 0.6);
+border-radius: 20px;
+}
+.username-text {
+  position: relative;
+  width: 186px;
+  height: 40px;
+  left: 35px;
+  top: 75px;
+
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 42px;
+  text-align: center;
+
+  color: #FFFFFF;
+}
+
+.password-slot {
+  position: relative;
+  width: 287px;
+  height: 43px;
+  top: 125px;
+  left: 207px;
+
+  background: rgba(29, 39, 49, 0.6);
+  border-radius: 20px;
+}
+.password-text {
+  position: relative;
+  width: 186px;
+  height: 40px;
+  left: 35px;
+  top: 125px;
+
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 42px;
+  text-align: center;
+
+  color: #FFFFFF;
+}
+
+.confirm-slot {
+  position: relative;
+width: 287px;
+height: 43px;
+top: 150px;
+left: 80px;
+
+background: rgba(29, 39, 49, 0.6);
+border-radius: 20px;
+}
+.confirm-text {
+  position: relative;
+  width: 327px;
+  height: 40px;
+  left: 35px;
+  top: 150px;
+
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 42px;
+  text-align: center;
+
+  color: #FFFFFF;
+}
+
+.submit-btn {
+  position: relative;
+  width: 184px;
+  height: 56px;
+  left: 240px;
+  top: 245px;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 42px;
+  text-align: center;
+
+  color: #FFFFFF;
+  background: #D9B310;
+  border-radius: 35px;
+}
