@@ -1,19 +1,19 @@
 <p>generate works!</p>
 
- <form #fieldForm="ngForm" >
-   <div *ngFor="let key of getKeys()">
-      {{ key }}<input type="text" name="texteditor" [(ngModel)]="arguments[key]">
+<form #fieldForm="ngForm">
+  <div *ngFor="let key of getKeys()">
+    {{ key
+    }}<input
+      type="text"
+      name="texteditor"
+      [(ngModel)]="arguments[key]"
+      (keydown)="createFullContent()"
+    />
   </div>
-  <input type="submit" value="submit me morty" (click)="print()">
+  <input type="submit" value="submit me morty" (click)="createFullContent()" />
 </form>
 
-<span *ngFor="let key of getKeys(); index as i" >
-  {{ parsedTemplate[i]  }}
-  {{ arguments[key] }}
-</span>
-<span>
-  {{ parsedTemplate[parsedTemplate.length - 1]}}
-</span>
+<ace [mode]="'java'" [theme]="'solarized_dark'" [value]="finalContent"></ace>
 
 <!-- <p>
   {{ template.content }}

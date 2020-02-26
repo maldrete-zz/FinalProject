@@ -4,6 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { TemplateService } from 'src/app/services/template.service';
 import { Template } from 'src/app/entities/template/template';
+import 'brace';
+import 'brace/mode/java';
+import 'brace/theme/solarized_dark';
 
 
 
@@ -14,9 +17,10 @@ import { Template } from 'src/app/entities/template/template';
 })
 export class GenerateComponent implements OnInit {
 
-   template: Template = new Template();
-   arguments = {};
-   parsedTemplate = [];
+  template: Template = new Template();
+  arguments = {};
+  parsedTemplate = [];
+  finalContent = '';
 
   constructor(private http: HttpClient, private currentroute: ActivatedRoute, private svc: TemplateService) { }
 
@@ -60,15 +64,16 @@ export class GenerateComponent implements OnInit {
       templateString = templateString.substr(regexArg.index + regexArg[0].length, templateString.length);
     }
 
-    for (let i = 0; i < myTemplate.subTemplates.length; i++){
+    for (let i = 0; i < myTemplate.subTemplates.length; i++) {
       this.compileTemplates(myTemplate.subTemplates[i]);
     }
     console.log(this.arguments);
     console.log(this.parsedTemplate);
+    this.createFullContent();
 
   }
 
-  print(){
+  print() {
     console.log(this.arguments);
   }
 
@@ -77,6 +82,15 @@ export class GenerateComponent implements OnInit {
   }
 
 
+  createFullContent() {
+    this.finalContent = '';
+    let argumentKeys = this.getKeys();
+    for (let i = 0; i < argumentKeys.length; i++) {
+      this.finalContent = this.finalContent.concat(this.parsedTemplate[i]);
+      this.finalContent = this.finalContent.concat(this.arguments[argumentKeys[i]]);
+    }
+    this.finalContent = this.finalContent.concat(this.parsedTemplate[this.parsedTemplate.length - 1]);
+  }
 
 
 }
