@@ -13,7 +13,13 @@ import { ResultsComponent } from './util/search/results/results.component';
 import { GenerateComponent } from './util/generator/generate/generate.component';
 import { CreateTemplateComponent } from './util/generator/create-template/create-template.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { AceModule } from 'ngx-ace-wrapper';
+import { ACE_CONFIG } from 'ngx-ace-wrapper';
+import { AceConfigInterface } from 'ngx-ace-wrapper';
+
+const DEFAULT_ACE_CONFIG: AceConfigInterface = {
+};
 
 @NgModule({
   declarations: [
@@ -31,9 +37,14 @@ import { FormsModule} from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AceModule
+
   ],
-  providers: [AuthService],
+  providers: [AuthService, {
+    provide: ACE_CONFIG,
+    useValue: DEFAULT_ACE_CONFIG
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
