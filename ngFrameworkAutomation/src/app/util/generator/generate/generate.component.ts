@@ -60,7 +60,15 @@ export class GenerateComponent implements OnInit {
       // regex tracks are first hits. which gives our value from first hit on regex string to the end of the regex string
       // takes out the regex looks rest of the string for another regex. we split apart the text in to array split by regex
       this.parsedTemplate.push(templateString.substr(0, regexArg.index));
-      this.arguments[regexArg[1]] = "";
+
+      let innerargs = regexArg[1].split(".");
+      if (innerargs.length == 1) {
+        this.arguments[regexArg[1]] = "";
+      } else {
+        let innerRegex = new RegExp('([a-zA-Z0-9\\.]+)\\.([a-zA-Z0-9\\[\\]]+)');
+        let innerRegExArg = innerRegex.exec(regexArg[1]);
+        this.arguments[innerRegExArg[1]] = '';
+      }
       templateString = templateString.substr(regexArg.index + regexArg[0].length, templateString.length);
     }
 
@@ -91,6 +99,8 @@ export class GenerateComponent implements OnInit {
     }
     this.finalContent = this.finalContent.concat(this.parsedTemplate[this.parsedTemplate.length - 1]);
   }
+
+
 
 
 }
