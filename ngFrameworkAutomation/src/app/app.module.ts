@@ -18,6 +18,9 @@ import { AceModule } from 'ngx-ace-wrapper';
 import { ACE_CONFIG } from 'ngx-ace-wrapper';
 import { AceConfigInterface } from 'ngx-ace-wrapper';
 import { FormPipe } from './util/generator/form.pipe';
+import { LCCPipe } from './util/generator/myPipes/lcc.pipe';
+import { UCCPipe } from './util/generator/myPipes/ucc.pipe';
+import { TextEditorComponent } from './util/generator/text-editor/text-editor.component';
 
 const DEFAULT_ACE_CONFIG: AceConfigInterface = {
 };
@@ -33,7 +36,10 @@ const DEFAULT_ACE_CONFIG: AceConfigInterface = {
     ResultsComponent,
     GenerateComponent,
     CreateTemplateComponent,
-    FormPipe
+    FormPipe,
+    LCCPipe,
+    UCCPipe,
+    TextEditorComponent
   ],
   imports: [
     BrowserModule,

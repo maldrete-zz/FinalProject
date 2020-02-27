@@ -1,4 +1,6 @@
+import { TemplateService } from 'src/app/services/template.service';
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-template',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateTemplateComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpClient, private svc: TemplateService) { }
 
   ngOnInit(): void {
   }
