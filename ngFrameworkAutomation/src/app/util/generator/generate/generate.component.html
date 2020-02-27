@@ -1,5 +1,3 @@
-<p>generate works!</p>
-
 <div class="row">
   <div class="col-sm-6">
     <form #fieldForm="ngForm">
@@ -9,26 +7,31 @@
           class="form-control"
           type="text"
           name="texteditor"
-          [(ngModel)]="arguments[key]"
-          (keydown)="createFullContent()"
+          [(ngModel)]="formMap[key]"
+          (keyup)="assembleFullContent()"
         />
       </div>
       <input
         type="submit"
         value="submit me morty"
-        (click)="createFullContent()"
+        (click)="assembleFullContent()"
       />
     </form>
   </div>
+<div class="col-sm-6 code-editor">
+  <app-text-editor ></app-text-editor>
+</div>
+  <!-- <div class="col-sm-6 code-editor" #codeEditor ></div> -->
 
-  <div class="col-sm-6">
+  <!-- <div class="col-sm-6">
     <ace
       [mode]="'java'"
       [theme]="'solarized_dark'"
       [value]="finalContent"
     ></ace>
-  </div>
+  </div> -->
 </div>
+
 <!-- <p>
   {{ template.content }}
 </p> -->
