@@ -1,4 +1,3 @@
-import { KeyValuePair } from './../key-value-pair';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -20,7 +19,9 @@ export class GenerateComponent implements OnInit {
   template: Template = new Template();
   arguments = {};
   parsedTemplate = [];
+  fullArguments = [];
   finalContent = '';
+
 
   constructor(private http: HttpClient, private currentroute: ActivatedRoute, private svc: TemplateService) { }
 
@@ -61,13 +62,16 @@ export class GenerateComponent implements OnInit {
       // takes out the regex looks rest of the string for another regex. we split apart the text in to array split by regex
       this.parsedTemplate.push(templateString.substr(0, regexArg.index));
 
+
       let innerargs = regexArg[1].split(".");
       if (innerargs.length == 1) {
         this.arguments[regexArg[1]] = "";
+        this.fullArguments.push({fullName : regexArg[1], findId:regexArg[1]});
       } else {
         let innerRegex = new RegExp('([a-zA-Z0-9\\.]+)\\.([a-zA-Z0-9\\[\\]]+)');
         let innerRegExArg = innerRegex.exec(regexArg[1]);
         this.arguments[innerRegExArg[1]] = '';
+        this.fullArguments.push({fullName : regexArg[1], findId:innerRegExArg[1]});
       }
       templateString = templateString.substr(regexArg.index + regexArg[0].length, templateString.length);
     }
@@ -92,10 +96,9 @@ export class GenerateComponent implements OnInit {
 
   createFullContent() {
     this.finalContent = '';
-    let argumentKeys = this.getKeys();
-    for (let i = 0; i < argumentKeys.length; i++) {
+    for (let i = 0; i < this.fullArguments.length; i++) {
       this.finalContent = this.finalContent.concat(this.parsedTemplate[i]);
-      this.finalContent = this.finalContent.concat(this.arguments[argumentKeys[i]]);
+      this.finalContent = this.finalContent.concat(this.arguments[this.fullArguments[i].findId]);
     }
     this.finalContent = this.finalContent.concat(this.parsedTemplate[this.parsedTemplate.length - 1]);
   }
