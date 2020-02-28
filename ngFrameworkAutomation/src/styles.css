@@ -2,4 +2,10 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 body{
   background-color: #dddddd;
+  margin:0;
+  padding: 0;
+}
+div{
+  margin: 0;
+  padding: 0;
 }

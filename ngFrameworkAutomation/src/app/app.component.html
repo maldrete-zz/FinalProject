@@ -1,6 +1,8 @@
 <app-navigation></app-navigation>
-<app-side-nav-bar></app-side-nav-bar>
-<div class="container-fluid">
+<div class="row">
+<app-side-nav-bar class="col-sm-2"></app-side-nav-bar>
+<div class="col-sm-10">
   <router-outlet></router-outlet>
 </div>
-<!-- <app-footer></app-footer> -->
+</div>
+<app-footer></app-footer>
