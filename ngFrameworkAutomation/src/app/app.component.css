@@ -6,3 +6,7 @@ app-side-nav-bar{
   margin:0;
   padding: 0;
 }
+
+#mainBody {
+  background-color: #0B3C5D;
+}
