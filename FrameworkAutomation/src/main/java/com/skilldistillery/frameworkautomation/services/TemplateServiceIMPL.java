@@ -1,5 +1,6 @@
 package com.skilldistillery.frameworkautomation.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.frameworkautomation.entities.Template;
+import com.skilldistillery.frameworkautomation.entities.TemplateInformation;
 import com.skilldistillery.frameworkautomation.repositories.TemplateRepository;
 import com.skilldistillery.frameworkautomation.repositories.UserRepository;
 
@@ -21,8 +23,16 @@ public class TemplateServiceIMPL implements TemplateService {
 	
 
 	@Override
-	public List<String> getAllActiveTemplates() {
-		return repo.findNamesofTemplates();
+	public List<TemplateInformation> getAllActiveTemplates() {
+	
+		List<TemplateInformation> templateInfo = new ArrayList<>();
+		
+		List<Template> templates = repo.findAll();
+		for (Template template : templates) {
+			templateInfo.add(new TemplateInformation(template));
+		}
+
+		return templateInfo;
 	}
 
 	@Override
