@@ -18,8 +18,8 @@ import { Ace } from 'ace-builds';
   templateUrl: './generate.component.html',
   styleUrls: ['./generate.component.css']
 })
-export class GenerateComponent implements OnInit{
-  @ViewChild(TextEditorComponent) textEditorComponent:TextEditorComponent;
+export class GenerateComponent implements OnInit {
+  @ViewChild(TextEditorComponent) textEditorComponent: TextEditorComponent;
   ngAfterViewInit() {
     this.codeEditor = this.textEditorComponent.codeEditor;
     let templateId = this.currentroute.snapshot.paramMap.get('id');
@@ -33,10 +33,10 @@ export class GenerateComponent implements OnInit{
         console.error(err);
       }
     );
-}
-/*
-  this is the code editor we created 'ace' is the tag function of the import.
-*/
+  }
+  /*
+    this is the code editor we created 'ace' is the tag function of the import.
+  */
   codeEditor: Ace.Editor;
 
   //InitiatePipes so we dont have to create it every time of use
@@ -72,9 +72,9 @@ export class GenerateComponent implements OnInit{
   ngOnInit(): void {
 
 
-//Pipes
-  this.pipes["LCC"] = (inputString:string)=>{return this.LCCPipeInstance.transform(inputString)};
-  this.pipes["UCC"] = (inputString:string)=>{return this.UCCPipeInstance.transform(inputString)};
+    //Pipes
+    this.pipes["LCC"] = (inputString: string) => { return this.LCCPipeInstance.transform(inputString) };
+    this.pipes["UCC"] = (inputString: string) => { return this.UCCPipeInstance.transform(inputString) };
 
 
   }
@@ -106,15 +106,27 @@ export class GenerateComponent implements OnInit{
 
       let parseContentRegex = new RegExp('([a-zA-Z0-9\\.]+)\\.([a-zA-Z0-9\\[\\]]+)');
       let parseContentRegexMatch = parseContentRegex.exec(captureRegexMatch[1]);
+      let subTemplateOffSet = '';
       if (!parseContentRegexMatch) {
         this.formMap[captureRegexMatch[1]] = "";
-        this.capturedFieldNames.push({pipe: "", findId:captureRegexMatch[1]});
+        this.capturedFieldNames.push({ pipe: "", findId: captureRegexMatch[1] });
       } else {
-
-        this.formMap[parseContentRegexMatch[1]] = '';
-        this.capturedFieldNames.push({pipe : parseContentRegexMatch[2], findId:parseContentRegexMatch[1]}); // this grabs the pipe name
+        if (parseContentRegexMatch[2] == 'template') {
+          console.log(parseContentRegexMatch[1]);
+          console.log(parseContentRegexMatch[2]);
+          console.log(templateContent);
+          subTemplateOffSet = 'we did it';
+        } else if (parseContentRegexMatch[2] == 'template[]') {
+          console.log(parseContentRegexMatch[1]);
+          console.log(parseContentRegexMatch[2]);
+          console.log('We did it  Twice! BROS! ');
+        } else {
+          this.formMap[parseContentRegexMatch[1]] = '';
+          this.capturedFieldNames.push({ pipe: parseContentRegexMatch[2], findId: parseContentRegexMatch[1] }); // this grabs the pipe name
+        }
       }
       templateContent = templateContent.substr(captureRegexMatch.index + captureRegexMatch[0].length, templateContent.length);
+      templateContent = subTemplateOffSet + templateContent;
     }
 
     for (let i = 0; i < myTemplate.subTemplates.length; i++) {
@@ -136,19 +148,26 @@ export class GenerateComponent implements OnInit{
     for (let i = 0; i < this.capturedFieldNames.length; i++) {
       this.textEditorContent = this.textEditorContent.concat(this.nonRegexStrings[i]); // grabs raw text and appends the raw text to the full string
       // iterate through each pipe and check to see if it matches the list of pipes we have and call its function.
-  let pipeName = this.capturedFieldNames[i].pipe;
-  if(pipeName){
-    this.textEditorContent = this.textEditorContent.concat(this.pipes[pipeName](this.formMap[this.capturedFieldNames[i].findId]));
-  }else{
-    this.textEditorContent = this.textEditorContent.concat(this.formMap[this.capturedFieldNames[i].findId]); // grabs the form value at the original capture statement
-  }
+      let pipeName = this.capturedFieldNames[i].pipe;
+      if (!this.pipes[pipeName]) {
+        pipeName = undefined;
+      }
+      if (pipeName) {
+        this.textEditorContent = this.textEditorContent.concat(this.pipes[pipeName](this.formMap[this.capturedFieldNames[i].findId]));
+      } else {
+
+        this.textEditorContent = this.textEditorContent.concat(this.formMap[this.capturedFieldNames[i].findId]); // grabs the form value at the original capture statement
+      }
 
       //console.log(this.pipes[this.capturedFieldNames[i].pipe]()); // this call the anonymous function and calls it. with () since pipes has anonymous functions.
     }
     this.textEditorContent = this.textEditorContent.concat(this.nonRegexStrings[this.nonRegexStrings.length - 1]);
     // apply the pipes to the live code.
-    this.codeEditor.setValue(this.textEditorContent,-1);
+    this.codeEditor.setValue(this.textEditorContent, -1);
 
   }
+
+
+
 
 }
