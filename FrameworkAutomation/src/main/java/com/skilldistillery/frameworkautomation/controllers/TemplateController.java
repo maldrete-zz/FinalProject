@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.frameworkautomation.entities.Template;
+import com.skilldistillery.frameworkautomation.entities.TemplateInformation;
 import com.skilldistillery.frameworkautomation.entities.User;
+import com.skilldistillery.frameworkautomation.repositories.TemplateRepository;
 import com.skilldistillery.frameworkautomation.services.TemplateService;
 import com.skilldistillery.frameworkautomation.services.UserService;
 
@@ -29,11 +31,21 @@ public class TemplateController {
 
 	@Autowired
 	private UserService userSvc;
+	
+	@Autowired
+	private TemplateRepository tempRepo;
 
 	@GetMapping("templates")
-	public List<String> findAllTemplatesById() {
+	public List<TemplateInformation> findAllTemplates() {
 		return svc.getAllActiveTemplates(); // gets template names
 	}
+	
+	@GetMapping("templates/search/{keyword}")
+	public List<Template> findTemplateByKeyword(@PathVariable String keyword) {
+		return tempRepo.findByNameLike("%"+keyword+"%"); // gets template names
+	}
+	
+	
 
 	@PostMapping("templates")
 	public Template createTemplate(@RequestBody Template template, Principal principal) {

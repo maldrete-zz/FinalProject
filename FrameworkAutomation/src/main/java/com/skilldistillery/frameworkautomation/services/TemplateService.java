@@ -3,6 +3,7 @@ package com.skilldistillery.frameworkautomation.services;
 import java.util.List;
 
 import com.skilldistillery.frameworkautomation.entities.Template;
+import com.skilldistillery.frameworkautomation.entities.TemplateInformation;
 
 public interface TemplateService {
 
@@ -16,6 +17,7 @@ public interface TemplateService {
 //	public Template findParentTemplateByID(int id);
 //	
 //	public List<Template> findSubTemplates();
+	
 
 	public Template findTemplateById(Integer id);
 
@@ -25,6 +27,7 @@ public interface TemplateService {
 
 	public boolean deleteTemplateById(int id);
 
-	public List<String> getAllActiveTemplates();
+	public List<TemplateInformation> getAllActiveTemplates();
+	
 
 }
