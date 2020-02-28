@@ -27,6 +27,7 @@ export class TextEditorComponent implements OnInit ,AfterViewInit  {
 @ViewChild('codeEditor') codeEditorElmRef: ElementRef;
 codeEditor: ace.Ace.Editor;
 
+
   constructor() {
   }
 
@@ -50,5 +51,6 @@ codeEditor: ace.Ace.Editor;
       this.codeEditor.setTheme(THEME);
       this.codeEditor.getSession().setMode(LANG);
       this.codeEditor.setShowFoldWidgets(true); // for the scope fold feature
+
     }
 }

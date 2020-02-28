@@ -7,10 +7,29 @@
   </div>
   <div class="col-sm-6">
     <app-text-editor class="" (keyup)="refreshTemplate()" ></app-text-editor>
-    <span *ngIf="uptoDate">Saved</span>
+    <span>{{uptoDate}}</span>
+  </div>
+  <div class="col-sm-4 row">
+    <div class="col-sm-4">
+      <h4>Form Fields</h4>
+    <div *ngFor="let formField of getKeys()">
+      {{formField}}
+    </div>
   </div>
   <div class="col-sm-4">
-    {{formMap[0]}}
+    <h4>Captures</h4>
+  <div *ngFor="let capturedFieldName of capturedFieldNames">
+    {{capturedFieldName.findId}}
+  </div>
+</div>
+    <div class="col-sm-4">
+      <h4>SubTemplates</h4>
+    <div *ngFor="let subtemplate of template.subTemplates">
+      {{subtemplate.name}}
+    </div>
+  </div>
+
+
 
   </div>
 </div>

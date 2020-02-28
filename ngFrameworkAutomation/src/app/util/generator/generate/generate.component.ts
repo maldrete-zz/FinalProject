@@ -39,9 +39,8 @@ export class GenerateComponent implements OnInit {
   */
   codeEditor: Ace.Editor;
 
-  //InitiatePipes so we dont have to create it every time of use
-  LCCPipeInstance = new LCCPipe(); // Lower Camel Case
-  UCCPipeInstance = new UCCPipe(); // Upper Camel Case
+
+
 
   //FIELDS
   /*
@@ -69,14 +68,20 @@ export class GenerateComponent implements OnInit {
 
   constructor(private http: HttpClient, private currentroute: ActivatedRoute, private svc: TemplateService) { }
 
-  ngOnInit(): void {
+    //InitiatePipes so we dont have to create it every time of use
+  LCCPipeInstance = new LCCPipe(); // Lower Camel Case
+  UCCPipeInstance = new UCCPipe(); // Upper Camel Case
 
+  registerPipes(){
 
     //Pipes
     this.pipes["LCC"] = (inputString: string) => { return this.LCCPipeInstance.transform(inputString) };
     this.pipes["UCC"] = (inputString: string) => { return this.UCCPipeInstance.transform(inputString) };
+  }
 
 
+  ngOnInit(): void {
+    this.registerPipes();
   }
 
   compileTemplates(data: Template) {

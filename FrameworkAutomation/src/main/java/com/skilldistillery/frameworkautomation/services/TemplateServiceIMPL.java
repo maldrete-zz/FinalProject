@@ -58,7 +58,6 @@ public class TemplateServiceIMPL implements TemplateService {
 			if (newTemplate.getParentTemplates() != null) {
 				oldTemplate.setParentTemplates(newTemplate.getParentTemplates());
 			}
-
 			newTemplate = repo.saveAndFlush(oldTemplate);
 			return newTemplate;
 

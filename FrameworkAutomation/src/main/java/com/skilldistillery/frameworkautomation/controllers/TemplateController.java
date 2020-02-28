@@ -79,7 +79,6 @@ public class TemplateController {
 			Principal principal) {
 		Template parentTemplate = svc.findTemplateById(id);
 		Template subTemplate = svc.findTemplateById(subId);
-
 		if (parentTemplate.getUser().getUsername().equals(principal.getName())) {
 			parentTemplate.addSubTemplate(subTemplate);
 			svc.updateTemplate(parentTemplate, id);
@@ -101,6 +100,10 @@ public class TemplateController {
 			parentTemplate.removeSubTemplate(subTemplate);
 			svc.updateTemplate(parentTemplate, id);
 			svc.updateTemplate(subTemplate, subId);
+			
+			if(subTemplate.getParentTemplates().size() == 0) {
+				svc.deleteTemplateById(subTemplate.getId());
+			}
 			return parentTemplate;
 
 		} else {
