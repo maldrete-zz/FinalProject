@@ -1,1 +1,18 @@
-<p>create-template works!</p>
+<H1>{{template.name}}</H1>
+<div class="row">
+  <div class="col-sm-2">
+    <h5>Key Bindings</h5>
+   <div>ctrl-d: add capture to selected</div>
+
+  </div>
+  <div class="col-sm-6">
+    <app-text-editor class="" (keyup)="refreshTemplate()" ></app-text-editor>
+    <span *ngIf="uptoDate">Saved</span>
+  </div>
+  <div class="col-sm-4">
+    {{formMap[0]}}
+
+  </div>
+</div>
+
+

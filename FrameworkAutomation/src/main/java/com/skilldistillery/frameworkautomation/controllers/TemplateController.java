@@ -46,8 +46,8 @@ public class TemplateController {
 		return newTemplate;
 	}
 
-	@PutMapping("templates")
-	public Template editTemplate(@RequestBody Template template, Principal principal) {
+	@PutMapping("templates/{id}")
+	public Template editTemplate(@PathVariable Integer id,@RequestBody Template template, Principal principal) {
 		Template oldTemplate = svc.findTemplateById(template.getId());
 		if (oldTemplate.getUser().getUsername().equals(principal.getName())) {
 			Template newTemplate = svc.updateTemplate(template, oldTemplate.getId());

@@ -8,10 +8,10 @@ import * as ace from 'ace-builds'; // ace module ..
 // language package, choose your own
 import 'ace-builds/src-noconflict/mode-java';
 // ui-theme package
-import 'ace-builds/src-noconflict/theme-monokai';
+import 'ace-builds/src-noconflict/theme-idle_fingers';
 import 'ace-builds/src-noconflict/ext-language_tools';
 
-const THEME = 'ace/theme/monokai';
+const THEME = 'ace/theme/idle_fingers';
 const LANG = 'ace/mode/java';
 
 
