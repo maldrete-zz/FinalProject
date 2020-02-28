@@ -1,0 +1,29 @@
+nav {
+  background-color: #4399E9;
+}
+
+input {
+  background-color: #1D2731;
+  opacity: 60%;
+  color: white;
+
+}
+
+input:focus {
+  background-color: #1D2731;
+  opacity: 60%;
+  color: white;
+
+}
+
+input[type=search] {
+  width: 400px;
+
+}
+
+#verticleLineDiv{
+  background-color: white;
+  width: 2px;
+  height: 30px;
+  margin-top: 5px;
+}
