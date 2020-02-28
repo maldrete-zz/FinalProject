@@ -1,0 +1,17 @@
+#gettingStartedTemplateDiv {
+  background-color: #1D2731;
+  border-color: #D9B310;
+  opacity: 60%;
+}
+
+#myTemplateDiv {
+  background-color: #1D2731;
+  border-color: #D9B310;
+  opacity: 80%;
+}
+
+#favTemplate {
+  background-color: #1D2731;
+  border-color: #D9B310;
+  opacity: 100%;
+}
