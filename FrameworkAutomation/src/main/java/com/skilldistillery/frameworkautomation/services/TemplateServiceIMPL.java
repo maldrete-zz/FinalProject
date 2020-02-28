@@ -22,7 +22,7 @@ public class TemplateServiceIMPL implements TemplateService {
 
 	@Override
 	public List<String> getAllActiveTemplates() {
-		return repo.findNamesofTemplates();
+		return repo.findNamesofTemplatesAndDescription();
 	}
 
 	@Override
