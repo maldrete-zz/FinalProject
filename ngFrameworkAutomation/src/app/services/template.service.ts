@@ -76,7 +76,7 @@ export class TemplateService {
     const options = {
       headers: {
         'Content-type': 'application/json',
-        Authorization: 'Basic ' + credentials
+        Authorization: 'Basic Sm9lU2htbzI6Sm9lU2htbzI='
       }
     };
     return this.http.post<Template>(this.url, template, options).pipe(
@@ -92,7 +92,7 @@ export class TemplateService {
     const options = {
       headers: {
         'Content-type': 'application/json',
-        Authorization: 'Basic ' + credentials
+        Authorization: 'Basic Sm9lU2htbzI6Sm9lU2htbzI='
       }
     };
     return this.http.put<Template>(this.url + '/' + template.id, template, options).pipe(
