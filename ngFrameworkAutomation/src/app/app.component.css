@@ -8,5 +8,6 @@ app-side-nav-bar{
 }
 
 #mainBody {
-  background-color: #0B3C5D;
+  /* background-color: #0B3C5D; */
+  background-image: url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fpin%2F77405687318763906%2F&psig=AOvVaw07JB2HMD0xTJLo-ruv_nIU&ust=1583024500700000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNjWhYXI9ecCFQAAAAAdAAAAABAL");
 }

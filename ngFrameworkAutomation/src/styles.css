@@ -1,9 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 body{
-  background-color: #dddddd;
+  background-color: #0B3C5D;
   margin:0;
   padding: 0;
+  font-family: Roboto;
 }
 div{
   margin: 0;
