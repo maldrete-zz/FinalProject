@@ -1,16 +1,60 @@
-<H1>{{template.name}}</H1>
+<h1 (click)="editTitle()" *ngIf="!edititingTitle">{{template.name}}</h1>
+<form (submit)="editTitle()" ><input name="myTitle" type=text *ngIf="edititingTitle" [(ngModel)]="template.name"></form>
+
+
 <div class="row">
   <div class="col-sm-2">
     <h5>Key Bindings</h5>
-   <div>ctrl-d: add capture to selected</div>
-
+    <div>ctrl-q: add capture to selected</div>
+    <div>ctrl-w: make selected a Sub Template</div>
+    <div>:</div>
+    <div>:</div>
+    <div>:</div>
+    <div>:</div>
+    <div>:</div>
+    <div>:</div>
+    <h5>Errors</h5>
+    <div>
+      <div *ngFor="let error of errors">
+        {{error.type}}:{{error.text}}
+      </div>
+    </div>
   </div>
   <div class="col-sm-6">
     <app-text-editor class="" (keyup)="refreshTemplate()" ></app-text-editor>
-    <span *ngIf="uptoDate">Saved</span>
+    <span>{{uptoDate}}</span>
+  </div>
+  <div class="col-sm-4 row">
+    <div class="col-sm-4">
+      <h4>Form Fields</h4>
+    <div *ngFor="let formField of getKeys()">
+      {{formField}}
+    </div>
   </div>
   <div class="col-sm-4">
-    {{formMap[0]}}
+    <h4>Captures</h4>
+  <div *ngFor="let capturedFieldName of capturedFieldNames">
+    {{capturedFieldName.findId}}
+  </div>
+</div>
+    <div class="col-sm-4">
+      <table>
+        <thead>
+          <tr>
+            <th>SubTemplates</th>
+            <th>X</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let subtemplate of template.subTemplates">
+            <td (click)="gotoSubTemplate(subtemplate.id)">{{subtemplate.name}}</td>
+            <td (click)="removeSubTemplate(subtemplate.id)">X</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+
+
 
   </div>
 </div>

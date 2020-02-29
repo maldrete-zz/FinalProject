@@ -298,4 +298,12 @@ public class Template {
 
 	}
 
+	@Override
+	public String toString() {
+		return "Template [id=" + id + ", name=" + name + ", extension=" + extension + ", content=" + content
+				+ ", access=" + access + ", templateType=" + templateType + ", description=" + description
+				+ ", instructions=" + instructions + ", enabled=" + enabled + ",\nsubTemplates="
+				+ subTemplates + "]";
+	}
+
 }

@@ -8,158 +8,237 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Ace } from 'ace-builds';
 
+import * as ace from 'ace-builds'; // ace module ..
+import { UCCPipe } from '../myPipes/ucc.pipe';
+import { LCCPipe } from '../myPipes/lcc.pipe';
+import { ParseTemplateHelperService } from '../parse-template-helper.service';
+
 @Component({
   selector: 'app-create-template',
   templateUrl: './create-template.component.html',
   styleUrls: ['./create-template.component.css']
 })
 export class CreateTemplateComponent implements OnInit {
+  /************************************************************************************************************
+  F I E L D S:
+  *************************************************************************************************************/
   @ViewChild(TextEditorComponent) textEditorComponent:TextEditorComponent;
+  constructor(
+    private http             : HttpClient,
+    private svc              : TemplateService,
+    private currentroute     : ActivatedRoute,
+    private router           : Router,
+    private parser           : ParseTemplateHelperService
+  ) {}
+
+  errors                     = [];
+  myError                    = (err) =>{this.displayError("dataLinkError",err)};
+  codeEditor      : Ace.Editor;
+  templateID      : number;
+  template        : Template = new Template();
+  uptoDate                   = "loading";
+  registeredCaptures         = [];
+  formMap                    = {};
+  nonRegexStrings            = [];
+  capturedFieldNames         = [];
+  textEditorContent          = '';
+  pipes                      = {};
+
+  UCCPipeInstance            = new UCCPipe(); // Upper Camel Case
+  LCCPipeInstance            = new LCCPipe(); // Lower Camel Case
+
+  edititingTitle             = false;
+
+
+
+  /************************************************************************************************************
+  ngOnInit:
+  *************************************************************************************************************/
+  ngOnInit(): void {
+    this.registerPipes();
+  }
+  /************************************************************************************************************
+  load:
+  *************************************************************************************************************/
+  load(): void {
+    this.currentroute.paramMap.subscribe(
+      params =>{this.getTemplateFromDB((parseInt(params.get("id"))));}
+    )
+  }
+  /************************************************************************************************************
+  registerPipes:
+  *************************************************************************************************************/
+  registerPipes(){
+    //Pipes
+    this.pipes["LCC"] = (inputString: string) => { return this.LCCPipeInstance.transform(inputString) };
+    this.pipes["UCC"] = (inputString: string) => { return this.UCCPipeInstance.transform(inputString) };
+  }
+
+  /************************************************************************************************************
+  ngAfterViewInit:
+  *************************************************************************************************************/
   ngAfterViewInit() {
     this.codeEditor = this.textEditorComponent.codeEditor;
-
     //Add Key Binding
-    this.codeEditor.commands.bindKey("ctrl-d",(editor:Ace.Editor) => {this.addCapture();this.refreshTemplate();this.compileTemplates()});
-
-
-    this.getTemplateFromDB();
+    this.codeEditor.commands.bindKey("ctrl-q",(editor:Ace.Editor) => {this.addCapture();this.refreshTemplate();});
+    this.codeEditor.commands.bindKey("ctrl-w",(editor:Ace.Editor) => {this.makeSubTemplate();});
+    this.load();
   }
-  codeEditor: Ace.Editor;
 
-
-  template: Template = new Template();
-  templateID: number;
-  uptoDate = true;
-  registeredCaptures =[];
-
-
-
-  constructor(private http: HttpClient, private svc: TemplateService, private currentroute: ActivatedRoute, private router: Router) { }
-
-  getTemplateFromDB(){
-    let templateId = this.currentroute.snapshot.paramMap.get('id');
-    if (!isNaN(parseInt(templateId))) {
-      this.svc.show(parseInt(templateId)).subscribe(
-        data => {
-          this.template = data;
-          this.codeEditor.setValue(this.template.content);
-          this.codeEditor.clearSelection();
-        },
-        err => {
-          console.error(err);
-        }
-      );
-
-
+  /************************************************************************************************************
+  getTemplateFromDB:
+  *************************************************************************************************************/
+  getTemplateFromDB(templateId:number){
+    if (!isNaN(templateId)) {
+      this.svc.show(templateId).subscribe(data => {
+        this.codeEditor.setValue(data.content);
+        this.codeEditor.clearSelection();
+        this.template   = data;
+        this.uptoDate   = "loaded";
+        this.templateID = this.template.id;
+        this.refreshTemplate();
+      },this.myError);
     }else{
-      let tempTemplate = new Template();
-      tempTemplate.name = "Untitled Template";
-      tempTemplate.content = "";
-      this.svc.create(tempTemplate).subscribe(
-        data => {
-          this.template = data;
-          this.templateID = this.template.id;
-          this.router.navigateByUrl("template/edit/" + this.templateID);
-        },
-        err => {
-          console.error(err);
-        }
-      );
+      this.displayError("bad Template Id","cannot create");
     }
-
+  }
+  /************************************************************************************************************
+  getTemplateFromDB:
+  *************************************************************************************************************/
+  createTemplate(){
+    let tempTemplate      = new Template();
+    tempTemplate.name     = "Untitled Template";
+    tempTemplate.content  = "";
+    this.svc.create(tempTemplate).subscribe(data => {
+      this.template   = data;
+      this.templateID = this.template.id;
+      this.router.navigateByUrl("template/edit/" + this.templateID);
+    },this.myError);
   }
 
-
-  ngOnInit(): void {
-
-  }
-
+  /************************************************************************************************************
+  updateCurrentTemplateInDB:
+  *************************************************************************************************************/
   updateCurrentTemplateInDB() {
-    this.svc.update(this.template).subscribe(
-      data => {
-        this.uptoDate = (this.template.content == data.content)
-      },
-      err => {
-        console.error(err);
+    this.svc.update(this.template).subscribe(data => {
+      if (this.template.content == data.content){
+        this.uptoDate = "saved";
+      }else{
+        this.uptoDate = "saving...";
       }
-    );
+    },this.myError);
   }
 
+  /************************************************************************************************************
+  refreshTemplate:
+  *************************************************************************************************************/
   refreshTemplate(){
+    this.uptoDate = "saving...";
     this.template.content = this.codeEditor.getValue();
+    this.formMap = {};
+    this.nonRegexStrings = [];
+    this.capturedFieldNames = [];
+    this.compileTemplates();
     this.updateCurrentTemplateInDB();
   }
 
-
+  /************************************************************************************************************
+  addCapture:
+  *************************************************************************************************************/
   addCapture(){
 
     let allRanges = this.codeEditor.getSelection().getAllRanges();
 
     for(let i = 0; i < allRanges.length;i++){
       this.codeEditor.clearSelection();
-      let startRow = allRanges[i].start.row;
-      let startCol = allRanges[i].start.column;
-      let endRow = allRanges[i].end.row;
-      let endCol = allRanges[i].end.column;
-      let offset = 2;
+      let startRow   = allRanges[i].start.row;
+      let startCol   = allRanges[i].start.column;
+      let endRow     = allRanges[i].end.row;
+      let endCol     = allRanges[i].end.column;
+      let offset     = 2;
       this.codeEditor.moveCursorTo(startRow,startCol);
       this.codeEditor.insert("?{");
       this.codeEditor.moveCursorTo(endRow,endCol+offset);
       this.codeEditor.insert("}?");
     }
+  }
 
+  /************************************************************************************************************
+  makeSubTemplate:
+  *************************************************************************************************************/
+  makeSubTemplate(){
+    let allRanges = this.codeEditor.getSelection().getAllRanges();
+    if(allRanges.length > 1){
+      console.log("cannot make multiple subtemplates");
+      return;
+    }
+    let textToTemplate = this.codeEditor.getSelectedText();
+
+
+    let tempTemplate     = new Template();
+    tempTemplate.name    = "untitledSubTemplate";
+    tempTemplate.content = textToTemplate;
+    this.svc.create(tempTemplate).subscribe(data => {
+      this.svc.addSubtemplate(this.templateID,data.id).subscribe(data => {
+        this.refreshTemplate();
+        this.template = data;
+      },this.myError);
+    },this.myError);
+  }
+
+  /************************************************************************************************************
+  RemoveSubTemplate:
+  *************************************************************************************************************/
+  removeSubTemplate(id:number){
+    this.svc.removeSubtemplate(this.templateID,id).subscribe(data => {
+      this.template = data;
+      this.refreshTemplate();
+    },this.myError);
+  }
+
+  /************************************************************************************************************
+  compileTemplates:
+  *************************************************************************************************************/
+  compileTemplates() {
+    let results             = this.parser.compileAllTemplates(this.template);
+    this.formMap            = results.formMap;
+    this.nonRegexStrings    = results.nonRegexStrings;
+    this.capturedFieldNames = results.capturedFieldNames;
+  }
+
+  /************************************************************************************************************
+  getKeys:
+  *************************************************************************************************************/
+  getKeys(): string[] {
+    return Object.getOwnPropertyNames(this.formMap);
   }
 
 
-  formMap = {};
-  nonRegexStrings = [];
-  capturedFieldNames = [];
-  textEditorContent = '';
-  compileTemplates(data: Template = this.template) {
-    //Input data into fields
-    let myTemplate = data;
-    let templateContent = myTemplate.content;
-    /*
-    Create a regex that captures things that look like ?{data}?
-    Then we itterate through the string that is the template to find those values
-      this is done by capturing next, checking if its a match, inserting into our array,
-       and breaking the template so it can find the next one
-      this is the pattern for getting the capture ?{someText}?
-    */
-    let captureRegex = new RegExp('\\?{([^{}]+)}\\?');
-    while (true) {
-      let captureRegexMatch = captureRegex.exec(templateContent);
-      if (!captureRegexMatch) {
-        // if there is no match of the regex pattern ?{someText}?, then add the rest of the string .
-        this.nonRegexStrings.push(templateContent);
-        break;
-      }
-      //starts with the whole string. template string is the remaing string that we have.
-      // regex tracks are first hits. which gives our value from first hit on regex string to the end of the regex string
-      // takes out the regex looks rest of the string for another regex. we split apart the text in to array split by regex
-      this.nonRegexStrings.push(templateContent.substr(0, captureRegexMatch.index));
-
-
-      let parseContentRegex = new RegExp('([a-zA-Z0-9\\.]+)\\.([a-zA-Z0-9\\[\\]]+)');
-      let parseContentRegexMatch = parseContentRegex.exec(captureRegexMatch[1]);
-      if (!parseContentRegexMatch) {
-        this.formMap[captureRegexMatch[1]] = "";
-        this.capturedFieldNames.push({pipe: "", findId:captureRegexMatch[1]});
-      } else {
-
-        this.formMap[parseContentRegexMatch[1]] = '';
-        this.capturedFieldNames.push({pipe : parseContentRegexMatch[2], findId:parseContentRegexMatch[1]}); // this grabs the pipe name
-      }
-      templateContent = templateContent.substr(captureRegexMatch.index + captureRegexMatch[0].length, templateContent.length);
-    }
-
-    for (let i = 0; i < myTemplate.subTemplates.length; i++) {
-      this.compileTemplates(myTemplate.subTemplates[i]);
-    }
-
+  /************************************************************************************************************
+    gotoSubTemplate:
+    *************************************************************************************************************/
+  gotoSubTemplate(id:number) {
+    this.router.navigateByUrl("template/edit/" + id);
+    this.load();
   }
 
 
+  /************************************************************************************************************
+  displayError:
+  *************************************************************************************************************/
+  displayError(type:String,text:String): void {
+    this.errors.push({type:type,text:text});
+    console.log(type);
+  }
+
+
+  /************************************************************************************************************
+  editTitle:
+  *************************************************************************************************************/
+  editTitle(): void {
+    this.edititingTitle  = !this.edititingTitle;
+    this.updateCurrentTemplateInDB();
+  }
 
 
 
