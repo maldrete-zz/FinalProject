@@ -14,9 +14,9 @@ export class RegisterComponent implements OnInit {
     private authSvc: AuthService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   register(form: NgForm) {
     const user: User = form.value;
@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
       good => {
         this.authSvc.login(user.username, user.password).subscribe(
           good => {
-            this.router.navigateByUrl("/todos");
+            this.router.navigateByUrl("/register");
           },
           bad => {
             console.error("Failed to Login");

@@ -21,6 +21,7 @@ import { FormPipe } from './util/generator/form.pipe';
 import { LCCPipe } from './util/generator/myPipes/lcc.pipe';
 import { UCCPipe } from './util/generator/myPipes/ucc.pipe';
 import { TextEditorComponent } from './util/generator/text-editor/text-editor.component';
+import { SideNavBarComponent } from './util/side-nav-bar/side-nav-bar.component';
 
 const DEFAULT_ACE_CONFIG: AceConfigInterface = {
 };
@@ -39,7 +40,8 @@ const DEFAULT_ACE_CONFIG: AceConfigInterface = {
     FormPipe,
     LCCPipe,
     UCCPipe,
-    TextEditorComponent
+    TextEditorComponent,
+    SideNavBarComponent
   ],
   imports: [
     BrowserModule,

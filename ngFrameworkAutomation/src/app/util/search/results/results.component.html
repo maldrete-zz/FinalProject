@@ -1,1 +1,24 @@
-<p>results works!</p>
+<body>
+  <header>
+    <h1>Results</h1>
+    <br />
+    <hr />
+  </header>
+  <main>
+    <div class="all-cards">
+      <div
+        *ngFor="let template of listOfTemplates"
+        class="card text-white bg-dark mb-3"
+        style="max-width: 18rem;"
+      >
+        <div class="card-header">{{ template.rating }}</div>
+        <div class="card-body">
+          <h5 class="card-title">{{ template.name }}</h5>
+          <p class="card-text">
+            {{ template.description }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>

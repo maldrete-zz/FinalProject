@@ -1,0 +1,22 @@
+header {
+  margin: auto;
+}
+
+hr {
+  border-top: 5px solid rgba(0, 0, 0, 1);
+}
+
+body {
+  background-color: #005580;
+  height: 100vh;
+}
+
+h1 {
+  margin: auto;
+  color: #e6b800;
+  font-size: 50px;
+  display: block;
+  text-align: center;
+  font-family: Cutive Mono, monospace, Helvetica, sans-serif;
+  font-weight: 900;
+}

@@ -31,6 +31,26 @@ export class TemplateService {
       })
     );
   }
+
+  keyword(keyword: string): Observable<Template[]> {
+    const credentials = this.authSvc.getCredentials();
+    const options = {
+      headers: {
+        Authorization: 'Basic ' + credentials
+      }
+    };
+    return this.http.get<Template[]>(this.url + '/search/' + keyword).pipe(
+      catchError((err: any) => {
+        console.log('templateService.index(): Error retrieving list');
+        console.error(err);
+        return throwError(err);
+      })
+    );
+  }
+
+
+
+
   show(id: number): Observable<Template> {
     const credentials = this.authSvc.getCredentials();
     /*
