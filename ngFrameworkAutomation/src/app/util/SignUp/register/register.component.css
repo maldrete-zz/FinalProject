@@ -1,5 +1,5 @@
 .page-header {
-  position: relative;
+/* position: relative;
 width: 911px;
 height: 123px;
 left: 310px;
@@ -10,34 +10,70 @@ font-style: normal;
 font-weight: normal;
 font-size: 78px;
 line-height: 91px;
-text-align: center;
+text-align: center; */
 
 color: #D9B310;
+text-align: center;
+margin-top: 1vh;
+margin-bottom: 7vh;
+font-size: 78px;
+
 }
 
-.form {
-  position: absolute;
+form {
+/* position: absolute;
 width: 677px;
 height: 550px;
 left: calc(50% - 677px/2 + 10.5px);
-top: calc(50% - 550px/2 + 34px);
+top: calc(50% - 550px/2 + 34px); */
 
 background: #4399E9;
-border-radius: 50px;
+border-radius: 10px;
+padding: 40px;
+padding-left: 100px;
+color:white;
+
+}
+label{
+  font-size: x-large;
+  margin-top: -7px;
+}
+input {
+  background-color: #1D2731;
+  opacity: 60%;
+  color: white;
+
+}
+
+input:focus {
+  background-color: #1D2731;
+  opacity: 60%;
+  color: white;
+
+}
+
+.submit-btn {
+  background-color: #D9B310;
+  opacity: 100%;
+  border-radius: 20px;
+  padding: 7px 150px;
+  margin-top: 3vh;
+  margin-left: -15px;
+  /* margin-left: 210px; */
 }
 
 .email-slot {
-  position: relative;
+/* position: relative;
 width: 287px;
 height: 43px;
 top: 100px;
 left: 260px;
 
 background: rgba(29, 39, 49, 0.6);
-border-radius: 20px;
+border-radius: 20px; */
 }
 .email-text {
-  position: relative;
+  /* position: relative;
   width: 186px;
   height: 40px;
   left: 35px;
@@ -51,21 +87,21 @@ border-radius: 20px;
   line-height: 42px;
   text-align: center;
 
-  color: #FFFFFF;
+  color: #FFFFFF; */
 }
 
 .username-slot {
-  position: relative;
+  /* position: relative;
 width: 287px;
 height: 43px;
 top: 75px;
 left: 200px;
 
 background: rgba(29, 39, 49, 0.6);
-border-radius: 20px;
+border-radius: 20px; */
 }
 .username-text {
-  position: relative;
+  /* position: relative;
   width: 186px;
   height: 40px;
   left: 35px;
@@ -79,21 +115,21 @@ border-radius: 20px;
   line-height: 42px;
   text-align: center;
 
-  color: #FFFFFF;
+  color: #FFFFFF; */
 }
 
 .password-slot {
-  position: relative;
+  /* position: relative;
   width: 287px;
   height: 43px;
   top: 125px;
   left: 207px;
 
   background: rgba(29, 39, 49, 0.6);
-  border-radius: 20px;
+  border-radius: 20px; */
 }
 .password-text {
-  position: relative;
+  /* position: relative;
   width: 186px;
   height: 40px;
   left: 35px;
@@ -107,21 +143,21 @@ border-radius: 20px;
   line-height: 42px;
   text-align: center;
 
-  color: #FFFFFF;
+  color: #FFFFFF; */
 }
 
 .confirm-slot {
-  position: relative;
+  /* position: relative;
 width: 287px;
 height: 43px;
 top: 150px;
 left: 80px;
 
 background: rgba(29, 39, 49, 0.6);
-border-radius: 20px;
+border-radius: 20px; */
 }
 .confirm-text {
-  position: relative;
+  /* position: relative;
   width: 327px;
   height: 40px;
   left: 35px;
@@ -135,11 +171,11 @@ border-radius: 20px;
   line-height: 42px;
   text-align: center;
 
-  color: #FFFFFF;
+  color: #FFFFFF; */
 }
 
 .submit-btn {
-  position: relative;
+  /* position: relative;
   width: 184px;
   height: 56px;
   left: 240px;
@@ -154,5 +190,5 @@ border-radius: 20px;
 
   color: #FFFFFF;
   background: #D9B310;
-  border-radius: 35px;
+  border-radius: 35px; */
 }

@@ -1,12 +1,64 @@
 
 
-<span class="page-header">Account Creation</span>
-<div class="form">
+<div class="page-header">Account Creation</div>
+
+<div class="row justify-content-md-center">
+  <div class="col-md-6">
+
+    <!-- <form #registerForm = "ngForm">
+        <div class="form">
+        <div class="form-group row">
+          <label class="username-text">Username</label>
+          <input type="text" class="username-slot form-control" name="username" ngModel>
+        </div>
+
+        <div class="form-group mb-2 row">
+          <label class="email-text">Email</label>
+          <input type="text" class="email-slot form-control" name="email" ngModel>
+        </div>
+
+        <div class="form-group mb-2 row">
+          <label class="password-text">Password</label>
+          <input type="text" class="password-slot form-control" name="password" ngModel>
+        </div>
+
+        <div class="form-group mb-2 row">
+          <label class="confirm-text">Confirm password</label><input type="text" class="confirm-slot form-control" name="password" ngModel> <br>
+        </div>
+
+        <div class="form-row">
+        <input type="submit" class="submit-btn" name="submit" value="Submit" (click) = "register(registerForm)">
+        </div>
+      </div>
+      </form>
+  </div>
+</div> -->
+
 <form #registerForm = "ngForm">
-  <span class="username-text">Username</span><input type="text" class="username-slot form-control" name="username" ngModel> <br>
-  <span class="email-text">Email</span><input type="text" class="email-slot form-control" name="email" ngModel> <br>
-  <span class="password-text">Password</span><input type="text" class="password-slot form-control" name="password" ngModel> <br>
-  <span class="confirm-text">Confirm password</span><input type="text" class="confirm-slot form-control" name="password" ngModel> <br>
-  <input type="submit" class="submit-btn" name="submit" value="Submit" (click) = "register(registerForm)">
+
+  <div class="form-group row">
+    <label for="colFormLabel" class="col-sm-4 col-form-label">Username</label>
+    <div class="col-sm-6">
+      <input type="email" class="form-control" id="colFormLabel" placeholder="Username">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="colFormLabel" class="col-sm-4 col-form-label">Email</label>
+    <div class="col-sm-6">
+      <input type="email" class="form-control" id="colFormLabel" placeholder="Email">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="colFormLabel" class="col-sm-4 col-form-label">Password</label>
+    <div class="col-sm-6">
+      <input type="email" class="form-control" id="colFormLabel" placeholder="Password">
+    </div>
+  </div>
+
+
+  <div class="form-row col-sm-6">
+    <input type="submit" class="submit-btn" name="submit" value="Submit" (click) = "register(registerForm)">
+  </div>
+
 </form>
-</div>
+
