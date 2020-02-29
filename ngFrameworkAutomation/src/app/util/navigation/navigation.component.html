@@ -9,45 +9,82 @@
 
 <!-- fixed-top **** we want to add that in but not for testing purposes right now -->
 <nav class="navbar navbar-expand-xl ">
-
   <div class="d-flex flex-grow-1">
     <!-- will get replace with favicon icon -->
-  <a class="navbar-brand mr-5" href="/home" id="FALOGO" style="color: #D9B310;" >FA</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <a
+      class="navbar-brand mr-5"
+      href="/home"
+      id="FALOGO"
+      style="color: #D9B310;"
+      >FA</a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarTogglerDemo02"
+      aria-controls="navbarTogglerDemo02"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
   </div>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-
     <div class="d-flex flex-grow-1">
       <form class="form-inline">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search">
-        <button class="btn my-2 my-sm-0" style="color: white;" type="submit">Search</button>
-    </form>
-  </div>
+        <input
+          name="searchInputField"
+          class="form-control mr-sm-2"
+          type="search"
+          placeholder="Search"
+          [(ngModel)]="searchBarText"
+          (keyup)="keywordSearch(searchBarText)"
+        />
+        <button
+          (click)="keywordSearch(searchBarText)"
+          class="btn my-2 my-sm-0"
+          style="color: white;"
+          type="button"
+        >
+          Search
+        </button>
+      </form>
+    </div>
 
     <div class="d-flex justify-content-end">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" style="color: white;" href="/creator">Create Account</a>
-      </li>
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" style="color: white;" href="/creator"
+            >Create Account</a
+          >
+        </li>
 
-      <li style="color: white;"> <div id="verticleLineDiv"></div> </li>
-      <!-- <li class="nav-item">
+        <li style="color: white;"><div id="verticleLineDiv"></div></li>
+        <!-- <li class="nav-item">
         <a class="nav-link" href="/login">Login</a>
       </li> -->
 
-      <!-- <li class="nav-item">
+        <!-- <li class="nav-item">
         <a class="nav-link" href="#">Link</a>
       </li> -->
-    </ul>
+      </ul>
 
-    <form class="form-inline">
-      <button class="btn  my-2 my-sm-0" style="color: white;" type="submit">Login</button>
-      <input class="form-control mr-sm-2" type="text" placeholder="Username">
-      <input class="form-control mr-sm-2" type="password" placeholder="Password">
-    </form>
-  </div>
-
+      <form class="form-inline">
+        <button class="btn  my-2 my-sm-0" style="color: white;" type="submit">
+          Login
+        </button>
+        <input
+          class="form-control mr-sm-2"
+          type="text"
+          placeholder="Username"
+        />
+        <input
+          class="form-control mr-sm-2"
+          type="password"
+          placeholder="Password"
+        />
+      </form>
+    </div>
   </div>
 </nav>
