@@ -14,9 +14,9 @@ export class RegisterComponent implements OnInit {
     private authSvc: AuthService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   register(form: NgForm) {
     const user: User = form.value;
