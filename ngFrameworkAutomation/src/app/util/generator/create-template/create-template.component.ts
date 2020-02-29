@@ -30,7 +30,9 @@ export class CreateTemplateComponent implements OnInit {
     private router           : Router,
     private parser           : ParseTemplateHelperService
   ) {}
-  myError                    = (err) =>{console.log(err)};
+
+  errors                     = [];
+  myError                    = (err) =>{this.displayError("dataLinkError",err)};
   codeEditor      : Ace.Editor;
   templateID      : number;
   template        : Template = new Template();
@@ -45,9 +47,23 @@ export class CreateTemplateComponent implements OnInit {
   UCCPipeInstance            = new UCCPipe(); // Upper Camel Case
   LCCPipeInstance            = new LCCPipe(); // Lower Camel Case
 
+  edititingTitle             = false;
 
+
+
+  /************************************************************************************************************
+  ngOnInit:
+  *************************************************************************************************************/
   ngOnInit(): void {
     this.registerPipes();
+  }
+  /************************************************************************************************************
+  load:
+  *************************************************************************************************************/
+  load(): void {
+    this.currentroute.paramMap.subscribe(
+      params =>{this.getTemplateFromDB((parseInt(params.get("id"))));}
+    )
   }
   /************************************************************************************************************
   registerPipes:
@@ -63,21 +79,18 @@ export class CreateTemplateComponent implements OnInit {
   *************************************************************************************************************/
   ngAfterViewInit() {
     this.codeEditor = this.textEditorComponent.codeEditor;
-
     //Add Key Binding
     this.codeEditor.commands.bindKey("ctrl-q",(editor:Ace.Editor) => {this.addCapture();this.refreshTemplate();});
     this.codeEditor.commands.bindKey("ctrl-w",(editor:Ace.Editor) => {this.makeSubTemplate();});
-
-    this.getTemplateFromDB();
+    this.load();
   }
 
   /************************************************************************************************************
   getTemplateFromDB:
   *************************************************************************************************************/
-  getTemplateFromDB(){
-    let templateId = this.currentroute.snapshot.paramMap.get('id');
-    if (!isNaN(parseInt(templateId))) {
-      this.svc.show(parseInt(templateId)).subscribe(data => {
+  getTemplateFromDB(templateId:number){
+    if (!isNaN(templateId)) {
+      this.svc.show(templateId).subscribe(data => {
         this.codeEditor.setValue(data.content);
         this.codeEditor.clearSelection();
         this.template   = data;
@@ -86,15 +99,21 @@ export class CreateTemplateComponent implements OnInit {
         this.refreshTemplate();
       },this.myError);
     }else{
-      let tempTemplate      = new Template();
-      tempTemplate.name     = "Untitled Template";
-      tempTemplate.content  = "";
-      this.svc.create(tempTemplate).subscribe(data => {
-        this.template   = data;
-        this.templateID = this.template.id;
-        this.router.navigateByUrl("template/edit/" + this.templateID);
-      },this.myError);
+      this.displayError("bad Template Id","cannot create");
     }
+  }
+  /************************************************************************************************************
+  getTemplateFromDB:
+  *************************************************************************************************************/
+  createTemplate(){
+    let tempTemplate      = new Template();
+    tempTemplate.name     = "Untitled Template";
+    tempTemplate.content  = "";
+    this.svc.create(tempTemplate).subscribe(data => {
+      this.template   = data;
+      this.templateID = this.template.id;
+      this.router.navigateByUrl("template/edit/" + this.templateID);
+    },this.myError);
   }
 
   /************************************************************************************************************
@@ -155,6 +174,7 @@ export class CreateTemplateComponent implements OnInit {
     }
     let textToTemplate = this.codeEditor.getSelectedText();
 
+
     let tempTemplate     = new Template();
     tempTemplate.name    = "untitledSubTemplate";
     tempTemplate.content = textToTemplate;
@@ -163,6 +183,16 @@ export class CreateTemplateComponent implements OnInit {
         this.refreshTemplate();
         this.template = data;
       },this.myError);
+    },this.myError);
+  }
+
+  /************************************************************************************************************
+  RemoveSubTemplate:
+  *************************************************************************************************************/
+  removeSubTemplate(id:number){
+    this.svc.removeSubtemplate(this.templateID,id).subscribe(data => {
+      this.template = data;
+      this.refreshTemplate();
     },this.myError);
   }
 
@@ -184,6 +214,31 @@ export class CreateTemplateComponent implements OnInit {
   }
 
 
+  /************************************************************************************************************
+    gotoSubTemplate:
+    *************************************************************************************************************/
+  gotoSubTemplate(id:number) {
+    this.router.navigateByUrl("template/edit/" + id);
+    this.load();
+  }
+
+
+  /************************************************************************************************************
+  displayError:
+  *************************************************************************************************************/
+  displayError(type:String,text:String): void {
+    this.errors.push({type:type,text:text});
+    console.log(type);
+  }
+
+
+  /************************************************************************************************************
+  editTitle:
+  *************************************************************************************************************/
+  editTitle(): void {
+    this.edititingTitle  = !this.edititingTitle;
+    this.updateCurrentTemplateInDB();
+  }
 
 
 

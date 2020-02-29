@@ -118,5 +118,20 @@ export class TemplateService {
       })
     );
   }
+  removeSubtemplate(id:number,subId:number): Observable<Template> {
+    const credentials = this.authSvc.getCredentials();
+    const options = {
+      headers: {
+        Authorization: 'Basic Sm9lU2htbzI6Sm9lU2htbzI='
+      }
+    };
+    return this.http.delete<Template>(this.url + '/' + id +"/subtemplates/" + subId,options).pipe(
+      catchError((err: any) => {
+        console.log('addSubtemplate.update(): Error updating template');
+        console.error(err);
+        return throwError(err);
+      })
+    );
+  }
 
 }
