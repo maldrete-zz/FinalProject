@@ -5,6 +5,7 @@ import { ResultsComponent } from './util/search/results/results.component';
 import { LandingPageComponent } from './util/home/landing-page/landing-page.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { UserProfileComponent } from './util/user/user-profile/user-profile.component';
 
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'template/create', component: CreateTemplateComponent },
   { path: 'template/edit/:id', component: CreateTemplateComponent },
   { path: 'search', component: ResultsComponent },
-  { path: 'register', component: RegisterComponent }
+  { path: 'register', component: RegisterComponent },
+  { path: 'userProfile', component: UserProfileComponent}
 ];
 
 @NgModule({
