@@ -45,8 +45,6 @@ public class TemplateController {
 		return tempRepo.findByNameLike("%"+keyword+"%"); // gets template names
 	}
 	
-	
-
 	@PostMapping("templates")
 	public Template createTemplate(@RequestBody Template template, Principal principal) {
 		User user = userSvc.findByUsername(principal.getName());

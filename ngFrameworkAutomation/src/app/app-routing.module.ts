@@ -13,11 +13,12 @@ const routes: Routes = [
   { path: 'templates/:id', component: GenerateComponent },
   { path: 'template/create', component: CreateTemplateComponent },
   { path: 'template/edit/:id', component: CreateTemplateComponent },
+  { path: 'search', component: ResultsComponent },
   { path: 'register', component: RegisterComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes,{useHash:true})],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
