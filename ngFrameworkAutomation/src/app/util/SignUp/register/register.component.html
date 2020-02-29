@@ -1,10 +1,7 @@
-
-
 <div class="page-header">Account Creation</div>
 
 <div class="row justify-content-md-center">
   <div class="col-md-6">
-
     <!-- <form #registerForm = "ngForm">
         <div class="form">
         <div class="form-group row">
@@ -34,31 +31,60 @@
   </div>
 </div> -->
 
-<form #registerForm = "ngForm">
+    <form #registerForm="ngForm">
+      <div class="form-group row">
+        <label for="colFormLabel" class="col-sm-4 col-form-label"
+          >Username</label
+        >
+        <div class="col-sm-6">
+          <input
+            type="email"
+            class="form-control"
+            id="colFormLabel"
+            placeholder="Username"
+            name="username"
+            ngModel
+          />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="colFormLabel" class="col-sm-4 col-form-label">Email</label>
+        <div class="col-sm-6">
+          <input
+            type="email"
+            class="form-control"
+            id="colFormLabel"
+            placeholder="Email"
+            name="email"
+            ngModel
+          />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="colFormLabel" class="col-sm-4 col-form-label"
+          >Password</label
+        >
+        <div class="col-sm-6">
+          <input
+            type="password"
+            class="form-control"
+            id="colFormLabel"
+            placeholder="Password"
+            name="password"
+            ngModel
+          />
+        </div>
+      </div>
 
-  <div class="form-group row">
-    <label for="colFormLabel" class="col-sm-4 col-form-label">Username</label>
-    <div class="col-sm-6">
-      <input type="email" class="form-control" id="colFormLabel" placeholder="Username">
-    </div>
+      <div class="form-row col-sm-6">
+        <input
+          type="submit"
+          class="submit-btn"
+          name="submit"
+          value="Submit"
+          (click)="register(registerForm)"
+        />
+      </div>
+    </form>
   </div>
-  <div class="form-group row">
-    <label for="colFormLabel" class="col-sm-4 col-form-label">Email</label>
-    <div class="col-sm-6">
-      <input type="email" class="form-control" id="colFormLabel" placeholder="Email">
-    </div>
-  </div>
-  <div class="form-group row">
-    <label for="colFormLabel" class="col-sm-4 col-form-label">Password</label>
-    <div class="col-sm-6">
-      <input type="email" class="form-control" id="colFormLabel" placeholder="Password">
-    </div>
-  </div>
-
-
-  <div class="form-row col-sm-6">
-    <input type="submit" class="submit-btn" name="submit" value="Submit" (click) = "register(registerForm)">
-  </div>
-
-</form>
-
+</div>

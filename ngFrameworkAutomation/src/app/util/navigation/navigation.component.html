@@ -52,37 +52,52 @@
       </form>
     </div>
 
-    <div class="d-flex justify-content-end">
+    <div *ngIf="checkLoginStatus()">
+      <form class="form-inline">
+        <button
+          class="btn  my-2 my-sm-0"
+          style="color: white;"
+          type="button"
+          (click)="logout()"
+        >
+          Logout
+        </button>
+      </form>
+    </div>
+
+    <div class="d-flex justify-content-end" *ngIf="!checkLoginStatus()">
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" style="color: white;" href="/creator"
+          <a class="nav-link" style="color: white;" href="/#/register"
             >Create Account</a
           >
         </li>
 
         <li style="color: white;"><div id="verticleLineDiv"></div></li>
-        <!-- <li class="nav-item">
-        <a class="nav-link" href="/login">Login</a>
-      </li> -->
-
-        <!-- <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li> -->
       </ul>
 
       <form class="form-inline">
-        <button class="btn  my-2 my-sm-0" style="color: white;" type="submit">
+        <button
+          class="btn  my-2 my-sm-0"
+          style="color: white;"
+          type="submit"
+          (click)="login()"
+        >
           Login
         </button>
         <input
           class="form-control mr-sm-2"
           type="text"
           placeholder="Username"
+          [(ngModel)]="username"
+          name="username"
         />
         <input
           class="form-control mr-sm-2"
           type="password"
           placeholder="Password"
+          [(ngModel)]="password"
+          name="password"
         />
       </form>
     </div>
