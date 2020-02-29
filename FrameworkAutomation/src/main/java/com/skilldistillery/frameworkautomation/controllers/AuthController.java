@@ -23,6 +23,7 @@ public class AuthController {
 
 	@PostMapping("/register")
 	public User register(@RequestBody UserToRegister userToRegister, HttpServletResponse res) {
+		
 		if (userToRegister == null) {
 			res.setStatus(400);
 		}
