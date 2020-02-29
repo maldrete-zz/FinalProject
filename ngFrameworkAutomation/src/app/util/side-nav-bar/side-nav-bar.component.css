@@ -1,7 +1,6 @@
-#sideNav{
-  height: 85vh;
-  position: relative;
-  background-color: #1D2731;
-  color: #D9B310;
+#sideNav {
+  height: 100vh;
+  background-color: #1d2731;
+  color: #d9b310;
+  z-index: 10;
 }
-
