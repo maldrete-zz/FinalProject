@@ -5,19 +5,23 @@
     <hr />
   </header>
   <main>
-    <div class="all-cards">
+    <div class="row">
       <div
+        class="fade col-sm-3"
         *ngFor="let template of listOfTemplates"
-        class="card text-white bg-dark mb-3"
-        style="max-width: 18rem;"
+        style="padding: 15px;"
       >
-        <div class="card-header">{{ template.rating }}</div>
-        <div class="card-body">
-          <h5 class="card-title">{{ template.name }}</h5>
-          <p class="card-text">
-            {{ template.description }}
-          </p>
-        </div>
+        <a href="#/templates/{{ template.id }}">
+          <div class="card text-white bg-dark" style="max-width: 18rem;">
+            <div class="card-header">{{ template.rating }}</div>
+            <div class="card-body">
+              <h5 class="card-title">{{ template.name }}</h5>
+              <p class="card-text">
+                {{ template.description }}
+              </p>
+            </div>
+          </div>
+        </a>
       </div>
     </div>
   </main>

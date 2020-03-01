@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
       good => {
         this.authSvc.login(user.username, user.password).subscribe(
           good => {
-            this.router.navigateByUrl("/register");
+            this.router.navigateByUrl("/");
           },
           bad => {
             console.error("Failed to Login");
