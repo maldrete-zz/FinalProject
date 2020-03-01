@@ -1,17 +1,61 @@
 #gettingStartedTemplateDiv {
   background-color: #1D2731;
+  /* opacity: 60%; */
+  color: white;
+  border: solid 3px;
   border-color: #D9B310;
-  opacity: 60%;
+  border-radius: 10px;
 }
 
 #myTemplateDiv {
   background-color: #1D2731;
+  /* opacity: 80%; */
+  color: white;
+  border: solid 3px;
   border-color: #D9B310;
-  opacity: 80%;
+  border-radius: 10px;
+
 }
 
-#favTemplate {
+#favTemplateDiv {
   background-color: #1D2731;
+  /* opacity: 100%; */
+  color: white;
+  border: solid 3px;
   border-color: #D9B310;
-  opacity: 100%;
+  border-radius: 10px;
+}
+
+h1 {
+  color: #D9B310;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #D9B310;
+}
+
+div{
+  margin: 3vh;
+  overflow-x: visible;
+
+}
+
+li {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: larger;
+}
+ul {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
 }
