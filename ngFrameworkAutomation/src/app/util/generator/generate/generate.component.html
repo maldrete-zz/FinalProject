@@ -2,12 +2,13 @@
   <div class="col-sm-1"></div>
   <div class="col-sm-4">
     <form #fieldForm="ngForm">
-      <div class="form-group" *ngFor="let key of getKeys()">
+      <div class="form-group" *ngFor="let key of getKeys();let i = index">
         {{ key | form }}
         <input
           class="form-control"
           type="text"
           name="texteditor"
+          placeholder="{{formPlaceholders[key]}}"
           [(ngModel)]="formMap[key]"
           (keyup)="assembleFullContent()"
         />
