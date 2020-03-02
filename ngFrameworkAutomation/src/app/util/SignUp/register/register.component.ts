@@ -2,7 +2,7 @@ import { User } from "./../../../entities/user/user";
 import { AuthService } from "./../../../services/auth.service";
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { NgForm } from "@angular/forms";
+import { NgForm, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-register",
@@ -10,6 +10,7 @@ import { NgForm } from "@angular/forms";
   styleUrls: ["./register.component.css"]
 })
 export class RegisterComponent implements OnInit {
+
   constructor(
     private authSvc: AuthService,
     private route: ActivatedRoute,
@@ -18,6 +19,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void { }
 
+
   register(form: NgForm) {
     const user: User = form.value;
     console.log(user);
@@ -25,7 +27,7 @@ export class RegisterComponent implements OnInit {
       good => {
         this.authSvc.login(user.username, user.password).subscribe(
           good => {
-            this.router.navigateByUrl("/");
+            this.router.navigateByUrl("/results");
           },
           bad => {
             console.error("Failed to Login");
