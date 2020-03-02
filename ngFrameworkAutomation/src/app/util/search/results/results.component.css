@@ -33,14 +33,11 @@ p {
   opacity: 1;
 }
 
+img {
+  height: 100%;
+  width: 100%;
+}
+
 .fade {
   opacity: 1;
-}
-
-.fade:hover {
-  opacity: 0.5;
-}
-
-a:active a:focus a:hover {
-  text-decoration: none;
 }

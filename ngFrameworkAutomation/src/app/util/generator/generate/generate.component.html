@@ -1,13 +1,19 @@
 <div class="row">
+<<<<<<< HEAD
   <div class="col-sm-6">
     <button type="button" class="btn btn-outline-info">Like</button>
+=======
+  <div class="col-sm-1"></div>
+  <div class="col-sm-4">
+>>>>>>> 5c48373f47c698b366df0114a2d835e43d5147f0
     <form #fieldForm="ngForm">
-      <div class="form-group" *ngFor="let key of getKeys()">
+      <div class="form-group" *ngFor="let key of getKeys();let i = index">
         {{ key | form }}
         <input
           class="form-control"
           type="text"
           name="texteditor"
+          placeholder="{{formPlaceholders[key]}}"
           [(ngModel)]="formMap[key]"
           (keyup)="assembleFullContent()"
         />
@@ -19,10 +25,18 @@
       />
     </form>
   </div>
+<<<<<<< HEAD
 
   <div class="col-sm-6 code-editor">
     <app-text-editor></app-text-editor>
   </div>
+=======
+  <div class="col-sm-1"></div>
+<div class="col-sm-5 code-editor">
+  <app-text-editor ></app-text-editor>
+</div>
+
+>>>>>>> 5c48373f47c698b366df0114a2d835e43d5147f0
   <!-- <div class="col-sm-6 code-editor" #codeEditor ></div> -->
 
   <!-- <div class="col-sm-6">
