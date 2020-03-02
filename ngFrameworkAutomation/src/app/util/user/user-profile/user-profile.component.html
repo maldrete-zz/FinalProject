@@ -1,11 +1,12 @@
 
-<h1>User Profile Page</h1>
-
-<h1>{{ user.username }}</h1>
-
 <div class="col-md-12">
+  <h1>User Profile Page</h1>
+
+  <h1>{{ user.username }}</h1>
+
+  <h3>Getting Started</h3>
+  <hr>
   <div id="gettingStartedTemplateDiv">
-    <h3>Getting Started</h3>
     <ul class="list-group">
       <!-- uncomment code before once we get the list of getting started templates-->
       <div *ngFor="let template of user.templates">
@@ -14,18 +15,9 @@
     </ul>
   </div>
 
-  <!-- <div id="gettingStartedTemplateDiv">
-    <h3>Getting Started</h3>
-    <ul class="list-group">
-      <!-- uncomment code before once we get the list of getting started templates
-      <div ng-repeat="let template of user.templates">
-        <li >{{ template.name }}</li>
-      </div>
-    </ul>
-  </div> -->
-
+  <h3>My Templates</h3>
+  <hr>
   <div id="myTemplateDiv">
-    <h3>My Templates</h3>
     <ul class="list-group">
       <!-- uncomment code before once we get the list of user's templates-->
       <!-- <li *ngFor="let template of templates">{{template.name}}</li> -->
@@ -35,12 +27,13 @@
     </ul>
   </div>
 
+  <h3>Favorite Templates</h3>
+  <hr>
   <div id="favTemplateDiv">
-    <h3>Favorite Templates</h3>
     <ul class="list-group">
       <!-- uncomment code before once we get the list of user's favorite templates-->
       <!-- <li *ngFor="let template of templates">{{template.name}}</li> -->
-      <div *ngFor="let template of user.favorites">
+      <div *ngFor="let template of user.templates">
         <!-- empty unless a user has favorite templates -->
         <li >{{ template.name }}</li>
       </div>
@@ -68,3 +61,5 @@
     </div>
   </div> -->
 </div>
+
+

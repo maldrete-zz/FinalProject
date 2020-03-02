@@ -1,10 +1,63 @@
-<body>
-  <header>
-    <h1>Results</h1>
-    <br />
-    <hr />
-  </header>
-  <main>
+
+  <app-navigation></app-navigation>
+<section class="row">
+  <div class="col-sm-2">
+    <img src="https://images.unsplash.com/photo-1536148935331-408321065b18?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=933&q=80" alt="">
+  </div>
+  <div class="col-sm-9">
+    <div id="gettingStartedTemplateDiv">
+
+        <!-- uncomment code before once we get the list of getting started templates-->
+
+          <!-- <li >{{ template.name }}</li> -->
+
+          <div class="row">
+          <div
+            class="fade col-sm-3"
+            *ngFor="let template of user.templates"
+            style="padding: 15px;"
+          >
+            <a href="#/templates/{{ template.id }}">
+              <div class="card" style="max-width: 18rem;">
+                <div class="card-header">{{ template.rating }}</div>
+                <div class="card-body">
+                  <h5 class="card-title">{{ template.name }}</h5>
+                  <p class="card-text">
+                    {{ template.description }}
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+
+
+    </div>
+  </div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- <main>
     <div class="row">
       <div
         class="fade col-sm-3"
@@ -24,5 +77,5 @@
         </a>
       </div>
     </div>
-  </main>
-</body>
+  </main> -->
+
