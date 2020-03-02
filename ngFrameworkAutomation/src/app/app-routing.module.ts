@@ -1,3 +1,4 @@
+import { UpdateUserComponent } from './util/update-user/update-user.component';
 import { RegisterComponent } from './util/SignUp/register/register.component';
 import { CreateTemplateComponent } from './util/generator/create-template/create-template.component';
 import { GenerateComponent } from './util/generator/generate/generate.component';
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path: 'template/edit/:id', component: CreateTemplateComponent },
   { path: 'search', component: ResultsComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'userProfile', component: UserProfileComponent}
+  { path: 'userProfile', component: UserProfileComponent},
+  { path: 'updateUser', component: UpdateUserComponent}
 ];
 
 @NgModule({
