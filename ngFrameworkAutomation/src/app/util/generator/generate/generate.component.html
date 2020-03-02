@@ -1,53 +1,50 @@
 <div class="row">
-<<<<<<< HEAD
   <div class="col-sm-6">
     <button type="button" class="btn btn-outline-info">Like</button>
-=======
-  <div class="col-sm-1"></div>
-  <div class="col-sm-4">
->>>>>>> 5c48373f47c698b366df0114a2d835e43d5147f0
-    <form #fieldForm="ngForm">
-      <div class="form-group" *ngFor="let key of getKeys();let i = index">
-        {{ key | form }}
+
+    <div class="col-sm-1"></div>
+    <div class="col-sm-4">
+      <form #fieldForm="ngForm">
+        <div class="form-group" *ngFor="let key of getKeys(); let i = index">
+          {{ key | form }}
+          <input
+            class="form-control"
+            type="text"
+            name="texteditor"
+            placeholder="{{ formPlaceholders[key] }}"
+            [(ngModel)]="formMap[key]"
+            (keyup)="assembleFullContent()"
+          />
+        </div>
         <input
-          class="form-control"
-          type="text"
-          name="texteditor"
-          placeholder="{{formPlaceholders[key]}}"
-          [(ngModel)]="formMap[key]"
-          (keyup)="assembleFullContent()"
+          type="submit"
+          value="submit me morty"
+          (click)="assembleFullContent()"
         />
-      </div>
-      <input
-        type="submit"
-        value="submit me morty"
-        (click)="assembleFullContent()"
-      />
-    </form>
-  </div>
-<<<<<<< HEAD
+      </form>
+    </div>
 
-  <div class="col-sm-6 code-editor">
-    <app-text-editor></app-text-editor>
-  </div>
-=======
-  <div class="col-sm-1"></div>
-<div class="col-sm-5 code-editor">
-  <app-text-editor ></app-text-editor>
-</div>
+    <div class="col-sm-6 code-editor">
+      <app-text-editor></app-text-editor>
+    </div>
 
->>>>>>> 5c48373f47c698b366df0114a2d835e43d5147f0
-  <!-- <div class="col-sm-6 code-editor" #codeEditor ></div> -->
+    <!-- <div class="col-sm-1"></div>
+    <div class="col-sm-5 code-editor">
+      <app-text-editor></app-text-editor>
+    </div> -->
 
-  <!-- <div class="col-sm-6">
+    <!-- <div class="col-sm-6 code-editor" #codeEditor ></div> -->
+
+    <!-- <div class="col-sm-6">
     <ace
       [mode]="'java'"
       [theme]="'solarized_dark'"
       [value]="finalContent"
     ></ace>
   </div> -->
-</div>
+  </div>
 
-<!-- <p>
+  <!-- <p>
   {{ template.content }}
 </p> -->
+</div>

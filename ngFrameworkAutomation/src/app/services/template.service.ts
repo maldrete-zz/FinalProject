@@ -18,13 +18,8 @@ export class TemplateService {
   constructor(private http: HttpClient, private authSvc: AuthService) { }
   // M e t h o d s
   index(): Observable<Template[]> {
-    const credentials = this.authSvc.getCredentials();
-    const options = {
-      headers: {
-        Authorization: 'Basic ' + credentials
-      }
-    };
-    return this.http.get<Template[]>(this.url, options).pipe(
+
+    return this.http.get<Template[]>(this.url).pipe(
       catchError((err: any) => {
         console.log('templateService.index(): Error retrieving list');
         console.error(err);
@@ -32,6 +27,7 @@ export class TemplateService {
       })
     );
   }
+
 
   keyword(keyword: string): Observable<Template[]> {
     const credentials = this.authSvc.getCredentials();
@@ -48,9 +44,6 @@ export class TemplateService {
       })
     );
   }
-
-
-
 
   show(id: number): Observable<Template> {
     const credentials = this.authSvc.getCredentials();
@@ -124,14 +117,14 @@ export class TemplateService {
       })
     );
   }
-  addSubtemplate(id:number,subId:number): Observable<Template> {
+  addSubtemplate(id: number, subId: number): Observable<Template> {
     const credentials = this.authSvc.getCredentials();
     const options = {
       headers: {
         Authorization: 'Basic ' + credentials
       }
     };
-    return this.http.put<Template>(this.url + '/' + id +"/subtemplates/" + subId,"",options).pipe(
+    return this.http.put<Template>(this.url + '/' + id + "/subtemplates/" + subId, "", options).pipe(
       catchError((err: any) => {
         console.log('addSubtemplate.update(): Error updating template');
         console.error(err);
@@ -139,14 +132,14 @@ export class TemplateService {
       })
     );
   }
-  removeSubtemplate(id:number,subId:number): Observable<Template> {
+  removeSubtemplate(id: number, subId: number): Observable<Template> {
     const credentials = this.authSvc.getCredentials();
     const options = {
       headers: {
         Authorization: 'Basic ' + credentials
       }
     };
-    return this.http.delete<Template>(this.url + '/' + id +"/subtemplates/" + subId,options).pipe(
+    return this.http.delete<Template>(this.url + '/' + id + "/subtemplates/" + subId, options).pipe(
       catchError((err: any) => {
         console.log('addSubtemplate.update(): Error updating template');
         console.error(err);

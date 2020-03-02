@@ -10,6 +10,9 @@ body {
   background-color: #005580;
   height: 100vh;
 }
+section {
+  overflow: hidden;
+}
 
 h1 {
   margin: auto;
@@ -38,6 +41,20 @@ img {
   width: 100%;
 }
 
-.fade {
-  opacity: 1;
+/* .card-img {
+  max
+} */
+
+.whole-card {
+  margin-bottom: 40px;
+  padding: 10px 10px;
+  box-shadow: 20px 20px 20px #aaa;
+}
+
+.whole-card:hover {
+  box-shadow: 20px 20px 20px #888;
+}
+
+.card {
+  margin: 20px 20px;
 }
