@@ -8,7 +8,7 @@ export class User {
   password: string;
   enabled: boolean;
   email: string;
-  organizationId: number;
+  organizationName: string;
   role: string;
   templates: Template[];
   favorites: Template[];
@@ -21,8 +21,8 @@ export class User {
     username?: string,
     password?: string,
     enabled?: boolean,
-    email?: string,
-    organizationId?: number,
+    email: string = "",
+    organizationName?: string,
     role?: string,
     templates?: Template[],
     favorites?: Template[],
@@ -34,7 +34,7 @@ export class User {
     this.password = password;
     this.enabled = enabled;
     this.email = email;
-    this.organizationId = organizationId;
+    this.organizationName = organizationName;
     this.role = role;
     this.templates = templates;
     this.favorites = favorites;
