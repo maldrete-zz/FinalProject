@@ -23,15 +23,12 @@ export class UpdateUserComponent implements OnInit {
     this.retrieveUser();
   }
 
-  updateUser(form: NgForm) {
-    let updateInfo = form.value;
-    this.user.email = updateInfo.email;
-    this.user.organizationName = updateInfo.organizationName
-    this.user.password = updateInfo.password
+  updateUser() {
+    console.log(this.user)
     this.userService.updateUser(this.user).subscribe(
       good => {
         this.router.navigateByUrl("/results");
-        // this.authSvc.login(user.username, user.password).subscribe(
+        // this.authSvc.login(this.user.username, this.user.password).subscribe(
         //   good => {
         //     this.router.navigateByUrl("/results");
         //   },
