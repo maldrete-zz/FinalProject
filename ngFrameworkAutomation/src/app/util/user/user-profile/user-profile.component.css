@@ -1,33 +1,36 @@
 #gettingStartedTemplateDiv {
-  background-color: #1D2731;
+  background-color: rgb(190, 190, 190);
+  /* background-color: rgb(255, 255, 255); */
   /* opacity: 60%; */
   color: white;
   border: solid 3px;
-  border-color: #D9B310;
+  /* border-color: #D9B310; */
   border-radius: 10px;
 }
 
 #myTemplateDiv {
-  background-color: #1D2731;
+  background-color: rgb(190, 190, 190);
+  /* background-color: rgb(255, 255, 255); */
   /* opacity: 80%; */
   color: white;
   border: solid 3px;
-  border-color: #D9B310;
+  /* border-color: #D9B310; */
   border-radius: 10px;
 
 }
 
 #favTemplateDiv {
-  background-color: #1D2731;
+  background-color: rgb(190, 190, 190);
+  /* background-color: rgb(255, 255, 255); */
   /* opacity: 100%; */
   color: white;
   border: solid 3px;
-  border-color: #D9B310;
+  /* border-color: #D9B310; */
   border-radius: 10px;
 }
 
 h1 {
-  color: #D9B310;
+  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,11 +40,11 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #D9B310;
+  color: white;
 }
 
 div{
-  margin: 3vh;
+  margin: 2.3vh;
   overflow-x: visible;
 
 }
@@ -51,7 +54,7 @@ li {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: black;
   font-size: larger;
 }
 ul {

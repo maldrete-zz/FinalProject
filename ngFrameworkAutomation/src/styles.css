@@ -1,12 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
+@import "https://fonts.googleapis.com/css?family=Trade+Winds&display=swap";
 body{
-  background-color: #0B3C5D;
+  /* background-color: #0B3C5D; */
+  background-color: rgb(213, 220, 226);
   margin:0;
   padding: 0;
-  font-family: Roboto;
+  font-family: sans-serif;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
 }
-div{
-  margin: 0;
-  padding: 0;
-}
+
