@@ -21,6 +21,10 @@ h1 {
   font-weight: 900;
 }
 
+p {
+  overflow: hidden;
+}
+
 .row {
   margin: auto;
 }
