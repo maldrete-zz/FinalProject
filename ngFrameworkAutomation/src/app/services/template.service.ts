@@ -97,7 +97,7 @@ export class TemplateService {
     const options = {
       headers: {
         'Content-type': 'application/json',
-        Authorization: 'Basic Sm9lU2htbzI6Sm9lU2htbzI='
+        Authorization: 'Basic ' + credentials
       }
     };
     return this.http.post<Template>(this.url, template, options).pipe(
@@ -113,7 +113,7 @@ export class TemplateService {
     const options = {
       headers: {
         'Content-type': 'application/json',
-        Authorization: 'Basic Sm9lU2htbzI6Sm9lU2htbzI='
+        Authorization: 'Basic ' + credentials
       }
     };
     return this.http.put<Template>(this.url + '/' + template.id, template, options).pipe(
@@ -128,7 +128,7 @@ export class TemplateService {
     const credentials = this.authSvc.getCredentials();
     const options = {
       headers: {
-        Authorization: 'Basic Sm9lU2htbzI6Sm9lU2htbzI='
+        Authorization: 'Basic ' + credentials
       }
     };
     return this.http.put<Template>(this.url + '/' + id +"/subtemplates/" + subId,"",options).pipe(
@@ -143,7 +143,7 @@ export class TemplateService {
     const credentials = this.authSvc.getCredentials();
     const options = {
       headers: {
-        Authorization: 'Basic Sm9lU2htbzI6Sm9lU2htbzI='
+        Authorization: 'Basic ' + credentials
       }
     };
     return this.http.delete<Template>(this.url + '/' + id +"/subtemplates/" + subId,options).pipe(

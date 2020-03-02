@@ -1,0 +1,20 @@
+.subtemplatePopUp{
+  position: fixed;
+  top:0;
+  right:0;
+  left:0;
+  bottom:0;
+  background-color: #111166cc;
+  z-index: 10;
+}
+
+.subtemplatePopUpForm{
+  display: block;
+  margin: auto;
+  margin-top: 30vh;
+  width:40vw;
+  padding: 30px;
+  background-color: oldlace;
+  border-radius: 20px;
+}
+
