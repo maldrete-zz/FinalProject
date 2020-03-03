@@ -1,3 +1,4 @@
+import { NgForm } from '@angular/forms';
 import { TextEditorComponent } from './../text-editor/text-editor.component';
 import { Router } from '@angular/router';
 import { Template } from 'src/app/entities/template/template';
@@ -12,6 +13,7 @@ import * as ace from 'ace-builds'; // ace module ..
 import { UCCPipe } from '../myPipes/ucc.pipe';
 import { LCCPipe } from '../myPipes/lcc.pipe';
 import { ParseTemplateHelperService } from '../parse-template-helper.service';
+import { PipeManagerService } from '../myPipes/pipe-manager.service';
 
 @Component({
   selector: 'app-create-template',
@@ -24,11 +26,11 @@ export class CreateTemplateComponent implements OnInit {
   *************************************************************************************************************/
   @ViewChild(TextEditorComponent) textEditorComponent:TextEditorComponent;
   constructor(
-    private http             : HttpClient,
     private svc              : TemplateService,
     private currentroute     : ActivatedRoute,
     private router           : Router,
-    private parser           : ParseTemplateHelperService
+    private parser           : ParseTemplateHelperService,
+    private pipeManager      : PipeManagerService
   ) {}
 
   errors                     = [];
@@ -42,12 +44,14 @@ export class CreateTemplateComponent implements OnInit {
   nonRegexStrings            = [];
   capturedFieldNames         = [];
   textEditorContent          = '';
-  pipes                      = {};
-
-  UCCPipeInstance            = new UCCPipe(); // Upper Camel Case
-  LCCPipeInstance            = new LCCPipe(); // Lower Camel Case
 
   edititingTitle             = false;
+  subTemplatePopup           = false;
+
+  typedRecently              = false;
+  pendingUpdate              = false;
+
+
 
 
 
@@ -55,23 +59,18 @@ export class CreateTemplateComponent implements OnInit {
   ngOnInit:
   *************************************************************************************************************/
   ngOnInit(): void {
-    this.registerPipes();
   }
   /************************************************************************************************************
   load:
   *************************************************************************************************************/
   load(): void {
+    if(this.currentroute.snapshot.url[1].path == "create"){
+      this.createTemplate();
+      return;
+    }
     this.currentroute.paramMap.subscribe(
       params =>{this.getTemplateFromDB((parseInt(params.get("id"))));}
     )
-  }
-  /************************************************************************************************************
-  registerPipes:
-  *************************************************************************************************************/
-  registerPipes(){
-    //Pipes
-    this.pipes["LCC"] = (inputString: string) => { return this.LCCPipeInstance.transform(inputString) };
-    this.pipes["UCC"] = (inputString: string) => { return this.UCCPipeInstance.transform(inputString) };
   }
 
   /************************************************************************************************************
@@ -80,8 +79,8 @@ export class CreateTemplateComponent implements OnInit {
   ngAfterViewInit() {
     this.codeEditor = this.textEditorComponent.codeEditor;
     //Add Key Binding
-    this.codeEditor.commands.bindKey("ctrl-q",(editor:Ace.Editor) => {this.addCapture();this.refreshTemplate();});
-    this.codeEditor.commands.bindKey("ctrl-w",(editor:Ace.Editor) => {this.makeSubTemplate();});
+    this.codeEditor.commands.bindKey("ctrl-q",(editor:Ace.Editor) => {this.addCapture();});
+    this.codeEditor.commands.bindKey("ctrl-w",(editor:Ace.Editor) => {this.createSubTemplatePopUp();});
     this.load();
   }
 
@@ -117,16 +116,41 @@ export class CreateTemplateComponent implements OnInit {
   }
 
   /************************************************************************************************************
+  tryToUpdateTemplate:
+  *************************************************************************************************************/
+  tryToUpdateTemplate(){
+    if(!this.pendingUpdate){
+      this.pendingUpdate = true;
+      let attemptToConnect = ()=>{
+        this.typedRecently = false;
+        setTimeout(()=>{
+          if(!this.typedRecently){
+            this.updateCurrentTemplateInDB();
+          }else{
+            attemptToConnect();
+          }
+        },5000);
+      }
+      attemptToConnect();
+    }
+
+  }
+  /************************************************************************************************************
   updateCurrentTemplateInDB:
   *************************************************************************************************************/
   updateCurrentTemplateInDB() {
     this.svc.update(this.template).subscribe(data => {
+      this.pendingUpdate = false;
       if (this.template.content == data.content){
         this.uptoDate = "saved";
       }else{
         this.uptoDate = "saving...";
+        this.tryToUpdateTemplate();
       }
-    },this.myError);
+    },(err) =>{
+      this.displayError("dataLinkError",err);
+      this.uptoDate = "Error Svaing";
+    });
   }
 
   /************************************************************************************************************
@@ -139,7 +163,8 @@ export class CreateTemplateComponent implements OnInit {
     this.nonRegexStrings = [];
     this.capturedFieldNames = [];
     this.compileTemplates();
-    this.updateCurrentTemplateInDB();
+    this.typedRecently = true;
+    this.tryToUpdateTemplate();
   }
 
   /************************************************************************************************************
@@ -161,12 +186,13 @@ export class CreateTemplateComponent implements OnInit {
       this.codeEditor.moveCursorTo(endRow,endCol+offset);
       this.codeEditor.insert("}?");
     }
+    this.refreshTemplate();
   }
 
   /************************************************************************************************************
   makeSubTemplate:
   *************************************************************************************************************/
-  makeSubTemplate(){
+  makeSubTemplate(form:NgForm){
     let allRanges = this.codeEditor.getSelection().getAllRanges();
     if(allRanges.length > 1){
       console.log("cannot make multiple subtemplates");
@@ -174,17 +200,34 @@ export class CreateTemplateComponent implements OnInit {
     }
     let textToTemplate = this.codeEditor.getSelectedText();
 
-
     let tempTemplate     = new Template();
-    tempTemplate.name    = "untitledSubTemplate";
+    tempTemplate.name    = this.pipeManager.LCCPipeInstance.transform(form.value["subtemplateName"]);
     tempTemplate.content = textToTemplate;
+    let startRow   = allRanges[0].start.row;
+    let startCol   = allRanges[0].start.column;
+    if(!this.codeEditor.selection.isBackwards()){
+      startRow     = allRanges[0].end.row;
+      startCol     = allRanges[0].end.column;
+    }
+    this.codeEditor.moveCursorTo(startRow,startCol);
+    this.codeEditor.insert(`?{${tempTemplate.name}=>template}?`);
+    this.subTemplatePopup = false;
+
     this.svc.create(tempTemplate).subscribe(data => {
-      this.svc.addSubtemplate(this.templateID,data.id).subscribe(data => {
-        this.refreshTemplate();
-        this.template = data;
-      },this.myError);
+      this.addSubTemplateById(data.id);
     },this.myError);
   }
+
+  /************************************************************************************************************
+  addSubTemplateById:
+  *************************************************************************************************************/
+  addSubTemplateById(subId:number){
+    this.svc.addSubtemplate(this.templateID,subId).subscribe(data => {
+      this.template = data;
+      this.refreshTemplate();
+    },this.myError);
+  }
+
 
   /************************************************************************************************************
   RemoveSubTemplate:
@@ -215,8 +258,8 @@ export class CreateTemplateComponent implements OnInit {
 
 
   /************************************************************************************************************
-    gotoSubTemplate:
-    *************************************************************************************************************/
+  gotoSubTemplate:
+  *************************************************************************************************************/
   gotoSubTemplate(id:number) {
     this.router.navigateByUrl("template/edit/" + id);
     this.load();
@@ -239,6 +282,14 @@ export class CreateTemplateComponent implements OnInit {
     this.edititingTitle  = !this.edititingTitle;
     this.updateCurrentTemplateInDB();
   }
+
+  /************************************************************************************************************
+  createSubTemplatePopUp:
+  *************************************************************************************************************/
+  createSubTemplatePopUp(): void {
+    this.subTemplatePopup = true;
+  }
+
 
 
 

@@ -1,8 +1,66 @@
-img{
+header {
+  margin: auto;
+}
+
+hr {
+  border-top: 5px solid rgba(0, 0, 0, 1);
+}
+
+body {
+  background-color: #005580;
+  height: 100vh;
+}
+section {
+  overflow: hidden;
+}
+
+h1 {
+  margin: auto;
+  color: #e6b800;
+  font-size: 50px;
+  display: block;
+  text-align: center;
+  font-family: Cutive Mono, monospace, Helvetica, sans-serif;
+  font-weight: 900;
+}
+
+p {
+  overflow: hidden;
+}
+
+.row {
+  margin: auto;
+}
+
+.fade:not(.show) {
+  opacity: 1;
+}
+
+.sideBar {
+  height: 100vh;
+  width: 100%;
+}
+
+img {
   height: 100%;
   width: 100%;
 }
 
-.fade {
-  opacity: 1;
+/* .card-img {
+  max
+} */
+
+.whole-card {
+  margin-bottom: 40px;
+  margin-top: 30px;
+  padding: 10px 10px;
+  box-shadow: 20px 20px 20px #aaa;
+}
+
+.whole-card:hover {
+  box-shadow: 20px 20px 20px #888;
+}
+
+.card {
+  margin: 20px 20px;
 }

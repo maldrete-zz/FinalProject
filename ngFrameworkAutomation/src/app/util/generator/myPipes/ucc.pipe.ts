@@ -6,9 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class UCCPipe implements PipeTransform {
 
   transform(input:String): string {
-    if(!input){
-      return "Placeholder";
-    }
     let output = "";
     input = input.trim();
     let nextCaps = false;

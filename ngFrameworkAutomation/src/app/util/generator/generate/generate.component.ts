@@ -9,6 +9,8 @@ import { Template } from 'src/app/entities/template/template';
 import { LCCPipe } from './../myPipes/lcc.pipe';
 import { UCCPipe } from '../myPipes/ucc.pipe';
 import { Ace } from 'ace-builds';
+import { ParseTemplateHelperService } from '../parse-template-helper.service';
+import { PipeManagerService } from '../myPipes/pipe-manager.service';
 
 
 
@@ -22,12 +24,13 @@ export class GenerateComponent implements OnInit {
   @ViewChild(TextEditorComponent) textEditorComponent: TextEditorComponent;
   ngAfterViewInit() {
     this.codeEditor = this.textEditorComponent.codeEditor;
+    this.codeEditor.setReadOnly(true);
     let templateId = this.currentroute.snapshot.paramMap.get('id');
 
     this.svc.show(parseInt(templateId)).subscribe(
       data => {
         this.template = data;
-        this.compileTemplates(data);
+        this.compileTemplates();
       },
       err => {
         console.error(err);
@@ -38,6 +41,17 @@ export class GenerateComponent implements OnInit {
     this is the code editor we created 'ace' is the tag function of the import.
   */
   codeEditor: Ace.Editor;
+  template: Template = new Template();
+  formMap = {};
+  formPlaceholders = {};
+  nonRegexStrings = [];
+  capturedFieldNames = [];
+  textEditorContent = '';
+  subtemplates = {};
+
+  //InitiatePipes so we dont have to create it every time of use
+  LCCPipeInstance = new LCCPipe(); // Lower Camel Case
+  UCCPipeInstance = new UCCPipe(); // Upper Camel Case
 
 
 
@@ -58,86 +72,23 @@ export class GenerateComponent implements OnInit {
     ==============================================================================================================
     textEditorContent - the text/content/code on the text editor. the non captured regex put the captured grous and pipes put together.
   */
-  template: Template = new Template();
-  formMap = {};
-  nonRegexStrings = [];
-  capturedFieldNames = [];
-  textEditorContent = '';
-  pipes = {};
 
 
-  constructor(private http: HttpClient, private currentroute: ActivatedRoute, private svc: TemplateService) { }
 
-    //InitiatePipes so we dont have to create it every time of use
-  LCCPipeInstance = new LCCPipe(); // Lower Camel Case
-  UCCPipeInstance = new UCCPipe(); // Upper Camel Case
+  constructor(private http: HttpClient, private currentroute: ActivatedRoute, private svc: TemplateService,
+    private parser : ParseTemplateHelperService,    private pipeManager      : PipeManagerService) { }
 
-  registerPipes(){
-
-    //Pipes
-    this.pipes["LCC"] = (inputString: string) => { return this.LCCPipeInstance.transform(inputString) };
-    this.pipes["UCC"] = (inputString: string) => { return this.UCCPipeInstance.transform(inputString) };
-  }
 
 
   ngOnInit(): void {
-    this.registerPipes();
   }
 
-  compileTemplates(data: Template) {
-    //Input data into fields
-    let myTemplate = data;
-    let templateContent = myTemplate.content;
-    /*
-    Create a regex that captures things that look like ?{data}?
-    Then we itterate through the string that is the template to find those values
-      this is done by capturing next, checking if its a match, inserting into our array,
-       and breaking the template so it can find the next one
-      this is the pattern for getting the capture ?{someText}?
-    */
-    let captureRegex = new RegExp('\\?{([^{}]+)}\\?');
-    while (true) {
-      let captureRegexMatch = captureRegex.exec(templateContent);
-      if (!captureRegexMatch) {
-        // if there is no match of the regex pattern ?{someText}?, then add the rest of the string .
-        this.nonRegexStrings.push(templateContent);
-        break;
-      }
-      //starts with the whole string. template string is the remaing string that we have.
-      // regex tracks are first hits. which gives our value from first hit on regex string to the end of the regex string
-      // takes out the regex looks rest of the string for another regex. we split apart the text in to array split by regex
-      this.nonRegexStrings.push(templateContent.substr(0, captureRegexMatch.index));
-
-
-      let parseContentRegex = new RegExp('([a-zA-Z0-9\\.]+)\\.([a-zA-Z0-9\\[\\]]+)');
-      let parseContentRegexMatch = parseContentRegex.exec(captureRegexMatch[1]);
-      let subTemplateOffSet = '';
-      if (!parseContentRegexMatch) {
-        this.formMap[captureRegexMatch[1]] = "";
-        this.capturedFieldNames.push({ pipe: "", findId: captureRegexMatch[1] });
-      } else {
-        if (parseContentRegexMatch[2] == 'template') {
-          console.log(parseContentRegexMatch[1]);
-          console.log(parseContentRegexMatch[2]);
-          console.log(templateContent);
-          subTemplateOffSet = 'we did it';
-        } else if (parseContentRegexMatch[2] == 'template[]') {
-          console.log(parseContentRegexMatch[1]);
-          console.log(parseContentRegexMatch[2]);
-          console.log('We did it  Twice! BROS! ');
-        } else {
-          this.formMap[parseContentRegexMatch[1]] = '';
-          this.capturedFieldNames.push({ pipe: parseContentRegexMatch[2], findId: parseContentRegexMatch[1] }); // this grabs the pipe name
-        }
-      }
-      templateContent = templateContent.substr(captureRegexMatch.index + captureRegexMatch[0].length, templateContent.length);
-      templateContent = subTemplateOffSet + templateContent;
-    }
-
-    for (let i = 0; i < myTemplate.subTemplates.length; i++) {
-      this.compileTemplates(myTemplate.subTemplates[i]);
-    }
-
+  compileTemplates() {
+    let results             = this.parser.compileAllTemplates(this.template);
+    this.formMap            = results.formMap;
+    this.nonRegexStrings    = results.nonRegexStrings;
+    this.capturedFieldNames = results.capturedFieldNames;
+    this.assemblePlaceholders();
     this.assembleFullContent();
   }
 
@@ -145,31 +96,31 @@ export class GenerateComponent implements OnInit {
   getKeys(): string[] {
     return Object.getOwnPropertyNames(this.formMap);
   }
+  assemblePlaceholders(){
+    let formKey = this.getKeys();
+    for (let i = 0; i < formKey.length; i++) {
+      this.formPlaceholders[formKey[i]] = "input"+i;
+    }
+  }
+
+
+
 
 
   assembleFullContent() {
-
     this.textEditorContent = '';
     for (let i = 0; i < this.capturedFieldNames.length; i++) {
-      this.textEditorContent = this.textEditorContent.concat(this.nonRegexStrings[i]); // grabs raw text and appends the raw text to the full string
-      // iterate through each pipe and check to see if it matches the list of pipes we have and call its function.
-      let pipeName = this.capturedFieldNames[i].pipe;
-      if (!this.pipes[pipeName]) {
-        pipeName = undefined;
-      }
-      if (pipeName) {
-        this.textEditorContent = this.textEditorContent.concat(this.pipes[pipeName](this.formMap[this.capturedFieldNames[i].findId]));
-      } else {
-
-        this.textEditorContent = this.textEditorContent.concat(this.formMap[this.capturedFieldNames[i].findId]); // grabs the form value at the original capture statement
-      }
-
-      //console.log(this.pipes[this.capturedFieldNames[i].pipe]()); // this call the anonymous function and calls it. with () since pipes has anonymous functions.
+      this.textEditorContent += this.nonRegexStrings[i];
+      let fieldName           = this.capturedFieldNames[i].findId;
+      let pipeName            = this.capturedFieldNames[i].pipe;
+      let rawUserInput        = this.formMap[fieldName];
+      if (rawUserInput == "")   {rawUserInput = this.formPlaceholders[fieldName]};
+      let pipe                = this.pipeManager.getPipe(pipeName);
+      let captueReplacement   = pipe(rawUserInput);
+      this.textEditorContent += captueReplacement;
     }
-    this.textEditorContent = this.textEditorContent.concat(this.nonRegexStrings[this.nonRegexStrings.length - 1]);
-    // apply the pipes to the live code.
+    this.textEditorContent   += this.nonRegexStrings[this.nonRegexStrings.length - 1];
     this.codeEditor.setValue(this.textEditorContent, -1);
-
   }
 
 

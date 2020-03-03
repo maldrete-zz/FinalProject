@@ -55,6 +55,13 @@
   </div>
 
 
+  <div class="subtemplatePopUp" *ngIf="subTemplatePopup">
+    <form class="subtemplatePopUpForm" #subTemplateCreateForm="ngForm" (submit)="makeSubTemplate(subTemplateCreateForm)">
+      <label for="subtemplateName">Name</label><input type="text" name="subtemplateName" ngModel>
+    </form >
+  </div>
+
+
 
   </div>
 </div>

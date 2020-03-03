@@ -116,7 +116,6 @@ public class User {
 		this.email = email;
 	}
 
-
 	public String getRole() {
 		return role;
 	}
