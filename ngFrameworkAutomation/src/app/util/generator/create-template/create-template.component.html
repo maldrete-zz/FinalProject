@@ -56,8 +56,62 @@
 
 
   <div class="subtemplatePopUp" *ngIf="subTemplatePopup">
-    <form class="subtemplatePopUpForm" #subTemplateCreateForm="ngForm" (submit)="makeSubTemplate(subTemplateCreateForm)">
-      <label for="subtemplateName">Name</label><input type="text" name="subtemplateName" ngModel>
+    <form class="subtemplatePopUpForm needs-validation clearfix" (submit)="makeSubTemplate()" novalidate>
+      <div class="form-group">
+      <label  for="name">Name</label>
+      <input class="form-control" type="text" name="name" [(ngModel)]="subTemplateForm.name" required>
+      <div class="invalid-feedback">
+        Please provide name
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-check">
+      <input class="form-check-input" type="checkbox" name="multiselect" id="" [(ngModel)]="subTemplateForm.multiselect">
+      <label class="form-check-label" for="multiselect">Multi-Select</label>
+      </div>
+    </div>
+      <div class="form-group">
+      <label for="directive">Extra Options</label>
+      <select class="form-control" name="directive" id="" [(ngModel)]="subTemplateForm.directive">
+        <option value="NONE">None</option>
+        <option value="ADDBUTTON">Join Add Buttons</option>
+      </select>
+    </div>
+      <div *ngIf="subTemplateForm.directive == 'ADDBUTTON'" class="form-group">
+      <div name="AddButtonName"><label for="extraArgs">Add Button Name</label><input class="form-control" type="text" name="extraArgs" [(ngModel)]="subTemplateForm.extraArgs"></div>
+    </div>
+      <input class="btn btn-primary" type="submit" value="Create">
+      <input class="btn btn-danger pull-right" type="button" value="Cancel" (click)="subTemplatePopup=false">
+    </form >
+  </div>
+
+  <div class="subtemplatePopUp " *ngIf="capturePopup">
+    <form class="subtemplatePopUpForm needs-validation clearfix" (submit)="addCapture()" novalidate>
+      <div class="form-group">
+      <label  for="name">Name</label>
+      <input class="form-control" type="text" name="name" [(ngModel)]="captureForm.name" required>
+      <div class="invalid-feedback">
+        Please provide name
+      </div>
+    </div>
+      <div class="form-group">
+      <label for="pipe">Pipe</label>
+      <select class="form-control" name="pipe" [(ngModel)]="captureForm.pipe">
+        <option *ngFor="let pipeDescription of pipeManager.pipeDescriptions" value="{{pipeDescription['pipeName']}}">{{pipeDescription['description']}}</option>
+      </select>
+    </div>
+  <div class="form-group">
+  <label for="directive">Directive</label>
+  <select class="form-control" name="directive" id="" [(ngModel)]="captureForm.directive">
+    <option value="NONE">None</option>
+    <option value="FIX">MakeValueAbsolute</option>
+  </select>
+</div>
+      <div *ngIf="captureForm.directive == 'ADDBUTTON'" class="form-group">
+      <div name="AddButtonName"><label for="extraArgs">Add Button Name</label><input class="form-control" type="text" name="extraArgs" [(ngModel)]="captureForm.extraArgs"></div>
+    </div>
+      <input class="btn btn-primary" type="submit" value="Create">
+      <input class="btn btn-danger pull-right" type="button" value="Cancel" (click)="capturePopup=false">
     </form >
   </div>
 
@@ -65,5 +119,7 @@
 
   </div>
 </div>
+
+
 
 
