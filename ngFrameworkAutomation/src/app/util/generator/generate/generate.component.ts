@@ -49,11 +49,17 @@ export class GenerateComponent implements OnInit {
   capturedFieldNames = [];
   textEditorContent = '';
   subtemplates = {};
+
   buttonName = 'Like';
+
+  currentIncrementalsCount = {};
+
 
   //InitiatePipes so we dont have to create it every time of use
   LCCPipeInstance = new LCCPipe(); // Lower Camel Case
   UCCPipeInstance = new UCCPipe(); // Upper Camel Case
+
+  formList = [];
 
 
 
@@ -86,19 +92,28 @@ export class GenerateComponent implements OnInit {
   }
 
   compileTemplates() {
-    let results = this.parser.compileAllTemplates(this.template);
+
+    let results = this.parser.compileAllTemplates(this.template, this.currentIncrementalsCount, this.formMap);
     this.formMap = results.formMap;
+    this.formList = Object.getOwnPropertyNames(this.formMap);
     this.nonRegexStrings = results.nonRegexStrings;
     this.capturedFieldNames = results.capturedFieldNames;
+    this.currentIncrementalsCount = results.potentialIncrementals;
     this.assemblePlaceholders();
     this.assembleFullContent();
   }
 
-
   getKeys(): string[] {
-    return Object.getOwnPropertyNames(this.formMap);
+    return this.formList;
   }
+
+  getAddButtons(): string[] {
+    return Object.getOwnPropertyNames(this.currentIncrementalsCount);
+  }
+
+
   assemblePlaceholders() {
+
     let formKey = this.getKeys();
     for (let i = 0; i < formKey.length; i++) {
       this.formPlaceholders[formKey[i]] = "input" + i;
@@ -124,6 +139,7 @@ export class GenerateComponent implements OnInit {
   }
 
 
+
   addLike(template: Template) {
     console.log(template);
     console.log(this.template);
@@ -142,6 +158,11 @@ export class GenerateComponent implements OnInit {
     );
   }
 
+  addField(key: string) {
+    this.currentIncrementalsCount[key]++;
+    this.compileTemplates();
+
+  }
 
 
 }
