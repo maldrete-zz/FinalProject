@@ -16,7 +16,7 @@ import com.skilldistillery.frameworkautomation.entities.UserToRegister;
 import com.skilldistillery.frameworkautomation.services.AuthService;
 
 @RestController
-@CrossOrigin({ "*", "http://localhost:4200" })
+@CrossOrigin({ "*", "http://localhost:4289" })
 public class AuthController {
 	@Autowired
 	private AuthService authService;
