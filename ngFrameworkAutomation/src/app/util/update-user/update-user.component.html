@@ -32,15 +32,6 @@
           <input type="text" class="form-control" name="organizationName" [(ngModel)]="user.organizationName" >
         </div>
 
-        <div class="form-group row">
-          <h2>Account Security</h2>
-        </div>
-
-        <div class="form-group row inputClass col-xs-2">
-          <label class="password-text">Password</label>
-          <input id="password" type="password" class="password-slot form-control" name="password" [(ngModel)]="user.password">
-        </div>
-
         <br>
         <div class="form-row">
         <input type="submit" class="submit-btn" name="submit" value="Update Account" (click) = "updateUser()">
