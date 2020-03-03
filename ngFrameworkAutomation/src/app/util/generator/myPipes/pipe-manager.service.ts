@@ -12,6 +12,16 @@ export class PipeManagerService {
   constructor() {
     this.registerPipes();
   }
+
+  pipeDescriptions =[
+    {"description":"None"                           ,"pipeName":"NUL"},
+    {"description":"Lower Camel Case"               ,"pipeName":"LCC"},
+    {"description":"Upper Camel Case"               ,"pipeName":"UCC"}
+  ];
+
+
+
+
   pipes                  = {};
 
    UCCPipeInstance        = new UCCPipe(); // Upper Camel Case

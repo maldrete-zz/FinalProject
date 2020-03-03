@@ -2,22 +2,28 @@
   <div class="col-sm-1"></div>
   <div class="col-sm-4">
     <form #fieldForm="ngForm">
-      <div class="form-group" *ngFor="let key of getKeys();let i = index">
+      <div class="form-group" *ngFor="let key of getKeys();let i = index;">
         {{ key | form }}
         <input
           class="form-control"
           type="text"
-          name="texteditor"
+          [name]="key"
           placeholder="{{formPlaceholders[key]}}"
           [(ngModel)]="formMap[key]"
           (keyup)="assembleFullContent()"
         />
       </div>
-      <input
+      <div class="form-group" *ngFor="let key of getAddButtons();">
+        <input type="button" value="Add {{key | form}}" (click)="addField(key)">
+      </div>
+
+
+
+      <!-- <input
         type="submit"
         value="submit me morty"
         (click)="assembleFullContent()"
-      />
+      /> -->
     </form>
   </div>
   <div class="col-sm-1"></div>

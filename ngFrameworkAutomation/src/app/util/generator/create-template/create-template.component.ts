@@ -30,7 +30,7 @@ export class CreateTemplateComponent implements OnInit {
     private currentroute     : ActivatedRoute,
     private router           : Router,
     private parser           : ParseTemplateHelperService,
-    private pipeManager      : PipeManagerService
+    public  pipeManager      : PipeManagerService
   ) {}
 
   errors                     = [];
@@ -47,9 +47,23 @@ export class CreateTemplateComponent implements OnInit {
 
   edititingTitle             = false;
   subTemplatePopup           = false;
+  capturePopup               = false;
 
   typedRecently              = false;
   pendingUpdate              = false;
+
+  subTemplateForm            = {
+  "name"                     : "",
+  "multiselect"              : false,
+  "directive"                : "NONE",
+  "extraArgs"                : ""     }
+
+  captureForm            = {
+    "name"                     : "",
+    "pipe"                     : "NUL",
+    "directive"                : "NONE",
+    "extraArgs"                : ""     }
+
 
 
 
@@ -79,7 +93,7 @@ export class CreateTemplateComponent implements OnInit {
   ngAfterViewInit() {
     this.codeEditor = this.textEditorComponent.codeEditor;
     //Add Key Binding
-    this.codeEditor.commands.bindKey("ctrl-q",(editor:Ace.Editor) => {this.addCapture();});
+    this.codeEditor.commands.bindKey("ctrl-q",(editor:Ace.Editor) => {this.createCapturePopUp();});
     this.codeEditor.commands.bindKey("ctrl-w",(editor:Ace.Editor) => {this.createSubTemplatePopUp();});
     this.load();
   }
@@ -129,7 +143,7 @@ export class CreateTemplateComponent implements OnInit {
           }else{
             attemptToConnect();
           }
-        },5000);
+        },2500);
       }
       attemptToConnect();
     }
@@ -171,20 +185,19 @@ export class CreateTemplateComponent implements OnInit {
   addCapture:
   *************************************************************************************************************/
   addCapture(){
-
+    this.capturePopup = false;
     let allRanges = this.codeEditor.getSelection().getAllRanges();
 
     for(let i = 0; i < allRanges.length;i++){
       this.codeEditor.clearSelection();
-      let startRow   = allRanges[i].start.row;
-      let startCol   = allRanges[i].start.column;
-      let endRow     = allRanges[i].end.row;
-      let endCol     = allRanges[i].end.column;
-      let offset     = 2;
+      let startRow   = allRanges[0].start.row;
+      let startCol   = allRanges[0].start.column;
+      if(!this.codeEditor.selection.isBackwards()){
+        startRow     = allRanges[0].end.row;
+        startCol     = allRanges[0].end.column;
+      }
       this.codeEditor.moveCursorTo(startRow,startCol);
-      this.codeEditor.insert("?{");
-      this.codeEditor.moveCursorTo(endRow,endCol+offset);
-      this.codeEditor.insert("}?");
+      this.codeEditor.insert(`?{${this.captureForm.name}=>${this.captureForm.pipe}.${this.captureForm.directive}.${this.captureForm.extraArgs}}?`);
     }
     this.refreshTemplate();
   }
@@ -192,7 +205,7 @@ export class CreateTemplateComponent implements OnInit {
   /************************************************************************************************************
   makeSubTemplate:
   *************************************************************************************************************/
-  makeSubTemplate(form:NgForm){
+  makeSubTemplate(){
     let allRanges = this.codeEditor.getSelection().getAllRanges();
     if(allRanges.length > 1){
       console.log("cannot make multiple subtemplates");
@@ -201,7 +214,7 @@ export class CreateTemplateComponent implements OnInit {
     let textToTemplate = this.codeEditor.getSelectedText();
 
     let tempTemplate     = new Template();
-    tempTemplate.name    = this.pipeManager.LCCPipeInstance.transform(form.value["subtemplateName"]);
+    tempTemplate.name    = this.pipeManager.LCCPipeInstance.transform(this.subTemplateForm.name);
     tempTemplate.content = textToTemplate;
     let startRow   = allRanges[0].start.row;
     let startCol   = allRanges[0].start.column;
@@ -210,8 +223,22 @@ export class CreateTemplateComponent implements OnInit {
       startCol     = allRanges[0].end.column;
     }
     this.codeEditor.moveCursorTo(startRow,startCol);
-    this.codeEditor.insert(`?{${tempTemplate.name}=>template}?`);
+
+    let afterTemplateString = "";
+    if(this.subTemplateForm.directive != "NONE"){
+      afterTemplateString += "." + this.subTemplateForm.directive + "." + this.subTemplateForm.extraArgs;
+    }
+    if(this.subTemplateForm.multiselect){
+      afterTemplateString += "[]";
+    }
+    this.codeEditor.insert(`?{${tempTemplate.name}=>template${afterTemplateString}}?`);
     this.subTemplatePopup = false;
+
+    this.subTemplateForm         = {
+      "name"                     : "",
+      "multiselect"              : false,
+      "directive"                : "NONE",
+      "extraArgs"                : ""     };
 
     this.svc.create(tempTemplate).subscribe(data => {
       this.addSubTemplateById(data.id);
@@ -243,7 +270,7 @@ export class CreateTemplateComponent implements OnInit {
   compileTemplates:
   *************************************************************************************************************/
   compileTemplates() {
-    let results             = this.parser.compileAllTemplates(this.template);
+    let results             = this.parser.compileAllTemplates(this.template,{},{});
     this.formMap            = results.formMap;
     this.nonRegexStrings    = results.nonRegexStrings;
     this.capturedFieldNames = results.capturedFieldNames;
@@ -290,6 +317,12 @@ export class CreateTemplateComponent implements OnInit {
     this.subTemplatePopup = true;
   }
 
+  /************************************************************************************************************
+  createCapturePopUp:
+  *************************************************************************************************************/
+  createCapturePopUp(): void {
+  this.capturePopup = true;
+}
 
 
 
