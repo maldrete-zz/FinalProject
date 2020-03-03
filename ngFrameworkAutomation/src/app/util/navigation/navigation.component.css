@@ -1,6 +1,7 @@
 nav {
   background-color: #085ff7;
   box-shadow:  0 4px 2px -2px rgba(174, 141, 141, 0.324);
+  height: 5vh;
 }
 
 input {
