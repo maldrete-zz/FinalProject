@@ -1,4 +1,29 @@
 <div class="row">
+<<<<<<< HEAD
+  <div class="col-sm-6">
+    <button
+      type="button"
+      class="btn btn-outline-info"
+      (click)="addLike(template)"
+    >
+      {{ buttonName }}
+    </button>
+
+    <div class="col-sm-1"></div>
+    <div class="col-sm-4">
+      <form #fieldForm="ngForm">
+        <div class="form-group" *ngFor="let key of getKeys(); let i = index">
+          {{ key | form }}
+          <input
+            class="form-control"
+            type="text"
+            name="texteditor"
+            placeholder="{{ formPlaceholders[key] }}"
+            [(ngModel)]="formMap[key]"
+            (keyup)="assembleFullContent()"
+          />
+        </div>
+=======
 
   <div class="col-sm-1"></div>
   <button type="button" class="btn btn-outline-info">Like</button>
@@ -6,6 +31,7 @@
     <form #fieldForm="ngForm">
       <div class="form-group" *ngFor="let key of getKeys();let i = index;">
         {{ key | form }}
+>>>>>>> 8f4bc84fe5a146d70d59862693f1dd5309639a14
         <input
           class="form-control"
           type="text"

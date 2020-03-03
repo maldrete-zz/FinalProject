@@ -149,14 +149,15 @@ export class TemplateService {
     );
   }
 
-  likeTemplate(id: number) {
+  likeTemplate(id: number): Observable<string> {
     const credentials = this.authSvc.getCredentials();
     const options = {
       headers: {
         Authorization: 'Basic ' + credentials
       }
     };
-    return this.http.post<Boolean>(environment.baseUrl + 'api/me/rating/' + id, options).pipe(
+    console.log(environment.baseUrl + 'api/me/rating/' + id);
+    return this.http.post<string>(environment.baseUrl + 'api/me/rating/' + id, "", options).pipe(
       catchError((err: any) => {
         console.log('liketemplate(): Error adding like to rating');
         console.error(err);

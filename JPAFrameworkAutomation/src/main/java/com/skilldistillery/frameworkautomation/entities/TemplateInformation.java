@@ -1,6 +1,5 @@
 package com.skilldistillery.frameworkautomation.entities;
 
-import java.util.List;
 
 public class TemplateInformation {
 	// F I E L D S
@@ -10,16 +9,16 @@ public class TemplateInformation {
 	private String description;
 	private String instructions;
 	private String userName;
-	private List<User> users;
-	private List<Comment> comments;
-	private List<Rating> ratings;
+	private Integer users;
+	private Integer comments;
+	private Integer ratings;
 
 	// C O N S T R U C T O R S
 
 	public TemplateInformation() {
 
 	}
-
+	
 	public TemplateInformation(Template template) {
 		this.id = template.getId();
 		this.name = template.getName();
@@ -27,9 +26,24 @@ public class TemplateInformation {
 		this.description = template.getDescription();
 		this.instructions = template.getInstructions();
 		this.userName = template.getUser().getUsername();
-		this.users = template.getUsers();
-		this.comments = template.getComments();
-		this.ratings = template.getRatings();
+		this.users = template.getUsers().size();
+		this.comments = template.getComments().size();
+		this.ratings = template.getRatings().size();
+		
+	}
+
+	public TemplateInformation(Integer id, String name, String templateType, String description, String instructions,
+			String userName, Integer users, Integer comments, Integer ratings) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.templateType = templateType;
+		this.description = description;
+		this.instructions = instructions;
+		this.userName = userName;
+		this.users = users;
+		this.comments = comments;
+		this.ratings = ratings;
 	}
 
 	// G E T T E R S _ A N D _ S E T T E R S
@@ -82,27 +96,27 @@ public class TemplateInformation {
 		this.instructions = instructions;
 	}
 
-	public List<User> getUsers() {
+	public Integer getUsers() {
 		return users;
 	}
 
-	public void setUsers(List<User> users) {
+	public void setUsers(Integer users) {
 		this.users = users;
 	}
 
-	public List<Comment> getComments() {
+	public Integer getComments() {
 		return comments;
 	}
 
-	public void setComments(List<Comment> comments) {
+	public void setComments(Integer comments) {
 		this.comments = comments;
 	}
 
-	public List<Rating> getRatings() {
+	public Integer getRatings() {
 		return ratings;
 	}
 
-	public void setRatings(List<Rating> ratings) {
+	public void setRatings(Integer ratings) {
 		this.ratings = ratings;
 	}
 

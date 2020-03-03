@@ -29,5 +29,7 @@ public interface TemplateService {
 
 	public List<TemplateInformation> getAllActiveTemplates();
 	
+	
+	
 
 }
