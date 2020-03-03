@@ -53,7 +53,7 @@ public class User {
 	@OneToMany(mappedBy="user")
 	private List<Template> templates;
 
-
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name="favorites",
 		joinColumns=@JoinColumn(name="user_username"),
@@ -61,11 +61,11 @@ public class User {
 	)
 	private List<Template> favorites;
 
-
+	@JsonIgnore
 	@OneToMany(mappedBy="user")
 	private List<Comment> comments;
 
-
+	@JsonIgnore
 	@OneToMany(mappedBy="user")
 	private List<Rating> ratings;
 

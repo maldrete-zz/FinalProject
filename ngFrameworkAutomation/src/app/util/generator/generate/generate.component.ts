@@ -20,6 +20,7 @@ import { PipeManagerService } from '../myPipes/pipe-manager.service';
   templateUrl: './generate.component.html',
   styleUrls: ['./generate.component.css']
 })
+
 export class GenerateComponent implements OnInit {
   @ViewChild(TextEditorComponent) textEditorComponent: TextEditorComponent;
   ngAfterViewInit() {
@@ -48,6 +49,7 @@ export class GenerateComponent implements OnInit {
   capturedFieldNames = [];
   textEditorContent = '';
   subtemplates = {};
+  buttonName = 'Like';
 
   //InitiatePipes so we dont have to create it every time of use
   LCCPipeInstance = new LCCPipe(); // Lower Camel Case
@@ -76,7 +78,7 @@ export class GenerateComponent implements OnInit {
 
 
   constructor(private http: HttpClient, private currentroute: ActivatedRoute, private svc: TemplateService,
-    private parser : ParseTemplateHelperService,    private pipeManager      : PipeManagerService) { }
+    private parser: ParseTemplateHelperService, private pipeManager: PipeManagerService) { }
 
 
 
@@ -84,9 +86,9 @@ export class GenerateComponent implements OnInit {
   }
 
   compileTemplates() {
-    let results             = this.parser.compileAllTemplates(this.template);
-    this.formMap            = results.formMap;
-    this.nonRegexStrings    = results.nonRegexStrings;
+    let results = this.parser.compileAllTemplates(this.template);
+    this.formMap = results.formMap;
+    this.nonRegexStrings = results.nonRegexStrings;
     this.capturedFieldNames = results.capturedFieldNames;
     this.assemblePlaceholders();
     this.assembleFullContent();
@@ -96,14 +98,12 @@ export class GenerateComponent implements OnInit {
   getKeys(): string[] {
     return Object.getOwnPropertyNames(this.formMap);
   }
-  assemblePlaceholders(){
+  assemblePlaceholders() {
     let formKey = this.getKeys();
     for (let i = 0; i < formKey.length; i++) {
-      this.formPlaceholders[formKey[i]] = "input"+i;
+      this.formPlaceholders[formKey[i]] = "input" + i;
     }
   }
-
-
 
 
 
@@ -111,18 +111,36 @@ export class GenerateComponent implements OnInit {
     this.textEditorContent = '';
     for (let i = 0; i < this.capturedFieldNames.length; i++) {
       this.textEditorContent += this.nonRegexStrings[i];
-      let fieldName           = this.capturedFieldNames[i].findId;
-      let pipeName            = this.capturedFieldNames[i].pipe;
-      let rawUserInput        = this.formMap[fieldName];
-      if (rawUserInput == "")   {rawUserInput = this.formPlaceholders[fieldName]};
-      let pipe                = this.pipeManager.getPipe(pipeName);
-      let captueReplacement   = pipe(rawUserInput);
+      let fieldName = this.capturedFieldNames[i].findId;
+      let pipeName = this.capturedFieldNames[i].pipe;
+      let rawUserInput = this.formMap[fieldName];
+      if (rawUserInput == "") { rawUserInput = this.formPlaceholders[fieldName] };
+      let pipe = this.pipeManager.getPipe(pipeName);
+      let captueReplacement = pipe(rawUserInput);
       this.textEditorContent += captueReplacement;
     }
-    this.textEditorContent   += this.nonRegexStrings[this.nonRegexStrings.length - 1];
+    this.textEditorContent += this.nonRegexStrings[this.nonRegexStrings.length - 1];
     this.codeEditor.setValue(this.textEditorContent, -1);
   }
 
+
+  addLike(template: Template) {
+    console.log(template);
+    console.log(this.template);
+    this.svc.likeTemplate(template.id).subscribe(
+      data => {
+        console.log(data);
+        if (!data) {
+          this.buttonName = 'Like'
+        } else if (data) {
+          this.buttonName = 'unlike'
+        }
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
 
 
 

@@ -1,6 +1,7 @@
 package com.skilldistillery.frameworkautomation.controllers;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +42,10 @@ public class TemplateController {
 		return svc.getAllActiveTemplates(); // gets template names
 	}
 
-	@GetMapping("templates/search/{keyword}")
-	public List<Template> findTemplateByKeyword(@PathVariable String keyword) {
-		return tempRepo.findByNameLike("%" + keyword + "%"); // gets template names
-	}
+//	@GetMapping("templates/search/{keyword}")
+//	public List<Template> findTemplateByKeyword(@PathVariable String keyword) {
+//		return tempRepo.findByNameLike("%" + keyword + "%"); // gets template names
+//	}
 
 	@PostMapping("templates")
 	public Template createTemplate(@RequestBody Template template, Principal principal) {
@@ -122,16 +123,38 @@ public class TemplateController {
 		}
 	}
 
+	@GetMapping("templates/search/{keyword}")
+	public List<TemplateInformation> getTemplateByKeyword(@PathVariable String keyword) {
+		List<Template> templates = tempRepo.findByNameLike("%" + keyword + "%"); // gets template names
+		List<TemplateInformation> tempInfo = new ArrayList<>();
+		for (Template template : templates) {
+			tempInfo.add(new TemplateInformation(template));
+		}
+		return tempInfo;
+	}
+
 	@PutMapping("templates/{templateId}/rating")
 	public void addRatingToTemplate(Integer templateId, Principal principal) {
 		Template template = svc.findTemplateById(templateId);
 		User user = userSvc.findByUsername(principal.getName());
-		
+
 		Rating rating = new Rating();
 		rating.setUser(user);
 		rating.setTemplate(template);
-		
+
 		template.addRating(rating);
 	}
 
+	
+	@PostMapping("me/rating/{id}")
+	public boolean addRating(@PathVariable Integer id, Principal principal) {
+		String userName = principal.getName();
+		return userSvc.addRating(userName, id);
+	}
+	
+	@PutMapping("me/rating/{id}")
+	public boolean removeRating(@PathVariable Integer id, Principal principal) {
+		String userName = principal.getName();
+		return userSvc.removeRating(userName, id);
+	}
 }
