@@ -10,9 +10,7 @@ body {
   background-color: #005580;
   height: 100vh;
 }
-section {
-  overflow: hidden;
-}
+
 
 h1 {
   margin: auto;
@@ -30,6 +28,8 @@ p {
 
 .row {
   margin: auto;
+  padding-top: 20px;
+  overflow: visible;
 }
 
 .fade:not(.show) {
@@ -39,17 +39,13 @@ p {
 #mattsMistake{
   position: absolute;
   top: 0;
-  right: 0;
+
   height: 100%;
   width: 100%;
 }
 
 .sideBar {
   /* this is the image */
-  position: -webkit-sticky; /* for Safari browser */
-  position: sticky;
-  top: 0;
-  padding-top: 20px;
   /* height: 100%;
   width: 80%; */
   /* background-size: cover; */
@@ -61,6 +57,12 @@ img {
   width: 100%;
 }
 
+#eachRow {
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: visible;
+}
 
 
 /* .card-img {
@@ -72,7 +74,6 @@ img {
   margin-right: 20px;
   margin-left: 10px;
   margin-bottom: 40px;
-  margin-top: 40px;
   padding: 10px 10px;
   box-shadow: 20px 20px 20px #aaa;
   border-radius: 5px;
@@ -100,4 +101,9 @@ p {
 
 .card {
   margin: 20px 20px;
+}
+.col-sm-2 {
+  position: sticky;
+  top: 0;
+  height: 100vh;
 }
