@@ -1,9 +1,9 @@
 <app-navigation></app-navigation>
 <section class="row">
-  <div class="col-sm-2">
+  <div id="mattsMistake" class="col-sm-2">
     <img
       class="sideBar"
-      src="https://images.unsplash.com/photo-1575491825092-7431433a2cbd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+      src="https://images.unsplash.com/photo-1576675047654-8c1fbbc6846a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1692&q=80"
       alt=""
     />
   </div>
@@ -30,11 +30,11 @@
     </div>
   </div> -->
 
-    <div class="row">
+    <div id="eachRow" class="row">
       <div
-        class="fade col-md-4 whole-card"
+        class="fade col-md-12 whole-card"
         *ngFor="let template of listOfTemplates; let i = index"
-        style="max-width: 700px;"
+        style="max-width: 350px;"
         (click)="goToTemplatePage(template.id)"
       >
         <div class="row">
