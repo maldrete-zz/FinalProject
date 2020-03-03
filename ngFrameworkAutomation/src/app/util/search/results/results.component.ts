@@ -6,6 +6,7 @@ import { User } from 'src/app/entities/user/user';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from 'src/app/services/user.service';
 import { Observable } from 'rxjs';
+import { TemplateInfo } from 'src/app/entities/templateInfo/template-info';
 
 @Component({
   selector: 'app-results',
@@ -16,7 +17,7 @@ export class ResultsComponent implements OnInit {
 
   // fields
   user: User = new User();
-  listOfTemplates: Template[] = [];
+  listOfTemplates: TemplateInfo[] = [];
 
   programming: string[] = ['https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
     "https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",

@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { TemplateInfo } from '../entities/templateInfo/template-info';
 
 
 @Injectable({
@@ -17,9 +18,9 @@ export class TemplateService {
   private url = environment.baseUrl + 'api/templates';
   constructor(private http: HttpClient, private authSvc: AuthService) { }
   // M e t h o d s
-  index(): Observable<Template[]> {
+  index(): Observable<TemplateInfo[]> {
 
-    return this.http.get<Template[]>(this.url).pipe(
+    return this.http.get<TemplateInfo[]>(this.url).pipe(
       catchError((err: any) => {
         console.log('templateService.index(): Error retrieving list');
         console.error(err);
@@ -29,14 +30,14 @@ export class TemplateService {
   }
 
 
-  keyword(keyword: string): Observable<Template[]> {
+  keyword(keyword: string): Observable<TemplateInfo[]> {
     const credentials = this.authSvc.getCredentials();
     const options = {
       headers: {
         Authorization: 'Basic ' + credentials
       }
     };
-    return this.http.get<Template[]>(this.url + '/search/' + keyword).pipe(
+    return this.http.get<TemplateInfo[]>(this.url + '/search/' + keyword).pipe(
       catchError((err: any) => {
         console.log('templateService.index(): Error retrieving list');
         console.error(err);
@@ -147,5 +148,22 @@ export class TemplateService {
       })
     );
   }
+
+  likeTemplate(id: number) {
+    const credentials = this.authSvc.getCredentials();
+    const options = {
+      headers: {
+        Authorization: 'Basic ' + credentials
+      }
+    };
+    return this.http.post<Boolean>(environment.baseUrl + 'api/me/rating/' + id, options).pipe(
+      catchError((err: any) => {
+        console.log('liketemplate(): Error adding like to rating');
+        console.error(err);
+        return throwError(err);
+      })
+    );
+  }
+
 
 }
