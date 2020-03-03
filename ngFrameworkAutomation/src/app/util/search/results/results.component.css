@@ -10,9 +10,7 @@ body {
   background-color: #005580;
   height: 100vh;
 }
-section {
-  overflow: hidden;
-}
+
 
 h1 {
   margin: auto;
@@ -24,32 +22,46 @@ h1 {
   font-weight: 900;
 }
 
-p {
-  overflow: hidden;
-}
+
 
 .row {
-  margin: auto;
+  /* margin: auto; */
+  position: fixed;
+  /* padding-top: 20px; */
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -5;
+  overflow: scroll;
+   background-image:
+   linear-gradient(to bottom,  rgba(40, 40, 40, 0.1),  rgba(40, 40, 40, 1) ),
+   url("https://images.unsplash.com/32/Mc8kW4x9Q3aRR3RkP5Im_IMG_4417.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80")
+   ;
+   background-repeat: no-repeat;
+   background-size: cover;
+
 }
 
 .fade:not(.show) {
   opacity: 1;
 }
 
-#mattsMistake{
+/* #mattsMistake{
   position: absolute;
   top: 0;
-  right: 0;
+
   height: 100%;
   width: 100%;
+} */
+
+.col-sm-12 {
+  padding-top: 100px;
+
 }
 
 .sideBar {
   /* this is the image */
-  position: -webkit-sticky; /* for Safari browser */
-  position: sticky;
-  top: 0;
-  padding-top: 20px;
   /* height: 100%;
   width: 80%; */
   /* background-size: cover; */
@@ -61,6 +73,12 @@ img {
   width: 100%;
 }
 
+#eachRow {
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: visible;
+}
 
 
 /* .card-img {
@@ -72,7 +90,6 @@ img {
   margin-right: 20px;
   margin-left: 10px;
   margin-bottom: 40px;
-  margin-top: 40px;
   padding: 10px 10px;
   box-shadow: 20px 20px 20px #aaa;
   border-radius: 5px;
@@ -91,7 +108,10 @@ h5 {
 p {
   font-family: sans-serif;
   font-weight: 400;
+  letter-spacing: 2px;
+
   color: white;
+  text-shadow: -1px -1px 3px #000,2px 2px 2px #000;
 }
 
 .whole-card:hover {
@@ -101,3 +121,92 @@ p {
 .card {
   margin: 20px 20px;
 }
+.col-sm-2 {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+
+.cards-list {
+  z-index: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.card {
+  overflow: hidden;
+  margin: 30px auto;
+  width: 250px;
+  height: 250px;
+  border-radius: 40px;
+  /* box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22); */
+  box-shadow: 10px 10px 5px black;
+  cursor: pointer;
+  transition: 0.4s;
+
+}
+
+.card .card_image {
+  width: inherit;
+  height: inherit;
+  border-radius: 40px;
+}
+
+.card .card_image img {
+  width: inherit;
+  height: inherit;
+  border-radius: 40px;
+  object-fit: cover;
+}
+
+.card .card_title {
+  text-align: center;
+  border-radius: 0px 0px 40px 40px;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 30px;
+  margin-top: -95px;
+  height: 40px;
+}
+
+.card:hover {
+  transform: scale(1.1, 1.1);
+  box-shadow: 30px 30px 25px black;
+  /* box-shadow: 5px 5px 30px 15px rgba(0,0,0,0.25),
+    -5px -5px 30px 15px rgba(0,0,0,0.22); */
+}
+
+.title-white {
+  color: white;
+}
+
+.title-black {
+  color: black;
+}
+
+@media all and (max-width: 500px) {
+  .card-list {
+    /* On small screens, we are no longer using row direction but column */
+    flex-direction: column;
+  }
+}
+
+
+/*
+.card {
+  margin: 30px auto;
+  width: 300px;
+  height: 300px;
+  border-radius: 40px;
+  background-image: url('https://i.redd.it/b3esnz5ra34y.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-repeat: no-repeat;
+box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22);
+  transition: 0.4s;
+}
+*/
