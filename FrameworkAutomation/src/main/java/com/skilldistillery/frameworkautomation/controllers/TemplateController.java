@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.frameworkautomation.entities.Rating;
 import com.skilldistillery.frameworkautomation.entities.Template;
 import com.skilldistillery.frameworkautomation.entities.TemplateInformation;
 import com.skilldistillery.frameworkautomation.entities.User;
@@ -31,7 +32,7 @@ public class TemplateController {
 
 	@Autowired
 	private UserService userSvc;
-	
+
 	@Autowired
 	private TemplateRepository tempRepo;
 
@@ -39,12 +40,12 @@ public class TemplateController {
 	public List<TemplateInformation> findAllTemplates() {
 		return svc.getAllActiveTemplates(); // gets template names
 	}
-	
+
 	@GetMapping("templates/search/{keyword}")
 	public List<Template> findTemplateByKeyword(@PathVariable String keyword) {
-		return tempRepo.findByNameLike("%"+keyword+"%"); // gets template names
+		return tempRepo.findByNameLike("%" + keyword + "%"); // gets template names
 	}
-	
+
 	@PostMapping("templates")
 	public Template createTemplate(@RequestBody Template template, Principal principal) {
 		User user = userSvc.findByUsername(principal.getName());
@@ -57,7 +58,7 @@ public class TemplateController {
 	}
 
 	@PutMapping("templates/{id}")
-	public Template editTemplate(@PathVariable Integer id,@RequestBody Template template, Principal principal) {
+	public Template editTemplate(@PathVariable Integer id, @RequestBody Template template, Principal principal) {
 		Template oldTemplate = svc.findTemplateById(template.getId());
 		if (oldTemplate.getUser().getUsername().equals(principal.getName())) {
 			Template newTemplate = svc.updateTemplate(template, oldTemplate.getId());
@@ -110,8 +111,8 @@ public class TemplateController {
 			parentTemplate.removeSubTemplate(subTemplate);
 			svc.updateTemplate(parentTemplate, id);
 			svc.updateTemplate(subTemplate, subId);
-			
-			if(subTemplate.getParentTemplates().size() == 0) {
+
+			if (subTemplate.getParentTemplates().size() == 0) {
 				svc.deleteTemplateById(subTemplate.getId());
 			}
 			return parentTemplate;
@@ -119,6 +120,18 @@ public class TemplateController {
 		} else {
 			throw new RuntimeException("You do not own this template");
 		}
+	}
+
+	@PutMapping("templates/{templateId}/rating")
+	public void addRatingToTemplate(Integer templateId, Principal principal) {
+		Template template = svc.findTemplateById(templateId);
+		User user = userSvc.findByUsername(principal.getName());
+		
+		Rating rating = new Rating();
+		rating.setUser(user);
+		rating.setTemplate(template);
+		
+		template.addRating(rating);
 	}
 
 }

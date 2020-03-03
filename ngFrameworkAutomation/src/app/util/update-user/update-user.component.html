@@ -17,34 +17,24 @@
       <div id="logo">
         <h1><a href="#/home">Frame Work Automation</a></h1>
       </div>
-      <form #registerForm = "ngForm">
+      <form>
         <div class="form">
           <div class="form-group row">
             <h2>Personal Information</h2>
           </div>
-        <div class="form-group row inputClass col-xs-2">
-          <label class="username-text">Username</label>
-          <input type="text" class="username-slot form-control" name="username" ngModel>
-        </div>
 
         <div class="form-group row inputClass col-xs-2">
           <label class="email-text">Email</label>
-          <input type="text" class="email-slot form-control" name="email" ngModel>
+          <input type="text" class="email-slot form-control" name="email" [(ngModel)]="user.email" >
         </div>
-
-        <div class="form-group row">
-          <h2>Account Security</h2>
-        </div>
-
         <div class="form-group row inputClass col-xs-2">
-          <label class="password-text">Password</label>
-          <input id="password" type="password" class="password-slot form-control" name="password" ngModel>
-          <span id='message'></span>
+          <label class="email-text">Organization Name</label>
+          <input type="text" class="form-control" name="organizationName" [(ngModel)]="user.organizationName" >
         </div>
 
         <br>
         <div class="form-row">
-        <input type="submit" class="submit-btn" name="submit" value="Create Account" (click) = "register(registerForm)">
+        <input type="submit" class="submit-btn" name="submit" value="Update Account" (click) = "updateUser()">
         </div>
       </div>
       </form>

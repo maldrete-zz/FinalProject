@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { TemplateInfo } from '../entities/templateInfo/template-info';
 
 
 @Injectable({
@@ -17,30 +18,9 @@ export class TemplateService {
   private url = environment.baseUrl + 'api/templates';
   constructor(private http: HttpClient, private authSvc: AuthService) { }
   // M e t h o d s
-  index(): Observable<Template[]> {
-    const credentials = this.authSvc.getCredentials();
-    const options = {
-      headers: {
-        Authorization: 'Basic ' + credentials
-      }
-    };
-    return this.http.get<Template[]>(this.url, options).pipe(
-      catchError((err: any) => {
-        console.log('templateService.index(): Error retrieving list');
-        console.error(err);
-        return throwError(err);
-      })
-    );
-  }
+  index(): Observable<TemplateInfo[]> {
 
-  keyword(keyword: string): Observable<Template[]> {
-    const credentials = this.authSvc.getCredentials();
-    const options = {
-      headers: {
-        Authorization: 'Basic ' + credentials
-      }
-    };
-    return this.http.get<Template[]>(this.url + '/search/' + keyword).pipe(
+    return this.http.get<TemplateInfo[]>(this.url).pipe(
       catchError((err: any) => {
         console.log('templateService.index(): Error retrieving list');
         console.error(err);
@@ -50,7 +30,21 @@ export class TemplateService {
   }
 
 
-
+  keyword(keyword: string): Observable<TemplateInfo[]> {
+    const credentials = this.authSvc.getCredentials();
+    const options = {
+      headers: {
+        Authorization: 'Basic ' + credentials
+      }
+    };
+    return this.http.get<TemplateInfo[]>(this.url + '/search/' + keyword).pipe(
+      catchError((err: any) => {
+        console.log('templateService.index(): Error retrieving list');
+        console.error(err);
+        return throwError(err);
+      })
+    );
+  }
 
   show(id: number): Observable<Template> {
     const credentials = this.authSvc.getCredentials();
@@ -124,14 +118,14 @@ export class TemplateService {
       })
     );
   }
-  addSubtemplate(id:number,subId:number): Observable<Template> {
+  addSubtemplate(id: number, subId: number): Observable<Template> {
     const credentials = this.authSvc.getCredentials();
     const options = {
       headers: {
         Authorization: 'Basic ' + credentials
       }
     };
-    return this.http.put<Template>(this.url + '/' + id +"/subtemplates/" + subId,"",options).pipe(
+    return this.http.put<Template>(this.url + '/' + id + "/subtemplates/" + subId, "", options).pipe(
       catchError((err: any) => {
         console.log('addSubtemplate.update(): Error updating template');
         console.error(err);
@@ -139,14 +133,14 @@ export class TemplateService {
       })
     );
   }
-  removeSubtemplate(id:number,subId:number): Observable<Template> {
+  removeSubtemplate(id: number, subId: number): Observable<Template> {
     const credentials = this.authSvc.getCredentials();
     const options = {
       headers: {
         Authorization: 'Basic ' + credentials
       }
     };
-    return this.http.delete<Template>(this.url + '/' + id +"/subtemplates/" + subId,options).pipe(
+    return this.http.delete<Template>(this.url + '/' + id + "/subtemplates/" + subId, options).pipe(
       catchError((err: any) => {
         console.log('addSubtemplate.update(): Error updating template');
         console.error(err);
@@ -154,5 +148,22 @@ export class TemplateService {
       })
     );
   }
+
+  likeTemplate(id: number) {
+    const credentials = this.authSvc.getCredentials();
+    const options = {
+      headers: {
+        Authorization: 'Basic ' + credentials
+      }
+    };
+    return this.http.post<Boolean>(environment.baseUrl + 'api/me/rating/' + id, options).pipe(
+      catchError((err: any) => {
+        console.log('liketemplate(): Error adding like to rating');
+        console.error(err);
+        return throwError(err);
+      })
+    );
+  }
+
 
 }
