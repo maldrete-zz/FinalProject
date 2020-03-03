@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 
 import { catchError, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -13,7 +14,8 @@ import { User } from '../entities/user/user';
 export class AuthService {
   private url = environment.baseUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private router: Router) { }
 
   login(username: string, password: string) {
     // Make credentials
@@ -54,6 +56,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('credentials');
+    this.router.navigateByUrl("/home");
   }
 
   checkLogin() {

@@ -27,6 +27,7 @@ export class NavigationComponent implements OnInit {
 
   logout() {
     this.authSvc.logout();
+    this.router.navigateByUrl("/home");
   }
 
   login() {
@@ -34,7 +35,7 @@ export class NavigationComponent implements OnInit {
     console.log(this.password);
     this.authSvc.login(this.username, this.password).subscribe(
       success => {
-        this.router.navigateByUrl('/userProfile');
+        this.router.navigateByUrl('/results');
 
         console.log(success);
         console.log(this.user);
