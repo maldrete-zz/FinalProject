@@ -77,14 +77,17 @@ export class GenerateComponent implements OnInit {
   */
 
 
-
-  constructor(private http: HttpClient, private currentroute: ActivatedRoute, private svc: TemplateService,
-    private parser : ParseTemplateHelperService,    private pipeManager      : PipeManagerService) { }
-
-
-
   ngOnInit(): void {
   }
+
+  constructor(
+    private httpc                    : HttpClient,
+    private currentroute             : ActivatedRoute,
+    private svc                      : TemplateService,
+    private parser                   : ParseTemplateHelperService,
+    private pipeManager              : PipeManagerService
+    ){}
+
 
   compileTemplates() {
     let results                   = this.parser.compileAllTemplates(this.template,this.currentIncrementalsCount,this.formMap);
@@ -138,6 +141,23 @@ export class GenerateComponent implements OnInit {
     this.currentIncrementalsCount[key]++;
     this.compileTemplates();
 
+  }
+
+
+
+
+
+  showNav(){
+    let sliders =  document.getElementsByClassName("slider");
+    for(let i = 0; i < sliders.length;i++){
+      sliders[i].classList.add("active");
+    }
+  }
+  hideNav(){
+    let sliders =  document.getElementsByClassName("slider");
+    for(let i = 0; i < sliders.length;i++){
+      sliders[i].classList.remove("active");
+    }
   }
 
 

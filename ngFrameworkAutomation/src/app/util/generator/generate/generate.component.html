@@ -1,55 +1,152 @@
-<div class="row">
-
-  <div class="col-sm-1"></div>
-  <button type="button" class="btn btn-outline-info">Like</button>
-  <div class="col-sm-4">
-    <form #fieldForm="ngForm">
-      <div class="form-group" *ngFor="let key of getKeys();let i = index;">
-        {{ key | form }}
-        <input
-          class="form-control"
-          type="text"
-          [name]="key"
-          placeholder="{{formPlaceholders[key]}}"
-          [(ngModel)]="formMap[key]"
-          (keyup)="assembleFullContent()"
-        />
-      </div>
-      <div class="form-group" *ngFor="let key of getAddButtons();">
-        <input type="button" value="Add {{key | form}}" (click)="addField(key)">
-      </div>
 
 
-
-      <!-- <input
-        type="submit"
-        value="submit me morty"
-        (click)="assembleFullContent()"
-      /> -->
-    </form>
-  </div>
-  <div class="col-sm-1"></div>
-<div class="col-sm-5 code-editor">
-  <app-text-editor ></app-text-editor>
+<!-- <div>
+  <div class="empty-nav"></div>
+  <nav class="nav-bar">
+    <div class="nav-logo">FWA</div>
+  </nav>
+</div> -->
+<div class="menu-button" (click)="showNav()">
+<div></div>
+<div></div>
+<div></div>
 </div>
 
-    <!-- <div class="col-sm-1"></div>
-    <div class="col-sm-5 code-editor">
-      <app-text-editor></app-text-editor>
-    </div> -->
+<div class="home-slider slider"><button (click)="hideNav()">here</button></div>
+<div class="register-slider slider"></div>
+<div class="search-slider slider"></div>
+<div class="create-slider slider"></div>
 
-    <!-- <div class="col-sm-6 code-editor" #codeEditor ></div> -->
 
-    <!-- <div class="col-sm-6">
-    <ace
-      [mode]="'java'"
-      [theme]="'solarized_dark'"
-      [value]="finalContent"
-    ></ace>
-  </div> -->
+
+
+<div class="main-container">
+  <div class="row">
+    <div class="col-sm-5">
+      <section class="form-section page-section">
+        <div>
+        <form #fieldForm="ngForm" class="field-form row">
+          <h3 class="form-prompt">Fill out the form to generate code</h3>
+          <div class="form-group col-sm-6" *ngFor="let key of getKeys(); let i = index">
+            <div class="form-entry">
+              <label for="key" class="form-prompt">
+                {{ key | form }}
+              </label>
+            <input
+              class="form-control"
+              type="text"
+              [name]="key"
+              placeholder="{{ formPlaceholders[key] }}"
+              [(ngModel)]="formMap[key]"
+              (keyup)="assembleFullContent()"
+            />
+          </div>
+          </div>
+          <div *ngFor="let key of getAddButtons()">
+            <input
+              type="button"
+              class="btn btn-primary"
+              value="Add {{ key | form }}"
+              (click)="addField(key)"
+            />
+          </div>
+        </form>
+        <button type="button" class="btn btn-outline-info">Like</button>
+      </div>
+      </section>
+    </div>
+
+    <div class="col-sm-7">
+      <section class="text-editor-section page-section row">
+        <div class="editor-top-spacing"></div>
+        <div class="editor-navigator col-sm-3">
+          <div class="editor-navigator-title">Templates</div>
+
+          <div class="accordion">
+            <div>
+              <div
+                class="editor-nav-header"
+                data-toggle="collapse"
+                data-target="#collapseZero"
+                aria-expanded="true"
+                aria-controls="collapseZero"
+              >
+                Current Template Options
+              </div>
+              <div
+                id="collapseZero"
+                class="collapse"
+                aria-labelledby="headingOne"
+                data-parent="#accordionExample"
+              >
+                <div class="card-body">
+                  <div class="editor-nav-content">Form</div>
+                  <div class="editor-nav-content">Description</div>
+                  <div class="editor-nav-content">Instructions</div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                class="editor-nav-header"
+                data-toggle="collapse"
+                data-target="#collapseOne"
+                aria-expanded="true"
+                aria-controls="collapseOne"
+              >
+                My Templates
+              </div>
+              <div
+                id="collapseOne"
+                class="collapse"
+                aria-labelledby="headingOne"
+                data-parent="#accordionExample"
+              >
+                <div class="card-body">
+                  <div class="editor-nav-content">template1</div>
+                  <div class="editor-nav-content">template1</div>
+                  <div class="editor-nav-content">template1</div>
+                  <div class="editor-nav-content">template1</div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                class="editor-nav-header"
+                data-toggle="collapse"
+                data-target="#collapseTwo"
+                aria-expanded="true"
+                aria-controls="collapseTwo"
+              >
+                Liked Templates
+              </div>
+
+              <div
+                id="collapseTwo"
+                class="collapse"
+                aria-labelledby="headingOne"
+                data-parent="#accordionExample"
+              >
+                <div class="card-body">
+                  <div class="editor-nav-content">template2</div>
+                  <div class="editor-nav-content">template2</div>
+                  <div class="editor-nav-content">template2</div>
+                  <div class="editor-nav-content">template2</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="editor-backdrop col-sm-9">
+          <div class="row">
+            <div class="te-tab col-sm-2">Tab Name</div>
+          </div>
+          <div class="file-title-div"></div>
+          <div class="text-editor-div">
+            <app-text-editor></app-text-editor>
+          </div>
+        </div>
+      </section>
+    </div>
   </div>
-
-  <!-- <p>
-  {{ template.content }}
-</p> -->
-
+</div>

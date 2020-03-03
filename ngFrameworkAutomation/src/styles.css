@@ -12,3 +12,148 @@ body{
   overflow-x: hidden;
 }
 
+
+/* Theme */
+.ace_layer .ace_gutter {
+  background: #00223B;
+  color: rgb(124,141,151)
+}
+
+.ace_layer .ace_print-margin {
+  width: 1px;
+  background: #e8e8e8;
+  display: none;
+}
+
+/* .ace_layer {
+  background-color: #00223B;
+  color: #F8F8F2
+} */
+
+.ace_layer .ace_cursor {
+  color: #F8F8F0
+}
+
+.ace_layer .ace_marker-layer .ace_selection {
+  background: #515151
+}
+
+.ace_layer.ace_multiselect .ace_selection.ace_start {
+  box-shadow: 0 0 3px 0px #00223B;
+  border-radius: 2px
+}
+
+.ace_layer .ace_marker-layer .ace_step {
+  background: rgb(198, 219, 174)
+}
+
+.ace_layer .ace_marker-layer .ace_bracket {
+  margin: -1px 0 0 -1px;
+  border: 1px solid #3B3A32
+}
+
+.ace_layer .ace_marker-layer .ace_active-line {
+  background: rgba(92, 75, 75, 0.33)
+}
+
+.ace_layer .ace_gutter-active-line {
+  background-color: rgba(92, 75, 75, 0.33)
+}
+
+.ace_layer .ace_marker-layer .ace_selected-word {
+  border: 1px solid #515151
+}
+
+.ace_layer .ace_fold {
+  background-color: #0BC4F0;
+  border-color: #F8F8F2
+}
+
+.ace_layer .ace_keyword {
+  color: #C7752E
+}
+
+.ace_layer .ace_constant.ace_language {
+  color: #ff8942
+}
+
+.ace_layer .ace_constant.ace_numeric {
+  color: #fdb082
+}
+
+.ace_layer .ace_constant.ace_character {
+  color: #fdb082
+}
+
+.ace_layer .ace_constant.ace_other {
+  color: #fdb082
+}
+
+.ace_layer .ace_support.ace_function {
+  color: #6699cc
+}
+
+.ace_layer .ace_support.ace_constant {
+  color: #ecfdb9
+}
+
+.ace_layer .ace_support.ace_class {
+  color: #FB61C2
+}
+
+.ace_layer .ace_support.ace_type {
+  color: #FB61C2
+}
+
+.ace_layer .ace_storage {
+  color: #ff5e5e
+}
+
+.ace_layer .ace_storage.ace_type {
+  font-style: italic;
+  color: #FAC678
+}
+
+.ace_layer .ace_invalid {
+  color: #F8F8F0;
+  background-color: #f92649
+}
+
+.ace_layer .ace_invalid.ace_deprecated {
+  color: #F8F8F0;
+  background-color: #ff9664
+}
+
+.ace_layer .ace_string {
+  color: #5CA85B
+}
+
+.ace_layer .ace_comment {
+  color: #A6A6A6
+}
+
+.ace_layer .ace_variable {
+  color: #FF7A54
+}
+
+.ace_layer .ace_variable.ace_parameter {
+  font-style: italic;
+  color: #fc9354
+}
+
+.ace_layer .ace_entity.ace_other.ace_attribute-name {
+  color: #97d8ea
+}
+
+.ace_layer .ace_entity.ace_name.ace_function {
+  color: #0BC4F0
+}
+
+.ace_layer .ace_entity.ace_name.ace_tag {
+  color: #ff5e5e
+}
+
+.ace_layer .ace_identifier {
+  color: #ff5e5e
+}
+

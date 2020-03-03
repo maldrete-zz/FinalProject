@@ -7,13 +7,13 @@ import 'brace/theme/solarized_dark';
 import * as ace from 'ace-builds'; // ace module ..
 // language package, choose your own
 import 'ace-builds/src-noconflict/mode-java';
+import 'ace-builds/src-noconflict/theme-dawn';
 // ui-theme package
-import 'ace-builds/src-noconflict/theme-idle_fingers';
+
 import 'ace-builds/src-noconflict/ext-language_tools';
 
-const THEME = 'ace/theme/idle_fingers';
 const LANG = 'ace/mode/java';
-
+const THEME = 'ace/theme/dawn';
 
 
 
