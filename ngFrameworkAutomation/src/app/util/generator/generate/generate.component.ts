@@ -20,6 +20,7 @@ import { PipeManagerService } from '../myPipes/pipe-manager.service';
   templateUrl: './generate.component.html',
   styleUrls: ['./generate.component.css']
 })
+
 export class GenerateComponent implements OnInit {
   @ViewChild(TextEditorComponent) textEditorComponent: TextEditorComponent;
   ngAfterViewInit() {
@@ -48,13 +49,17 @@ export class GenerateComponent implements OnInit {
   capturedFieldNames = [];
   textEditorContent = '';
   subtemplates = {};
+
+  buttonName = 'Like';
+
   currentIncrementalsCount = {};
+
 
   //InitiatePipes so we dont have to create it every time of use
   LCCPipeInstance = new LCCPipe(); // Lower Camel Case
   UCCPipeInstance = new UCCPipe(); // Upper Camel Case
 
-  formList =[];
+  formList = [];
 
 
 
@@ -77,6 +82,8 @@ export class GenerateComponent implements OnInit {
   */
 
 
+
+
   ngOnInit(): void {
   }
 
@@ -90,33 +97,33 @@ export class GenerateComponent implements OnInit {
 
 
   compileTemplates() {
-    let results                   = this.parser.compileAllTemplates(this.template,this.currentIncrementalsCount,this.formMap);
-    this.formMap                  = results.formMap;
-    this.formList                 = Object.getOwnPropertyNames(this.formMap);
-    this.nonRegexStrings          = results.nonRegexStrings;
-    this.capturedFieldNames       = results.capturedFieldNames;
+
+    let results = this.parser.compileAllTemplates(this.template, this.currentIncrementalsCount, this.formMap);
+    this.formMap = results.formMap;
+    this.formList = Object.getOwnPropertyNames(this.formMap);
+    this.nonRegexStrings = results.nonRegexStrings;
+    this.capturedFieldNames = results.capturedFieldNames;
     this.currentIncrementalsCount = results.potentialIncrementals;
     this.assemblePlaceholders();
     this.assembleFullContent();
   }
 
-
   getKeys(): string[] {
     return this.formList;
   }
+
   getAddButtons(): string[] {
     return Object.getOwnPropertyNames(this.currentIncrementalsCount);
   }
 
 
-  assemblePlaceholders(){
+  assemblePlaceholders() {
+
     let formKey = this.getKeys();
     for (let i = 0; i < formKey.length; i++) {
-      this.formPlaceholders[formKey[i]] = "input"+i;
+      this.formPlaceholders[formKey[i]] = "input" + i;
     }
   }
-
-
 
 
 
@@ -124,26 +131,43 @@ export class GenerateComponent implements OnInit {
     this.textEditorContent = '';
     for (let i = 0; i < this.capturedFieldNames.length; i++) {
       this.textEditorContent += this.nonRegexStrings[i];
-      let fieldName           = this.capturedFieldNames[i].findId;
-      let pipeName            = this.capturedFieldNames[i].pipe;
-      let rawUserInput        = this.formMap[fieldName];
-      if (rawUserInput == "")   {rawUserInput = this.formPlaceholders[fieldName]};
-      let pipe                = this.pipeManager.getPipe(pipeName);
-      let captueReplacement   = pipe(rawUserInput);
+      let fieldName = this.capturedFieldNames[i].findId;
+      let pipeName = this.capturedFieldNames[i].pipe;
+      let rawUserInput = this.formMap[fieldName];
+      if (rawUserInput == "") { rawUserInput = this.formPlaceholders[fieldName] };
+      let pipe = this.pipeManager.getPipe(pipeName);
+      let captueReplacement = pipe(rawUserInput);
       this.textEditorContent += captueReplacement;
     }
-    this.textEditorContent   += this.nonRegexStrings[this.nonRegexStrings.length - 1];
+    this.textEditorContent += this.nonRegexStrings[this.nonRegexStrings.length - 1];
     this.codeEditor.setValue(this.textEditorContent, -1);
   }
 
 
-  addField(key:string){
+
+  addLike(template: Template) {
+    console.log(template);
+    console.log(this.template);
+    this.svc.likeTemplate(template.id).subscribe(
+      data => {
+        console.log(data);
+        if (!data) {
+          this.buttonName = 'Like'
+        } else if (data) {
+          this.buttonName = 'unlike'
+        }
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
+
+  addField(key: string) {
     this.currentIncrementalsCount[key]++;
     this.compileTemplates();
 
   }
-
-
 
 
 

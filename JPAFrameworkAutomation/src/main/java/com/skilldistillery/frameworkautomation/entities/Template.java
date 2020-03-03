@@ -70,6 +70,7 @@ public class Template {
 	@ManyToMany(mappedBy = "subTemplates")
 	private List<Template> parentTemplates;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "template")
 	private List<Rating> ratings;
 

@@ -16,5 +16,9 @@ public interface UserService {
 	
 	public User findByUsername(String username);
 	
+	public Boolean addRating(String username, Integer templateId);
+	
+	public Boolean removeRating(String username, Integer templateId);
+	
 
 }
