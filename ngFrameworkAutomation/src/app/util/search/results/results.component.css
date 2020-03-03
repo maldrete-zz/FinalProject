@@ -108,6 +108,8 @@ h5 {
 p {
   font-family: sans-serif;
   font-weight: 400;
+  letter-spacing: 2px;
+
   color: white;
   text-shadow: -1px -1px 3px #000,2px 2px 2px #000;
 }
@@ -144,6 +146,7 @@ p {
   box-shadow: 10px 10px 5px black;
   cursor: pointer;
   transition: 0.4s;
+
 }
 
 .card .card_image {
