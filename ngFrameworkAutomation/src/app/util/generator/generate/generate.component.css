@@ -8,18 +8,24 @@ height: 100vh;
   color: #000;
 }
 .form-section{
-  background-image: linear-gradient(to right, rgb(255, 244, 253), rgba(8, 34, 57, 1));
+  background-color: rgb(255, 255, 255);
+  /* background-image: linear-gradient(to right, rgb(255, 244, 253), rgba(8, 34, 57, 1)); */
   height: 100vh;
   overflow: scroll;
   display: block;
 }
 .field-form{
   background-color: rgb(255, 255, 255);
-  padding: 20px;
+  padding: 35px;
   margin: 20px;
-  border-radius: 10px;
-  box-shadow: 10px 10px 15px #000;
+  box-shadow: 10px 10px 15px #0005;
+  transition: 2s;
   height: 100%;
+}
+.field-form:hover{
+  transform: scale(1.02,1.02);
+  box-shadow: 14px 14px 20px #0005;
+
 }
 
 div{
