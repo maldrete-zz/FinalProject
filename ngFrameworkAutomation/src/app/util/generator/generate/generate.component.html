@@ -1,17 +1,13 @@
-
 <div class="menu-button" (click)="showNav()">
-<div></div>
-<div></div>
-<div></div>
+  <div></div>
+  <div></div>
+  <div></div>
 </div>
 
 <div class="home-slider slider"><button (click)="hideNav()">Back</button></div>
 <div class="register-slider slider">
-
   <div class="round-icon-holder">
-
     <div class="home-icon"></div>
-
   </div>
   <h3>Edit Profile</h3>
 </div>
@@ -22,40 +18,42 @@
   <h3>Create Template</h3>
 </div>
 
-
 <div class="main-container">
   <div class="row">
     <div class="col-sm-5">
       <section class="form-section page-section">
         <div>
-        <form #fieldForm="ngForm" class="field-form row">
-          <h3 class="form-prompt">Fill out the form to generate code</h3> <button type="button" class="btn btn-outline-info">Like</button>
-          <div class="form-group col-sm-6" *ngFor="let key of getKeys(); let i = index">
-            <div class="form-entry">
-              <label for="key" class="form-prompt">
-                {{ key | form }}
-              </label>
-            <input
-              class="form-control"
-              type="text"
-              [name]="key"
-              placeholder="{{ formPlaceholders[key] }}"
-              [(ngModel)]="formMap[key]"
-              (keyup)="assembleFullContent()"
-            />
-          </div>
-          </div>
-          <div *ngFor="let key of getAddButtons()">
-            <input
-              type="button"
-              class="btn btn-primary"
-              value="Add {{ key | form }}"
-              (click)="addField(key)"
-            />
-          </div>
-        </form>
-
-      </div>
+          <form #fieldForm="ngForm" class="field-form row">
+            <h3 class="form-prompt">Fill out the form to generate code</h3>
+            <button type="button" class="btn btn-outline-info">Like</button>
+            <div
+              class="form-group col-sm-6"
+              *ngFor="let key of getKeys(); let i = index"
+            >
+              <div class="form-entry">
+                <label for="key" class="form-prompt">
+                  {{ key | form }}
+                </label>
+                <input
+                  class="form-control"
+                  type="text"
+                  [name]="key"
+                  placeholder="{{ formPlaceholders[key] }}"
+                  [(ngModel)]="formMap[key]"
+                  (keyup)="assembleFullContent()"
+                />
+              </div>
+            </div>
+            <div *ngFor="let key of getAddButtons()">
+              <input
+                type="button"
+                class="btn btn-primary"
+                value="Add {{ key | form }}"
+                (click)="addField(key)"
+              />
+            </div>
+          </form>
+        </div>
       </section>
     </div>
 
