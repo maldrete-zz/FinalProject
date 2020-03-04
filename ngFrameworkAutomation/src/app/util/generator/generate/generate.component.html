@@ -4,16 +4,29 @@
   <div></div>
 </div>
 
-<div class="home-slider slider"><button (click)="hideNav()">here</button></div>
-<div class="register-slider slider"></div>
-<div class="search-slider slider"></div>
-<div class="create-slider slider"></div>
+<div class="home-slider slider"><button (click)="hideNav()">Back</button></div>
+<div class="register-slider slider">
+
+  <div class="round-icon-holder">
+
+    <div class="home-icon"></div>
+
+  </div>
+  <h3>Edit Profile</h3>
+</div>
+<div class="search-slider slider">
+  <h3>Search Templates</h3>
+</div>
+<div class="create-slider slider">
+  <h3>Create Template</h3>
+</div>
 
 <div class="main-container">
   <div class="row">
     <div class="col-sm-5">
       <section class="form-section page-section">
         <div>
+<<<<<<< HEAD
           <form #fieldForm="ngForm" class="field-form row">
             <h3 class="form-prompt">Fill out the form to generate code</h3>
             <div
@@ -46,13 +59,40 @@
           <div *ngIf="displayBtnIfLoggedIn()">
             <button
               (click)="addLike(template.id)"
+=======
+        <form #fieldForm="ngForm" class="field-form row">
+          <h3 class="form-prompt">Fill out the form to generate code</h3> <button type="button" class="btn btn-outline-info">Like</button>
+          <div class="form-group col-sm-6" *ngFor="let key of getKeys(); let i = index">
+            <div class="form-entry">
+              <label for="key" class="form-prompt">
+                {{ key | form }}
+              </label>
+            <input
+              class="form-control"
+              type="text"
+              [name]="key"
+              placeholder="{{ formPlaceholders[key] }}"
+              [(ngModel)]="formMap[key]"
+              (keyup)="assembleFullContent()"
+            />
+          </div>
+          </div>
+          <div *ngFor="let key of getAddButtons()">
+            <input
+>>>>>>> 19920704c2bca262ccbc365bd6ec9113a4f81388
               type="button"
               class="btn btn-outline-info"
             >
               {{ buttonName }}
             </button>
           </div>
+<<<<<<< HEAD
         </div>
+=======
+        </form>
+
+      </div>
+>>>>>>> 19920704c2bca262ccbc365bd6ec9113a4f81388
       </section>
     </div>
 
