@@ -11,6 +11,8 @@ import { UCCPipe } from '../myPipes/ucc.pipe';
 import { Ace } from 'ace-builds';
 import { ParseTemplateHelperService } from '../parse-template-helper.service';
 import { PipeManagerService } from '../myPipes/pipe-manager.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { TemplateInfo } from 'src/app/entities/templateInfo/template-info';
 
 
 
@@ -50,9 +52,10 @@ export class GenerateComponent implements OnInit {
   textEditorContent = '';
   subtemplates = {};
 
-  buttonName = 'Like';
-
+  buttonName = 'ike';
   currentIncrementalsCount = {};
+  tempInfo: TemplateInfo = new TemplateInfo();
+
 
 
   //InitiatePipes so we dont have to create it every time of use
@@ -85,15 +88,24 @@ export class GenerateComponent implements OnInit {
 
 
   ngOnInit(): void {
+    if (this.buttonName) {
+      this.buttonName = 'Like'
+    } else {
+      this.buttonName = 'Unlike';
+    }
+
+    // this.getTempInf.id);
+
   }
 
   constructor(
-    private httpc                    : HttpClient,
-    private currentroute             : ActivatedRoute,
-    private svc                      : TemplateService,
-    private parser                   : ParseTemplateHelperService,
-    private pipeManager              : PipeManagerService
-    ){}
+    private httpc: HttpClient,
+    private currentroute: ActivatedRoute,
+    private svc: TemplateService,
+    private parser: ParseTemplateHelperService,
+    private pipeManager: PipeManagerService,
+    private authSvc: AuthService
+  ) { }
 
 
   compileTemplates() {
@@ -143,12 +155,25 @@ export class GenerateComponent implements OnInit {
     this.codeEditor.setValue(this.textEditorContent, -1);
   }
 
-
-
-  addLike(template: Template) {
-    console.log(template);
+  getTempInfo(id: number) {
+    console.log('heello');
     console.log(this.template);
-    this.svc.likeTemplate(template.id).subscribe(
+    this.svc.getTemplateInformation(this.template.id).subscribe(
+      data => {
+        console.log(data);
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
+
+
+
+
+  addLike(id: number) {
+    console.log(this.tempInfo);
+    this.svc.likeTemplate(this.template.id).subscribe(
       data => {
         console.log(data);
         if (!data) {
@@ -171,17 +196,22 @@ export class GenerateComponent implements OnInit {
 
 
 
-  showNav(){
-    let sliders =  document.getElementsByClassName("slider");
-    for(let i = 0; i < sliders.length;i++){
+  showNav() {
+    let sliders = document.getElementsByClassName("slider");
+    for (let i = 0; i < sliders.length; i++) {
       sliders[i].classList.add("active");
     }
   }
-  hideNav(){
-    let sliders =  document.getElementsByClassName("slider");
-    for(let i = 0; i < sliders.length;i++){
+  hideNav() {
+    let sliders = document.getElementsByClassName("slider");
+    for (let i = 0; i < sliders.length; i++) {
       sliders[i].classList.remove("active");
     }
+  }
+
+  displayBtnIfLoggedIn(): boolean {
+    return this.authSvc.checkLogin();
+
   }
 
 

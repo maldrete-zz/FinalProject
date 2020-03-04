@@ -166,5 +166,24 @@ export class TemplateService {
     );
   }
 
+  getTemplateInformation(id: number): Observable<TemplateInfo> {
+    const credentials = this.authSvc.getCredentials();
+    const options = {
+      headers: {
+        Authorization: 'Basic ' + credentials
+      }
+    };
+    console.log(environment.baseUrl + 'api/templateInformation/' + id);
+    return this.http.get<TemplateInfo>(environment.baseUrl + 'api/templateInformation/' + id, options).pipe(
+      catchError((err: any) => {
+        console.log('getTemplateInformation(): Error adding like to rating');
+        console.error(err);
+        return throwError(err);
+      })
+    );
+  }
+
+
+
 
 }
