@@ -29,7 +29,7 @@
       <section class="form-section page-section">
         <div>
         <form #fieldForm="ngForm" class="field-form row">
-          <h3 class="form-prompt">Fill out the form to generate code</h3>
+          <h3 class="form-prompt">Fill out the form to generate code</h3> <button type="button" class="btn btn-outline-info">Like</button>
           <div class="form-group col-sm-6" *ngFor="let key of getKeys(); let i = index">
             <div class="form-entry">
               <label for="key" class="form-prompt">
@@ -54,7 +54,7 @@
             />
           </div>
         </form>
-        <button type="button" class="btn btn-outline-info">Like</button>
+
       </div>
       </section>
     </div>
