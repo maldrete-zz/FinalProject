@@ -11,7 +11,6 @@ body {
   height: 100vh;
 }
 
-
 h1 {
   margin: auto;
   color: #e6b800;
@@ -22,7 +21,40 @@ h1 {
   font-weight: 900;
 }
 
+.form-control {
+  width: 30%;
+  margin: auto;
+  background-color: white;
+  opacity: 0.8;
+  color: white;
+  text-shadow: 2px 2px 2px black;
+  background-color: transparent;
+}
 
+.no-outline:focus {
+  outline: none;
+}
+
+input {
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-radius: 0px;
+  color: white;
+}
+
+::placeholder {
+  color: white;
+}
+
+input:focus {
+  border-bottom: 4px solid white;
+  box-shadow: 0 1px 0 0 black;
+}
+
+.md-form {
+  background-color: transparent;
+}
 
 .row {
   /* margin: auto; */
@@ -34,38 +66,22 @@ h1 {
   right: 0;
   z-index: -5;
   overflow: scroll;
-   background-image:
-   linear-gradient(to bottom,  rgba(40, 40, 40, 0.1),  rgba(40, 40, 40, 1) ),
-   url("https://images.unsplash.com/32/Mc8kW4x9Q3aRR3RkP5Im_IMG_4417.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80")
-   ;
-   background-repeat: no-repeat;
-   background-size: cover;
-
+  background-image: linear-gradient(
+      to bottom,
+      rgba(40, 40, 40, 0.1),
+      rgba(40, 40, 40, 1)
+    ),
+    url("https://images.unsplash.com/32/Mc8kW4x9Q3aRR3RkP5Im_IMG_4417.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .fade:not(.show) {
   opacity: 1;
 }
 
-/* #mattsMistake{
-  position: absolute;
-  top: 0;
-
-  height: 100%;
-  width: 100%;
-} */
-
 .col-sm-12 {
   padding-top: 100px;
-
-}
-
-.sideBar {
-  /* this is the image */
-  /* height: 100%;
-  width: 80%; */
-  /* background-size: cover; */
-  /* background-attachment: fixed; */
 }
 
 img {
@@ -80,7 +96,6 @@ img {
   overflow: visible;
 }
 
-
 /* .card-img {
   max
 } */
@@ -94,14 +109,13 @@ img {
   box-shadow: 20px 20px 20px #aaa;
   border-radius: 5px;
   background: dodgerblue;
-
 }
 
 h5 {
   font-family: sans-serif;
   font-weight: bold;
   color: white;
-  letter-spacing: .1em;
+  letter-spacing: 0.1em;
   word-spacing: 1px;
 }
 
@@ -111,7 +125,7 @@ p {
   letter-spacing: 2px;
 
   color: white;
-  text-shadow: -1px -1px 3px #000,2px 2px 2px #000;
+  text-shadow: -1px -1px 3px #000, 2px 2px 2px #000;
 }
 
 .whole-card:hover {
@@ -126,7 +140,6 @@ p {
   top: 0;
   height: 100vh;
 }
-
 
 .cards-list {
   z-index: 0;
@@ -146,7 +159,6 @@ p {
   box-shadow: 10px 10px 5px black;
   cursor: pointer;
   transition: 0.4s;
-
 }
 
 .card .card_image {
@@ -193,7 +205,6 @@ p {
     flex-direction: column;
   }
 }
-
 
 /*
 .card {
