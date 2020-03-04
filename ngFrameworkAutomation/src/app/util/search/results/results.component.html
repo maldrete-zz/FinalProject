@@ -1,80 +1,38 @@
-<app-navigation></app-navigation>
+<!-- <app-navigation></app-navigation> -->
 <section class="row">
-  <!-- <div class="col-sm-2">
-    <div id="mattsMistake">
-    <img
-      class="sideBar"
-      src="https://images.unsplash.com/photo-1531315630201-bb15abeb1653?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2775&q=80"
-      alt=""
-    />
-  </div>
-  </div> -->
-
   <div class="col-sm-12">
-    <!-- uncomment code before once we get the list of getting started templates-->
-    <!-- <li >{{ template.name }}</li> -->
-
-    <!-- <div class="row">
-      <div *ngFor="let template of listOfTemplates; let i = index">
-        <div class="card" style="width: 18rem;">
-          <img
-            src="{{ selectTemplateImage(template) }}"
-            class="card-img-top"
-            alt="..."
-          />
-          <div class="card-body">
-            <p class="card-text">
-              {{ template.name }}
-            </p>
+    <div class="md-form mt-0">
+      <input
+        name="searchBarText"
+        class="form-control no-outline"
+        type="text"
+        placeholder="Search"
+        aria-label="Search"
+        [(ngModel)]="searchBarText"
+        (keyup)="keywordSearch(searchBarText)"
+      />
+    </div>
+    <div id="eachRow">
+      <div class="cards-list">
+        <div
+          class="card"
+          *ngFor="let template of listOfTemplates"
+          (click)="goToTemplatePage(template.id)"
+        >
+          <div class="card_image">
+            <img src="{{ selectTemplateImage(template) }}" />
+          </div>
+          <div class="card_title title-white">
+            <p>{{ template.name }}</p>
           </div>
         </div>
       </div>
     </div>
-  </div> -->
+  </div>
+</section>
 
-    <div id="eachRow">
-      <!-- ****************************************************** -->
-      <div class="cards-list"
-      >
-
-        <div class="card" *ngFor="let template of listOfTemplates">
-          <div class="card_image"> <img src="{{ selectTemplateImage(template) }}" /> </div>
-          <div class="card_title title-white">
-            <p>{{template.name}}</p>
-          </div>
-        </div>
-
-          <!-- <div class="card 2">
-          <div class="card_image">
-            <img src="https://cdn.blackmilkclothing.com/media/wysiwyg/Wallpapers/PhoneWallpapers_FloralCoral.jpg" />
-            </div>
-          <div class="card_title title-white">
-            <p>Card Title</p>
-          </div>
-        </div>
-
-        <div class="card 3">
-          <div class="card_image">
-            <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80" />
-          </div>
-          <div class="card_title">
-            <p>Card Title</p>
-          </div>
-        </div>
-
-          <div class="card 4">
-          <div class="card_image">
-            <img src="https://images.unsplash.com/photo-1525605131152-d0d171450b47?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80" />
-            </div>
-          <div class="card_title title-black">
-            <p>Card Title</p>
-          </div>
-          </div> -->
-
-        </div>
-
-      <!-- ****************************************************** -->
-      <!-- <div
+<!-- ****************************************************** -->
+<!-- <div
         class="fade col-md-12 whole-card"
         *ngFor="let template of listOfTemplates; let i = index"
         style="max-width: 350px;"
@@ -100,9 +58,6 @@
           </div>
         </div>
       </div> -->
-    </div>
-  </div>
-</section>
 
 <!-- <main>
     <div class="row">
