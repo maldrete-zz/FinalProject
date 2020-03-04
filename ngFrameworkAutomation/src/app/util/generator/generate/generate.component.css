@@ -8,7 +8,7 @@ height: 100vh;
   color: #000;
 }
 .form-section{
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(54, 54, 54);
   /* background-image: linear-gradient(to right, rgb(255, 244, 253), rgba(8, 34, 57, 1)); */
   height: 100vh;
   overflow: scroll;
@@ -17,8 +17,8 @@ height: 100vh;
 .field-form{
   background-color: rgb(255, 255, 255);
   padding: 35px;
-  margin: 20px;
-  box-shadow: 5px 5px 15px #0006;
+  margin: 5px;
+  box-shadow: 5px 5px 15px #000;
   transition: 2s;
   height: 100%;
 }
@@ -64,7 +64,7 @@ div{
 }
 .editor-navigator-title{
   font-size: large;
-  color: #bbb;
+  color: rgb(255, 255, 255);
   height: 40px;
   padding: 3px;
   padding-left: 10px;
@@ -111,131 +111,10 @@ background-color: #333;
 } */
 
 
-.menu-button{
-  position: fixed;
-  transition: 1s;
-  top:-10px;
-  width: 45px;
-  height: 70px;
-  right:7vw;
-  z-index: 20;
-  background-color:#fff;
-  padding-top: 30px;
-  box-shadow: 2px 2px 5px rgb(120, 240, 156);
-}
-.menu-button:hover{
-
-  top: 0;
-}
-
-.menu-button div{
-    width: 35px;
-    height: 5px;
-    background-color: black;
-    margin: auto;
-    margin-top: 6px;
-}
-
-.slider{
-  position: fixed;
-  top:-100vh;
-  height: 100vh;
-  width: 25vw;
-
-  z-index: 100;
-}
-.active{
-  top: 0;
-}
-/* .home-slider{
-  transition: 1.4s;
-  top:0vh;
-  background: linear-gradient(to bottom left, rgb(83,160,253) 0%, rgb(7, 27,100) 100%);
-
-}
-.register-slider{
-  transition: 1.5s;
-  top:25vh;
-  background: linear-gradient(to bottom left, rgb(120, 240, 156) 0%, rgb(4, 61, 30) 100%);
-}
-.search-slider{
-  transition: 1.6s;
-  top:50vh;
-  background: linear-gradient(to bottom left, rgb(245, 142, 245) 0%, rgb(143, 7, 113) 100%);
-}
-.create-slider{
-  transition: 1.7s;
-  top:75vh;
-  background: linear-gradient(to bottom left, rgb(250, 253, 83) 0%, rgb(182, 100, 7) 100%);
-} */
-
-.home-slider{
-  transition: .3s;
-  left:0vw;
-  /* background: linear-gradient(to bottom left, rgb(83,160,253) 0%, rgb(7, 27,100) 100%); */
-  background-image: url("https://images.unsplash.com/photo-1549692520-acc6669e2f0c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=666&q=80");
-  /* opacity: 95%; */
-  background-position: center;
-}
-.register-slider{
-  transition: .7s;
-  left:25vw;
-  background-image: url("https://images.unsplash.com/photo-1542546068979-b6affb46ea8f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80");
-  /* opacity: 95%; */
-  background-position: center;
-  /* background: linear-gradient(to bottom left, rgb(120, 240, 156) 0%, rgb(4, 61, 30) 100%); */
-}
-.search-slider{
-  transition: .6s;
-  left:50vw;
-  background-image: url("https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80");
-  /* opacity: 95%; */
-  background-position: center;
-}
-.create-slider{
-  transition: 0.4s;
-  left:75vw;
-  background-image: url("https://images.unsplash.com/photo-1551033406-611cf9a28f67?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60");
-  /* opacity: 95%; */
-  background-position: center;
-  /* background: linear-gradient(to bottom left, rgb(250, 253, 83) 0%, rgb(182, 100, 7) 100%); */
-}
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-.round-icon-holder{
-  position: absolute;
-  width: 20vw;
-  height: 20vw;
-  border-radius: 10vw;
-  border-width: 2px;
-  border-style:ridge;
-  border-color: #000;
-  left:5vh;
-  top: 15vh;
-  background-image: linear-gradient(to right , rgba(174, 125, 18,1),rgb(35, 23, 145));
-  /* box-shadow: 0px 0px rgb(230, 134, 19),0px 0px rgb(0, 0, 0),0px 0px rgb(230, 134, 19),0px 0px rgb(0, 0, 0); */
-}
-.home-icon{
-  position: absolute;
-  width: 75%;
-  height: 75%;
-  margin: 12.5%;
-  background: url("https://freeiconshop.com/wp-content/uploads/edd/home-outline.png");
-  background-repeat: no-repeat;
-  background-size: contain;
-}
 
 
 

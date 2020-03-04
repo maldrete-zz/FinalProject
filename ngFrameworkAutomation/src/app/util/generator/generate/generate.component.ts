@@ -32,6 +32,7 @@ export class GenerateComponent implements OnInit {
       data => {
         this.template = data;
         this.compileTemplates();
+        this.hideNav();
       },
       err => {
         console.error(err);
@@ -184,6 +185,14 @@ export class GenerateComponent implements OnInit {
     }
   }
 
+  toggleNav(){
+    let sliders =  document.getElementsByClassName("slider");
+    if(sliders[0].classList.contains("active")){
+      this.hideNav();
+    }else{
+      this.showNav();
+    }
+  }
 
 
 
