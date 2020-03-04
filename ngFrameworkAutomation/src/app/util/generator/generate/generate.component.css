@@ -172,21 +172,81 @@ background-color: #333;
 .home-slider{
   transition: .3s;
   left:0vw;
-  background: linear-gradient(to bottom left, rgb(83,160,253) 0%, rgb(7, 27,100) 100%);
-
+  /* background: linear-gradient(to bottom left, rgb(83,160,253) 0%, rgb(7, 27,100) 100%); */
+  background-image: url("https://images.unsplash.com/photo-1549692520-acc6669e2f0c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=666&q=80");
+  /* opacity: 95%; */
+  background-position: center;
 }
 .register-slider{
   transition: .7s;
   left:25vw;
-  background: linear-gradient(to bottom left, rgb(120, 240, 156) 0%, rgb(4, 61, 30) 100%);
+  background-image: url("https://images.unsplash.com/photo-1542546068979-b6affb46ea8f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80");
+  /* opacity: 95%; */
+  background-position: center;
+  /* background: linear-gradient(to bottom left, rgb(120, 240, 156) 0%, rgb(4, 61, 30) 100%); */
 }
 .search-slider{
   transition: .6s;
   left:50vw;
-  background: linear-gradient(to bottom left, rgb(245, 142, 245) 0%, rgb(143, 7, 113) 100%);
+  background-image: url("https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80");
+  /* opacity: 95%; */
+  background-position: center;
 }
 .create-slider{
   transition: 0.4s;
   left:75vw;
-  background: linear-gradient(to bottom left, rgb(250, 253, 83) 0%, rgb(182, 100, 7) 100%);
+  background-image: url("https://images.unsplash.com/photo-1551033406-611cf9a28f67?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60");
+  /* opacity: 95%; */
+  background-position: center;
+  /* background: linear-gradient(to bottom left, rgb(250, 253, 83) 0%, rgb(182, 100, 7) 100%); */
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.round-icon-holder{
+  position: absolute;
+  width: 20vw;
+  height: 20vw;
+  border-radius: 10vw;
+  border-width: 2px;
+  border-style:ridge;
+  border-color: #000;
+  left:5vh;
+  top: 15vh;
+  background-image: linear-gradient(to right , rgba(174, 125, 18,1),rgb(35, 23, 145));
+  /* box-shadow: 0px 0px rgb(230, 134, 19),0px 0px rgb(0, 0, 0),0px 0px rgb(230, 134, 19),0px 0px rgb(0, 0, 0); */
+}
+.home-icon{
+  position: absolute;
+  width: 75%;
+  height: 75%;
+  margin: 12.5%;
+  background: url("https://freeiconshop.com/wp-content/uploads/edd/home-outline.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
