@@ -24,16 +24,22 @@ public class TemplateServiceIMPL implements TemplateService {
 
 	@Override
 	public List<TemplateInformation> getAllActiveTemplates() {
-	
 		List<TemplateInformation> templateInfo = new ArrayList<>();
-		
 		List<Template> templates = repo.findAll();
 		for (Template template : templates) {
 			templateInfo.add(new TemplateInformation(template));
 		}
-
 		return templateInfo;
 	}
+	
+	@Override
+	public TemplateInformation getTemplateInformation(Integer id) {
+		Template template = repo.findById(id).get();
+		TemplateInformation tempInfo = new TemplateInformation(template);
+		return tempInfo;
+	}
+	
+	
 
 	@Override
 	public Template updateTemplate(Template newTemplate, int id) {
@@ -113,5 +119,7 @@ public class TemplateServiceIMPL implements TemplateService {
 		}
 
 	}
+
+
 
 }

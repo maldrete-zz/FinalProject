@@ -6,7 +6,25 @@
         <div>
           <form #fieldForm="ngForm" class="field-form row">
             <h3 class="form-prompt">Fill out the form to generate code</h3>
-            <button type="button" class="btn btn-outline-info">Like</button>
+
+            <button
+              *ngIf="rating"
+              (click)="addLike(template.id)"
+              type="button"
+              class="btn btn-outline-info"
+            >
+              Like
+            </button>
+
+            <button
+              *ngIf="!rating"
+              (click)="addLike(template.id)"
+              type="button"
+              class="btn btn-outline-info"
+            >
+              Unlike
+            </button>
+
             <div
               class="form-group col-sm-6"
               *ngFor="let key of getKeys(); let i = index"
@@ -37,13 +55,11 @@
         </div>
       </section>
     </div>
-
     <div class="col-sm-7">
       <section class="text-editor-section page-section row">
         <div class="editor-top-spacing"></div>
         <div class="editor-navigator col-sm-3">
           <div class="editor-navigator-title">Templates</div>
-
           <div class="accordion">
             <div>
               <div
@@ -102,7 +118,6 @@
               >
                 Liked Templates
               </div>
-
               <div
                 id="collapseTwo"
                 class="collapse"

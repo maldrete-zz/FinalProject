@@ -19,6 +19,7 @@ import com.skilldistillery.frameworkautomation.entities.Rating;
 import com.skilldistillery.frameworkautomation.entities.Template;
 import com.skilldistillery.frameworkautomation.entities.TemplateInformation;
 import com.skilldistillery.frameworkautomation.entities.User;
+import com.skilldistillery.frameworkautomation.repositories.RatingRepository;
 import com.skilldistillery.frameworkautomation.repositories.TemplateRepository;
 import com.skilldistillery.frameworkautomation.services.TemplateService;
 import com.skilldistillery.frameworkautomation.services.UserService;
@@ -36,6 +37,9 @@ public class TemplateController {
 
 	@Autowired
 	private TemplateRepository tempRepo;
+
+	@Autowired
+	RatingRepository ratingRepo;
 
 	@GetMapping("templates")
 	public List<TemplateInformation> findAllTemplates() {
@@ -144,17 +148,49 @@ public class TemplateController {
 
 		template.addRating(rating);
 	}
-
 	
-	@PostMapping("me/rating/{id}")
-	public boolean addRating(@PathVariable Integer id, Principal principal) {
+	@GetMapping("me/rating/{id}")
+	public Rating GetUserRating(@PathVariable Integer id, Principal principal) {
 		String userName = principal.getName();
-		return userSvc.addRating(userName, id);
-	}
 	
+		Rating rating = ratingRepo.findByTemplate_idAndUser_Username(id, userName);
+		TemplateInformation tempInfo = svc.getTemplateInformation(id);
+		System.out.println(tempInfo.getRatings());
+		
+		return rating;
+	}
+
+	@PostMapping("me/rating/{id}")
+	public TemplateInformation addRating(@PathVariable Integer id, Principal principal) {
+		boolean didItWork = false;
+		String userName = principal.getName();
+		Rating rating = ratingRepo.findByTemplate_idAndUser_Username(id, userName);
+		
+		TemplateInformation tempInfo = svc.getTemplateInformation(id);
+		
+		if (rating == null) {
+			didItWork = true;
+			userSvc.addRating(userName, id);
+		} else {
+			didItWork = false;
+			userSvc.removeRating(userName, id);
+		}
+
+		return tempInfo;
+
+	}
+
 	@PutMapping("me/rating/{id}")
 	public boolean removeRating(@PathVariable Integer id, Principal principal) {
 		String userName = principal.getName();
 		return userSvc.removeRating(userName, id);
 	}
+
+	@GetMapping("templateInformation/{id}")
+	public TemplateInformation getTemplateInformation(@PathVariable Integer id, Principal principal) {
+		TemplateInformation tempInfo = svc.getTemplateInformation(id);
+		System.out.println(tempInfo);
+		return tempInfo;
+	}
+
 }

@@ -29,6 +29,8 @@ public interface TemplateService {
 
 	public List<TemplateInformation> getAllActiveTemplates();
 	
+	public TemplateInformation getTemplateInformation(Integer id);
+	
 	
 	
 
