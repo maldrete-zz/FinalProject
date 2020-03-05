@@ -271,11 +271,19 @@ export class CreateTemplateComponent implements OnInit {
   compileTemplates:
   *************************************************************************************************************/
   compileTemplates() {
-    let results             = this.parser.compileAllTemplates(this.template,{},{});
-    this.formMap            = results.formMap;
-    this.nonRegexStrings    = results.nonRegexStrings;
-    this.capturedFieldNames = results.capturedFieldNames;
-  }
+
+      let results = this.parser.compileAllTemplates(this.template, this.currentIncrementalsCount, this.formMap);
+      this.formMap = results.formMap;
+      this.nonRegexStrings = results.nonRegexStrings;
+      this.capturedFieldNames = results.capturedFieldNames;
+      this.currentIncrementalsCount = results.potentialIncrementals;
+      // this.assembleFullContent();
+
+
+
+
+
+    }
 
   /************************************************************************************************************
   getKeys:
@@ -324,6 +332,31 @@ export class CreateTemplateComponent implements OnInit {
   createCapturePopUp(): void {
   this.capturePopup = true;
 }
+
+
+
+
+currentIncrementalsCount = {};
+
+addField(key: string) {
+  this.currentIncrementalsCount[key]++;
+  this.compileTemplates();
+}
+
+getAddButtons(): string[] {
+  return Object.getOwnPropertyNames(this.currentIncrementalsCount);
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
   /************************************************************************************************************
