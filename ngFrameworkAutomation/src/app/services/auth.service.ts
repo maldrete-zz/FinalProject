@@ -13,11 +13,13 @@ import { User } from '../entities/user/user';
 
 export class AuthService {
   private url = environment.baseUrl;
+  username;
 
   constructor(private http: HttpClient,
               private router: Router) { }
 
   login(username: string, password: string) {
+    this.username = username;
     // Make credentials
     const credentials = this.generateBasicAuthCredentials(username, password);
     // Send credentials as Authorization header (this is spring security convention for basic auth)
@@ -45,6 +47,7 @@ export class AuthService {
 
   register(user: User) {
     // create request to register a new account
+    this.username = user.username;
     return this.http.post(this.url + 'register', user)
       .pipe(
         catchError((err: any) => {
