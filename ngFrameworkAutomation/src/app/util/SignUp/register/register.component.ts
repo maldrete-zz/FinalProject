@@ -39,4 +39,30 @@ export class RegisterComponent implements OnInit {
       }
     );
   }
+  ngAfterViewInit() {
+    this.hideNav();
+  }
+
+
+  showNav(){
+    let sliders =  document.getElementsByClassName("slider");
+    for(let i = 0; i < sliders.length;i++){
+      sliders[i].classList.add("active");
+    }
+  }
+  hideNav(){
+    let sliders =  document.getElementsByClassName("slider");
+    for(let i = 0; i < sliders.length;i++){
+      sliders[i].classList.remove("active");
+    }
+  }
+
+  toggleNav(){
+    let sliders =  document.getElementsByClassName("slider");
+    if(sliders[0].classList.contains("active")){
+      this.hideNav();
+    }else{
+      this.showNav();
+    }
+  }
 }

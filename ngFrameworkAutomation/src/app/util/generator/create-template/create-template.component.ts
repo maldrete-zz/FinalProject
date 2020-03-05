@@ -110,6 +110,7 @@ export class CreateTemplateComponent implements OnInit {
         this.uptoDate   = "loaded";
         this.templateID = this.template.id;
         this.refreshTemplate();
+        this.hideNav();
       },this.myError);
     }else{
       this.displayError("bad Template Id","cannot create");
@@ -325,6 +326,33 @@ export class CreateTemplateComponent implements OnInit {
 }
 
 
+  /************************************************************************************************************
+  NAVSTUFF:
+  *************************************************************************************************************
+  *************************************************************************************************************
+  *************************************************************************************************************
+  *************************************************************************************************************
+  *************************************************************************************************************/
+  showNav(){
+    let sliders =  document.getElementsByClassName("slider");
+    for(let i = 0; i < sliders.length;i++){
+      sliders[i].classList.add("active");
+    }
+  }
+  hideNav(){
+    let sliders =  document.getElementsByClassName("slider");
+    for(let i = 0; i < sliders.length;i++){
+      sliders[i].classList.remove("active");
+    }
+  }
 
+  toggleNav(){
+    let sliders =  document.getElementsByClassName("slider");
+    if(sliders[0].classList.contains("active")){
+      this.hideNav();
+    }else{
+      this.showNav();
+    }
+  }
 
 }

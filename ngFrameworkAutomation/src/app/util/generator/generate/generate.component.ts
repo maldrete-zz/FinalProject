@@ -37,6 +37,7 @@ export class GenerateComponent implements OnInit {
         this.getTempInfo(this.template.id);
         console.log(this.tempInfo);
         this.compileTemplates();
+        this.hideNav();
       },
       err => {
         console.error(err);
@@ -231,6 +232,15 @@ export class GenerateComponent implements OnInit {
     }
   }
 
+<<<<<<< HEAD
+  toggleNav(){
+    let sliders =  document.getElementsByClassName("slider");
+    if(sliders[0].classList.contains("active")){
+      this.hideNav();
+    }else{
+      this.showNav();
+    }
+=======
   displayBtnIfLoggedIn(): boolean {
     return this.authSvc.checkLogin();
 
@@ -250,6 +260,7 @@ export class GenerateComponent implements OnInit {
     )
 
     return this.rating;
+>>>>>>> 41e5ea6947b4e6d0eae65c3627e5125a8375c746
   }
 
 
