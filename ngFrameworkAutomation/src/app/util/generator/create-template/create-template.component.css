@@ -18,3 +18,172 @@
   border-radius: 20px;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.main-container{
+  /* background-color: #eee; */
+  /* background-image: linear-gradient(to right, rgba(85, 85, 85, 1), rgba(8, 34, 57, 1)); */
+  /* background: linear-gradient(to right, rgba(83,160,253,1) 0%, rgba(7, 27, 91,.8) 100%); */
+  height: 100vh;
+  }
+  .form-prompt{
+    color: #000;
+  }
+  .form-section{
+    background-color: rgb(54, 54, 54);
+    /* background-image: linear-gradient(to right, rgb(255, 244, 253), rgba(8, 34, 57, 1)); */
+    height: 100vh;
+    overflow: scroll;
+    display: block;
+  }
+  .field-form{
+    background-color: rgb(255, 255, 255);
+    padding: 35px;
+    margin: 5px;
+    box-shadow: 5px 5px 15px #000;
+    transition: 2s;
+    height: 100%;
+  }
+  .field-form:hover{
+    transform: scale(1.02,1.02);
+    box-shadow: 10px 10px 20px #0005;
+
+  }
+
+  div{
+    margin: 0;
+    padding: 0;
+    color: white;
+  }
+
+  .form-entry{
+    padding: 10px;
+    padding-top: 0;
+  }
+
+
+  .te-tab{
+    height: 30px;
+    background-color: #148c;
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px 5px 0px 0px;
+    font-size: small;
+  }
+  .te-tab:hover{
+    background-color: #555;
+
+  }
+
+
+  .editor-backdrop{
+    background-color: #3330;
+  }
+
+  .editor-navigator{
+    background-color: #3333;
+    border-left: 3px solid #555;
+  }
+  .editor-navigator-title{
+    font-size: large;
+    color: rgb(255, 255, 255);
+    height: 40px;
+    padding: 3px;
+    padding-left: 10px;
+  }
+
+  .text-editor-section{
+    background-color: rgba(8, 34, 57, 1);
+    height: 100vh;
+    overflow:scroll;
+    border: none;
+    margin: 0;
+
+  }
+  .editor-nav-content{
+    padding-left: 50px;
+    color: #bbb;
+  }
+  .editor-nav-content:hover{
+    color: #ddd;
+    background-color: #5555;
+  }
+  .editor-nav-header{
+  color: #bbb;
+  padding-left: 30px;
+
+  }
+  .editor-nav-header:hover{
+    color: #ddd;
+    background-color: #5555;
+
+    }
+
+
+  .file-title-div{
+    width: 100%;
+    height: 20px;
+    background-color: #3330;
+  }
+
+  /* .editor-top-spacing{
+  width: 100%;
+  height: 8px;
+  background-color: #333;
+  } */
+
+  .option-window-title{
+    width: 100%;
+    margin: 0;
+    /* padding-top: .5vh; */
+    padding-left: 20px;
+    height: 6vh;
+    background-color: rgb(32, 32, 32);
+    font-size: 4vh;
+  }
+  .option-window-content{
+    width: 100%;
+
+
+    height: 94vh;
+    background-color: rgb(36, 36, 36);
+
+  }
