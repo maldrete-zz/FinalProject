@@ -218,7 +218,6 @@ export class GenerateComponent implements OnInit {
   }
 
 
-
   showNav() {
     let sliders = document.getElementsByClassName("slider");
     for (let i = 0; i < sliders.length; i++) {
