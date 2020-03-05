@@ -1,0 +1,64 @@
+#gettingStartedTemplateDiv {
+  background-color: rgb(190, 190, 190);
+  /* background-color: rgb(255, 255, 255); */
+  /* opacity: 60%; */
+  color: white;
+  border: solid 3px;
+  /* border-color: #D9B310; */
+  border-radius: 10px;
+}
+
+#myTemplateDiv {
+  background-color: rgb(190, 190, 190);
+  /* background-color: rgb(255, 255, 255); */
+  /* opacity: 80%; */
+  color: white;
+  border: solid 3px;
+  /* border-color: #D9B310; */
+  border-radius: 10px;
+
+}
+
+#favTemplateDiv {
+  background-color: rgb(190, 190, 190);
+  /* background-color: rgb(255, 255, 255); */
+  /* opacity: 100%; */
+  color: white;
+  border: solid 3px;
+  /* border-color: #D9B310; */
+  border-radius: 10px;
+}
+
+h1 {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+div{
+  margin: 2.3vh;
+  overflow-x: visible;
+
+}
+
+li {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-size: larger;
+}
+ul {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
