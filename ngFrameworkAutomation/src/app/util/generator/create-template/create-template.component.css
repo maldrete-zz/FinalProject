@@ -70,7 +70,7 @@
   .form-section{
     background-color: rgb(54, 54, 54);
     /* background-image: linear-gradient(to right, rgb(255, 244, 253), rgba(8, 34, 57, 1)); */
-    height: 100vh;
+    height: 100%;
     overflow: scroll;
     display: block;
   }
