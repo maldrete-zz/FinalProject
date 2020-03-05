@@ -50,52 +50,57 @@ export class NavigationComponent implements OnInit {
   }
 
 
-  showNav(){
-    let sliders =  document.getElementsByClassName("slider");
-    for(let i = 0; i < sliders.length;i++){
+  showNav() {
+    let sliders = document.getElementsByClassName("slider");
+    for (let i = 0; i < sliders.length; i++) {
       sliders[i].classList.add("active");
     }
   }
-  hideNav(){
-    let sliders =  document.getElementsByClassName("slider");
-    for(let i = 0; i < sliders.length;i++){
+  hideNav() {
+    let sliders = document.getElementsByClassName("slider");
+    for (let i = 0; i < sliders.length; i++) {
       sliders[i].classList.remove("active");
     }
   }
 
-  toggleNav(){
-    let sliders =  document.getElementsByClassName("slider");
-    if(sliders[0].classList.contains("active")){
+  toggleNav() {
+    let sliders = document.getElementsByClassName("slider");
+    if (sliders[0].classList.contains("active")) {
       this.hideNav();
-    }else{
+    } else {
       this.showNav();
     }
   }
 
 
 
-  gotoLandingPage(){
+  gotoLandingPage() {
     this.checkCurrent(1);
     this.router.navigateByUrl("home");
   }
-  gotoRegisterPage(){
+
+  gotoRegisterPage() {
     this.checkCurrent(2);
     this.router.navigateByUrl("register");
   }
-  gotoSearchPage(){
+  gotoSearchPage() {
     this.checkCurrent(3);
     this.router.navigateByUrl("search");
   }
-  gotoCreatePage(){
+  gotoCreatePage() {
     this.checkCurrent(4);
     this.router.navigateByUrl("template/create");
+  }
+  gotoUserSettingsPage() {
+    this.checkCurrent(5);
+    this.router.navigateByUrl("updateUser");
   }
 
 
 
 
-  checkCurrent(id :number){
-    if(this.currentPage == id){
+  checkCurrent(id: number) {
+    if (this.currentPage == id) {
       this.hideNav();
     }
     this.currentPage = id;
