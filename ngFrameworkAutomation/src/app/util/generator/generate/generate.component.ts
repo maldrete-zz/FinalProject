@@ -37,6 +37,7 @@ export class GenerateComponent implements OnInit {
         this.getTempInfo(this.template.id);
         console.log(this.tempInfo);
         this.compileTemplates();
+        this.hideNav();
       },
       err => {
         console.error(err);
@@ -231,6 +232,15 @@ export class GenerateComponent implements OnInit {
     }
   }
 
+
+  toggleNav(){
+    let sliders =  document.getElementsByClassName("slider");
+    if(sliders[0].classList.contains("active")){
+      this.hideNav();
+    }else{
+      this.showNav();
+    }
+  }
   displayBtnIfLoggedIn(): boolean {
     return this.authSvc.checkLogin();
 
@@ -250,6 +260,7 @@ export class GenerateComponent implements OnInit {
     )
 
     return this.rating;
+
   }
 
 
