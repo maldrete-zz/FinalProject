@@ -11,6 +11,8 @@ import { UCCPipe } from '../myPipes/ucc.pipe';
 import { Ace } from 'ace-builds';
 import { ParseTemplateHelperService } from '../parse-template-helper.service';
 import { PipeManagerService } from '../myPipes/pipe-manager.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { TemplateInfo } from 'src/app/entities/templateInfo/template-info';
 
 
 
@@ -31,12 +33,30 @@ export class GenerateComponent implements OnInit {
     this.svc.show(parseInt(templateId)).subscribe(
       data => {
         this.template = data;
+        console.log("getTempInfo() executing");
+        this.getTempInfo(this.template.id);
+        console.log(this.tempInfo);
         this.compileTemplates();
       },
       err => {
         console.error(err);
       }
     );
+
+
+    this.svc.getRating(parseInt(templateId)).subscribe(
+      data => {
+        console.log(data);
+        if (data == 0) {
+          this.rating = false;
+        } else {
+          this.rating = true;
+        }
+
+      }
+    )
+
+
   }
   /*
     this is the code editor we created 'ace' is the tag function of the import.
@@ -50,9 +70,10 @@ export class GenerateComponent implements OnInit {
   textEditorContent = '';
   subtemplates = {};
 
-  buttonName = 'Like';
-
   currentIncrementalsCount = {};
+  tempInfo: TemplateInfo = new TemplateInfo();
+  rating: boolean = true;
+
 
 
   //InitiatePipes so we dont have to create it every time of use
@@ -85,15 +106,26 @@ export class GenerateComponent implements OnInit {
 
 
   ngOnInit(): void {
+    // if (this.buttonName) {
+    //   this.buttonName = 'Unlike'
+    // } else {
+    //   this.buttonName = 'Like';
+    // }
+
+    // this.getTempInf.id);
+
+
+
   }
 
   constructor(
-    private httpc                    : HttpClient,
-    private currentroute             : ActivatedRoute,
-    private svc                      : TemplateService,
-    private parser                   : ParseTemplateHelperService,
-    private pipeManager              : PipeManagerService
-    ){}
+    private httpc: HttpClient,
+    private currentroute: ActivatedRoute,
+    private svc: TemplateService,
+    private parser: ParseTemplateHelperService,
+    private pipeManager: PipeManagerService,
+    private authSvc: AuthService
+  ) { }
 
 
   compileTemplates() {
@@ -106,6 +138,11 @@ export class GenerateComponent implements OnInit {
     this.currentIncrementalsCount = results.potentialIncrementals;
     this.assemblePlaceholders();
     this.assembleFullContent();
+
+
+
+
+
   }
 
   getKeys(): string[] {
@@ -143,18 +180,28 @@ export class GenerateComponent implements OnInit {
     this.codeEditor.setValue(this.textEditorContent, -1);
   }
 
+  getTempInfo(id: number) {
+    this.svc.getTemplateInformation(this.template.id).subscribe(
+      data => {
+        console.log('getTempInfo() executing');
+        this.tempInfo = data;
+        console.log(this.tempInfo)
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
 
 
-  addLike(template: Template) {
-    console.log(template);
-    console.log(this.template);
-    this.svc.likeTemplate(template.id).subscribe(
+  addLike(id: number) {
+    this.svc.likeTemplate(this.template.id).subscribe(
       data => {
         console.log(data);
-        if (!data) {
-          this.buttonName = 'Like'
-        } else if (data) {
-          this.buttonName = 'unlike'
+        if (!data['ratings']) {
+          this.rating = true;
+        } else {
+          this.rating = false;
         }
       },
       err => {
@@ -171,19 +218,39 @@ export class GenerateComponent implements OnInit {
 
 
 
-  showNav(){
-    let sliders =  document.getElementsByClassName("slider");
-    for(let i = 0; i < sliders.length;i++){
+  showNav() {
+    let sliders = document.getElementsByClassName("slider");
+    for (let i = 0; i < sliders.length; i++) {
       sliders[i].classList.add("active");
     }
   }
-  hideNav(){
-    let sliders =  document.getElementsByClassName("slider");
-    for(let i = 0; i < sliders.length;i++){
+  hideNav() {
+    let sliders = document.getElementsByClassName("slider");
+    for (let i = 0; i < sliders.length; i++) {
       sliders[i].classList.remove("active");
     }
   }
 
+  displayBtnIfLoggedIn(): boolean {
+    return this.authSvc.checkLogin();
+
+  }
+
+  getRating(id: number): boolean {
+    this.svc.getRating(this.template.id).subscribe(
+      data => {
+        console.log(data);
+        if (data) {
+          this.rating = false;
+        } else {
+          this.rating = true;
+        }
+
+      }
+    )
+
+    return this.rating;
+  }
 
 
 

@@ -7,6 +7,7 @@ import { AuthService } from './auth.service';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { TemplateInfo } from '../entities/templateInfo/template-info';
+import { Rating } from '../entities/rating/rating';
 
 
 @Injectable({
@@ -165,6 +166,43 @@ export class TemplateService {
       })
     );
   }
+
+  getTemplateInformation(id: number): Observable<TemplateInfo> {
+    const credentials = this.authSvc.getCredentials();
+    const options = {
+      headers: {
+        Authorization: 'Basic ' + credentials
+      }
+    };
+    console.log(environment.baseUrl + 'api/templateInformation/' + id);
+    return this.http.get<TemplateInfo>(environment.baseUrl + 'api/templateInformation/' + id, options).pipe(
+      catchError((err: any) => {
+        console.log('getTemplateInformation(): Error adding like to rating');
+        console.error(err);
+        return throwError(err);
+      })
+    );
+  }
+
+  getRating(id: number): Observable<Rating> {
+    const credentials = this.authSvc.getCredentials();
+    const options = {
+      headers: {
+        Authorization: 'Basic ' + credentials
+      }
+    };
+    console.log(environment.baseUrl + 'api/rating/' + id);
+    return this.http.get<Rating>(environment.baseUrl + 'api/rating/' + id, options).pipe(
+      catchError((err: any) => {
+        console.log('getRating(): Error adding like to rating');
+        console.error(err);
+        return throwError(err);
+      })
+    );
+  }
+
+
+
 
 
 }
