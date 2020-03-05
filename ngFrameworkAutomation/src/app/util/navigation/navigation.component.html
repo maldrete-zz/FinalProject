@@ -104,36 +104,93 @@
   <div></div>
 </div>
 
-<div class="home-slider slider active" (click)="gotoLandingPage()">
-  <!-- <button (click)="hideNav()">Back</button> -->
-  <div class="round-icon-holder">
-    <img class="nav-icon" src="assets/home.png" alt="">
+<!-- ******** Logged in Bar *********** -->
+<div *ngIf="checkLoginStatus()">
+  <div class="home-slider slider active" (click)="gotoLandingPage()">
+    <div class="round-icon-holder">
+      <img class="nav-icon" src="assets/home.png" alt="" />
+    </div>
+    <div class="nav-text">
+      HOME
+    </div>
   </div>
-  <div class="nav-text">
-    HOME
+  <div class="register-slider slider active" (click)="gotoUserSettingsPage()">
+    <div class="round-icon-holder">
+      <img class="nav-icon" src="assets/register.png" alt="" />
+    </div>
+    <div class="nav-text">
+      SETTINGS
+      <button id="logoutbutton" (click)="logout()">Logout</button>
+    </div>
+  </div>
+  <div class="search-slider slider active" (click)="gotoSearchPage()">
+    <div class="round-icon-holder">
+      <img class="nav-icon" src="assets/search.png" alt="" />
+    </div>
+    <div class="nav-text">
+      SEARCH
+    </div>
+  </div>
+  <div class="create-slider slider active" (click)="gotoCreatePage()">
+    <div class="round-icon-holder">
+      <img class="nav-icon" src="assets/create.png" alt="" />
+    </div>
+    <div class="nav-text">
+      CREATE
+    </div>
   </div>
 </div>
-<div class="register-slider slider active" (click)="gotoRegisterPage()">
-  <div class="round-icon-holder">
-    <img class="nav-icon" src="assets/register.png" alt="">
+
+<!--************************* Not Logged in Bar ****************************************-->
+<div *ngIf="!checkLoginStatus()">
+  <div class="home-slider slider active" (click)="gotoLandingPage()">
+    <div class="round-icon-holder">
+      <img class="nav-icon" src="assets/home.png" alt="" />
+    </div>
+    <div class="nav-text">
+      HOME
+    </div>
   </div>
-  <div class="nav-text">
-    SETTINGS
+  <div class="register-slider slider active" (click)="gotoRegisterPage()">
+    <div class="round-icon-holder">
+      <img class="nav-icon" src="assets/register.png" alt="" />
+    </div>
+    <div class="nav-text">
+      REGISTER
+    </div>
   </div>
-</div>
-<div class="search-slider slider active" (click)="gotoSearchPage()">
-  <div class="round-icon-holder">
-    <img class="nav-icon" src="assets/search.png" alt="">
+  <div class="search-slider slider active" (click)="gotoSearchPage()">
+    <div class="round-icon-holder">
+      <img class="nav-icon" src="assets/search.png" alt="" />
+    </div>
+    <div class="nav-text">
+      SEARCH
+    </div>
   </div>
-  <div class="nav-text">
-    SEARCH
-  </div>
-</div>
-<div class="create-slider slider active" (click)="gotoCreatePage()">
-  <div class="round-icon-holder">
-    <img class="nav-icon" src="assets/create.png" alt="">
-  </div>
-  <div class="nav-text">
-    CREATE
+  <div class="login-slider slider active">
+    <form id="loginForm" class="">
+      <input
+        class="form-control mr-sm-2 form-spacing"
+        type="text"
+        placeholder="Username"
+        [(ngModel)]="username"
+        name="username"
+      />
+      <input
+        class="form-control mr-sm-2 form-spacing"
+        type="password"
+        placeholder="Password"
+        [(ngModel)]="password"
+        name="password"
+      />
+      <button
+        id="loginbutton"
+        class="form-spacing"
+        type="submit"
+        (click)="login()"
+      >
+        LOGIN
+      </button>
+    </form>
   </div>
 </div>

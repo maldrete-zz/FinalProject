@@ -1,6 +1,9 @@
 <div id="mainBody" class="row h-100">
   <div id="leftColumn" class="col-sm-4">
-    <img src="https://images.unsplash.com/photo-1565313842307-7ef5f013b669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" alt="">
+    <img
+      src="https://images.unsplash.com/photo-1565313842307-7ef5f013b669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+      alt=""
+    />
     <!-- <div id="logo">
       <h1><a href="#/home">Frame Work Automation</a></h1>
     </div> -->
@@ -11,7 +14,7 @@
     </div>
   </div>
 
-  <div id="rightColumn" class="col-sm-8 row ">
+  <div id="rightColumn" class="col-sm-8 row " *ngIf="!checkIfAdmin()">
     <div class="col-sm-4"></div>
     <div id="middleColumn" class="col-sm-4 fluid-container">
       <div id="logo">
@@ -23,27 +26,64 @@
             <h2>Personal Information</h2>
           </div>
 
-        <div class="form-group row inputClass col-xs-2">
-          <label class="email-text">Email</label>
-          <input type="text" class="email-slot form-control" name="email" [(ngModel)]="user.email" >
-        </div>
-        <div class="form-group row inputClass col-xs-2">
-          <label class="email-text">Organization Name</label>
-          <input type="text" class="form-control" name="organizationName" [(ngModel)]="user.organizationName" >
-        </div>
+          <div class="form-group row inputClass col-xs-2">
+            <label class="email-text">Email</label>
+            <input
+              type="text"
+              class="email-slot form-control"
+              name="email"
+              [(ngModel)]="user.email"
+            />
+          </div>
+          <div class="form-group row inputClass col-xs-2">
+            <label class="email-text">Organization Name</label>
+            <input
+              type="text"
+              class="form-control"
+              name="organizationName"
+              [(ngModel)]="user.organizationName"
+            />
+          </div>
 
-        <br>
-        <div class="form-row">
-        <input type="submit" class="submit-btn" name="submit" value="Update Account" (click) = "updateUser()">
+          <br />
+          <div class="form-row">
+            <input
+              type="submit"
+              class="submit-btn"
+              name="submit"
+              value="Update Account"
+              (click)="updateUser()"
+            />
+          </div>
         </div>
-      </div>
       </form>
     </div>
     <div class="col-sm-4"></div>
   </div>
-
+  <div id="rightColumn" class="col-sm-8 row " *ngIf="checkIfAdmin()">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th>User</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let user of users">
+        <td *ngIf="user.role != 'admin'">{{ user.username }}</td>
+        <td *ngIf="user.role != 'admin'">
+          <label class="switch">
+            <input
+              type="checkbox"
+              [(ngModel)]="user.enabled"
+              (click)="changeUserStatus(user)"
+            />
+            <span class="slider round"></span>
+          </label>
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>
-
 
 <!-- <div class="row justify-content-md-center">
   <div class="col-md-6">
@@ -106,18 +146,7 @@
   </div>
 </div> -->
 
-
-
-
-
-
-
-
-
-
-
-
-  <!-- <form #registerForm = "ngForm">
+<!-- <form #registerForm = "ngForm">
         <div class="form">
         <div class="form-group row">
           <label class="username-text">Username</label>
