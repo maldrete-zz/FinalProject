@@ -17,6 +17,7 @@ export class TemplateService {
 
 
   private url = environment.baseUrl + 'api/templates';
+
   constructor(private http: HttpClient, private authSvc: AuthService) { }
   // M e t h o d s
   index(): Observable<TemplateInfo[]> {
