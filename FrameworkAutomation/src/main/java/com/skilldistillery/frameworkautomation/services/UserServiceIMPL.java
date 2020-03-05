@@ -67,8 +67,10 @@ public class UserServiceIMPL implements UserService {
 	}
 
 	@Override
-	public Boolean addRating(String username, Integer templateId) {
+	public Integer addRating(String username, Integer templateId) {
 		Boolean ratingWorked = false;
+		Integer ratingSize = 0;
+		
 		User user = repo.findById(username).get();
 		Template template = tempRepo.findById(templateId).get();
 
@@ -77,10 +79,11 @@ public class UserServiceIMPL implements UserService {
 		if (rating == null) {
 			rating = new Rating();
 			rating.setCreateDate(LocalDateTime.now().toString());
-
 			template.addRating(rating);
 			user.addRating(rating);
 			ratingRepo.saveAndFlush(rating);
+			
+			ratingSize = 1;
 
 			if (rating != null) {
 				ratingWorked = true;
@@ -90,9 +93,11 @@ public class UserServiceIMPL implements UserService {
 			removeRating(username, templateId);
 			System.out.println("rating removed");
 			
+			ratingSize = 0;
+			
 		}
 		
-		return ratingWorked;
+		return ratingSize;
 	}
 
 	@Override

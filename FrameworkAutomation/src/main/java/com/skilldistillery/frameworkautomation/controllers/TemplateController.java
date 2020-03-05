@@ -148,12 +148,26 @@ public class TemplateController {
 
 		template.addRating(rating);
 	}
+	
+	@GetMapping("me/rating/{id}")
+	public Rating GetUserRating(@PathVariable Integer id, Principal principal) {
+		String userName = principal.getName();
+	
+		Rating rating = ratingRepo.findByTemplate_idAndUser_Username(id, userName);
+		TemplateInformation tempInfo = svc.getTemplateInformation(id);
+		System.out.println(tempInfo.getRatings());
+		
+		return rating;
+	}
 
 	@PostMapping("me/rating/{id}")
-	public boolean addRating(@PathVariable Integer id, Principal principal) {
+	public TemplateInformation addRating(@PathVariable Integer id, Principal principal) {
 		boolean didItWork = false;
 		String userName = principal.getName();
 		Rating rating = ratingRepo.findByTemplate_idAndUser_Username(id, userName);
+		
+		TemplateInformation tempInfo = svc.getTemplateInformation(id);
+		
 		if (rating == null) {
 			didItWork = true;
 			userSvc.addRating(userName, id);
@@ -162,7 +176,7 @@ public class TemplateController {
 			userSvc.removeRating(userName, id);
 		}
 
-		return didItWork;
+		return tempInfo;
 
 	}
 

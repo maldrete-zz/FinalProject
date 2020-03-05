@@ -10,15 +10,16 @@ import { UserProfileComponent } from './util/user/user-profile/user-profile.comp
 
 
 const routes: Routes = [
-  { path: 'home', component: LandingPageComponent },
   { path: 'results', component: ResultsComponent },
   { path: 'templates/:id', component: GenerateComponent },
   { path: 'template/create', component: CreateTemplateComponent },
   { path: 'template/edit/:id', component: CreateTemplateComponent },
   { path: 'search', component: ResultsComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'userProfile', component: UserProfileComponent},
-  { path: 'updateUser', component: UpdateUserComponent}
+  { path: 'userProfile', component: UserProfileComponent },
+  { path: 'updateUser', component: UpdateUserComponent },
+  { path: '**', component: LandingPageComponent }
+
 ];
 
 @NgModule({

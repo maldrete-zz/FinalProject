@@ -15,7 +15,7 @@ export class TemplateInfo {
   instructions: string;
   user: User;
   favorites: number;
-  rating: number;
+  ratings: number;
 
   // C O N S T R U C T O R
   constructor(
@@ -29,7 +29,7 @@ export class TemplateInfo {
     instructions?: string,
     user?: User,
     favorites?: number,
-    rating?: number
+    ratings?: number
   ) {
     this.id = id;
     this.name = name;
@@ -41,7 +41,8 @@ export class TemplateInfo {
     this.instructions = instructions;
     this.user = user;
     this.favorites = favorites;
-    this.rating = rating;
+    this.ratings = ratings;
   }
+
 
 }

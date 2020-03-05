@@ -33,12 +33,30 @@ export class GenerateComponent implements OnInit {
     this.svc.show(parseInt(templateId)).subscribe(
       data => {
         this.template = data;
+        console.log("getTempInfo() executing");
+        this.getTempInfo(this.template.id);
+        console.log(this.tempInfo);
         this.compileTemplates();
       },
       err => {
         console.error(err);
       }
     );
+
+
+    this.svc.getRating(parseInt(templateId)).subscribe(
+      data => {
+        console.log(data);
+        if (data == 0) {
+          this.rating = false;
+        } else {
+          this.rating = true;
+        }
+
+      }
+    )
+
+
   }
   /*
     this is the code editor we created 'ace' is the tag function of the import.
@@ -52,9 +70,9 @@ export class GenerateComponent implements OnInit {
   textEditorContent = '';
   subtemplates = {};
 
-  buttonName = 'ike';
   currentIncrementalsCount = {};
   tempInfo: TemplateInfo = new TemplateInfo();
+  rating: boolean = true;
 
 
 
@@ -88,13 +106,15 @@ export class GenerateComponent implements OnInit {
 
 
   ngOnInit(): void {
-    if (this.buttonName) {
-      this.buttonName = 'Like'
-    } else {
-      this.buttonName = 'Unlike';
-    }
+    // if (this.buttonName) {
+    //   this.buttonName = 'Unlike'
+    // } else {
+    //   this.buttonName = 'Like';
+    // }
 
     // this.getTempInf.id);
+
+
 
   }
 
@@ -118,6 +138,11 @@ export class GenerateComponent implements OnInit {
     this.currentIncrementalsCount = results.potentialIncrementals;
     this.assemblePlaceholders();
     this.assembleFullContent();
+
+
+
+
+
   }
 
   getKeys(): string[] {
@@ -156,11 +181,11 @@ export class GenerateComponent implements OnInit {
   }
 
   getTempInfo(id: number) {
-    console.log('heello');
-    console.log(this.template);
     this.svc.getTemplateInformation(this.template.id).subscribe(
       data => {
-        console.log(data);
+        console.log('getTempInfo() executing');
+        this.tempInfo = data;
+        console.log(this.tempInfo)
       },
       err => {
         console.error(err);
@@ -169,17 +194,14 @@ export class GenerateComponent implements OnInit {
   }
 
 
-
-
   addLike(id: number) {
-    console.log(this.tempInfo);
     this.svc.likeTemplate(this.template.id).subscribe(
       data => {
         console.log(data);
-        if (!data) {
-          this.buttonName = 'Like'
-        } else if (data) {
-          this.buttonName = 'unlike'
+        if (!data['ratings']) {
+          this.rating = true;
+        } else {
+          this.rating = false;
         }
       },
       err => {
@@ -214,6 +236,21 @@ export class GenerateComponent implements OnInit {
 
   }
 
+  getRating(id: number): boolean {
+    this.svc.getRating(this.template.id).subscribe(
+      data => {
+        console.log(data);
+        if (data) {
+          this.rating = false;
+        } else {
+          this.rating = true;
+        }
+
+      }
+    )
+
+    return this.rating;
+  }
 
 
 
