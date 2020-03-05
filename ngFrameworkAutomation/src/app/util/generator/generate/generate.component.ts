@@ -232,7 +232,6 @@ export class GenerateComponent implements OnInit {
     }
   }
 
-<<<<<<< HEAD
   toggleNav(){
     let sliders =  document.getElementsByClassName("slider");
     if(sliders[0].classList.contains("active")){
@@ -240,7 +239,7 @@ export class GenerateComponent implements OnInit {
     }else{
       this.showNav();
     }
-=======
+  }
   displayBtnIfLoggedIn(): boolean {
     return this.authSvc.checkLogin();
 
@@ -260,9 +259,8 @@ export class GenerateComponent implements OnInit {
     )
 
     return this.rating;
->>>>>>> 41e5ea6947b4e6d0eae65c3627e5125a8375c746
   }
 
 
-
 }
+
