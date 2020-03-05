@@ -1,6 +1,7 @@
 package com.skilldistillery.frameworkautomation.services;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,7 +22,7 @@ public class UserServiceIMPL implements UserService {
 
 	@Autowired
 	private TemplateRepository tempRepo;
-	
+
 	@Autowired
 	private PasswordEncoder encoder;
 
@@ -70,7 +71,7 @@ public class UserServiceIMPL implements UserService {
 	public Integer addRating(String username, Integer templateId) {
 		Boolean ratingWorked = false;
 		Integer ratingSize = 0;
-		
+
 		User user = repo.findById(username).get();
 		Template template = tempRepo.findById(templateId).get();
 
@@ -82,7 +83,7 @@ public class UserServiceIMPL implements UserService {
 			template.addRating(rating);
 			user.addRating(rating);
 			ratingRepo.saveAndFlush(rating);
-			
+
 			ratingSize = 1;
 
 			if (rating != null) {
@@ -92,11 +93,11 @@ public class UserServiceIMPL implements UserService {
 		} else if (rating != null) {
 			removeRating(username, templateId);
 			System.out.println("rating removed");
-			
+
 			ratingSize = 0;
-			
+
 		}
-		
+
 		return ratingSize;
 	}
 
@@ -123,5 +124,28 @@ public class UserServiceIMPL implements UserService {
 		}
 
 		return ratingDeleted;
+	}
+
+	@Override
+	public boolean deactivateUser(String username) {
+		User user = repo.findById(username).get();
+		
+		user.setEnabled(false);
+		repo.saveAndFlush(user);
+		return true;
+	}
+
+	@Override
+	public boolean activateUser(String username) {
+		User user = repo.findById(username).get();
+		
+		user.setEnabled(true);
+		repo.saveAndFlush(user);
+		return true;
+	}
+
+	@Override
+	public List<User> getAllUsers() {
+		return repo.findAll();
 	}
 }

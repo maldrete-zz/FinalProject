@@ -279,10 +279,6 @@ export class CreateTemplateComponent implements OnInit {
       this.currentIncrementalsCount = results.potentialIncrementals;
       // this.assembleFullContent();
 
-
-
-
-
     }
 
   /************************************************************************************************************
@@ -350,12 +346,56 @@ getAddButtons(): string[] {
 
 
 
+runningDescription = "";
+runningInstructions = "";
 
 
 
 
+currentSideEditorPage = 0;
 
 
+showForm(){
+  this.currentSideEditorPage  = 0;
+}
+showInstructions(){
+  console.log(this.runningInstructions);
+  this.runningInstructions = this.template.instructions;
+  this.currentSideEditorPage  = 1;
+}
+showDesciption(){
+  this.runningDescription = this.template.description;
+  this.currentSideEditorPage  = 2;
+}
+
+saveInstructions(){
+  this.template.instructions = this.runningInstructions;
+  this.updateCurrentTemplateInDB();
+}
+saveDescription(){
+  this.template.description = this.runningDescription;
+  this.updateCurrentTemplateInDB();
+}
+
+
+showExtra(){
+  this.currentSideEditorPage  = 3;
+}
+showHelp(){
+  this.currentSideEditorPage  = 4;
+}
+
+gotoCP(){
+  this.router.navigateByUrl("templates/" + this.templateID);
+}
+
+
+deleteMyTemp(){
+  this.svc.destroy(this.template.id).subscribe(
+    data => {
+    this.router.navigateByUrl("search");
+  },this.myError);
+}
 
 
 

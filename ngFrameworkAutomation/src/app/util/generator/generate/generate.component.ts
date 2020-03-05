@@ -1,7 +1,7 @@
 import { TextEditorComponent } from './../text-editor/text-editor.component';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TemplateService } from 'src/app/services/template.service';
 import { Template } from 'src/app/entities/template/template';
 
@@ -33,9 +33,9 @@ export class GenerateComponent implements OnInit {
     this.svc.show(parseInt(templateId)).subscribe(
       data => {
         this.template = data;
-        console.log("getTempInfo() executing");
+
         this.getTempInfo(this.template.id);
-        console.log(this.tempInfo);
+
         this.compileTemplates();
         this.hideNav();
       },
@@ -45,17 +45,9 @@ export class GenerateComponent implements OnInit {
     );
 
 
-    this.svc.getRating(parseInt(templateId)).subscribe(
-      data => {
-        console.log(data);
-        if (data['ratings']) {
-          this.rating = false;
-        } else {
-          this.rating = true;
-        }
 
-      }
-    )
+    this.getRating(parseInt(templateId));
+
 
 
   }
@@ -73,7 +65,7 @@ export class GenerateComponent implements OnInit {
 
   currentIncrementalsCount = {};
   tempInfo: TemplateInfo = new TemplateInfo();
-  rating: boolean = true;
+  rating;
 
 
 
@@ -125,6 +117,7 @@ export class GenerateComponent implements OnInit {
     private svc: TemplateService,
     private parser: ParseTemplateHelperService,
     private pipeManager: PipeManagerService,
+    private router           : Router,
     private authSvc: AuthService
   ) { }
 
@@ -184,9 +177,9 @@ export class GenerateComponent implements OnInit {
   getTempInfo(id: number) {
     this.svc.getTemplateInformation(this.template.id).subscribe(
       data => {
-        console.log('getTempInfo() executing');
+
         this.tempInfo = data;
-        console.log(this.tempInfo)
+
       },
       err => {
         console.error(err);
@@ -198,7 +191,7 @@ export class GenerateComponent implements OnInit {
   addLike(id: number) {
     this.svc.likeTemplate(this.template.id).subscribe(
       data => {
-        console.log(data);
+
         if (!data['ratings']) {
           this.rating = true;
         } else {
@@ -245,11 +238,10 @@ export class GenerateComponent implements OnInit {
 
   }
 
-  getRating(id: number): boolean {
-    this.svc.getRating(this.template.id).subscribe(
+  getRating(id: number) {
+    this.svc.getRating(id).subscribe(
       data => {
-        console.log(data);
-        if (data) {
+        if (data["rating"]) {
           this.rating = false;
         } else {
           this.rating = true;
@@ -258,9 +250,70 @@ export class GenerateComponent implements OnInit {
       }
     )
 
-    return this.rating;
-
   }
+
+getUserName(){
+  if(this.tempInfo){
+  return this.tempInfo["userName"];
+  }else{
+    return "";
+  }
+}
+gotoCP(){
+  this.router.navigateByUrl("template/edit/" + this.template.id);
+}
+
+getMyRating(){
+  if(this.rating){
+    return this.rating;
+  }else{
+    return false;
+  }
+}
+
+
+isMine(){
+  if(this.authSvc){
+    return (this.authSvc.getUsername() == this.getUserName());
+  }else{
+    return false;
+  }
+}
+
+
+  currentSideEditorPage = 0;
+
+
+  showInstructions(){
+    this.currentSideEditorPage  = 2;
+  }
+  showDesciption(){
+    console.log(this.template)
+    this.currentSideEditorPage  = 1;
+  }
+  showForm(){
+    this.currentSideEditorPage  = 0;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
