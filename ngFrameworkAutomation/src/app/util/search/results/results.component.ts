@@ -63,12 +63,7 @@ export class ResultsComponent implements OnInit {
     //     this.keywordSearch(queryParams.keyword);
     //   });
 
-    this.templateService.index().subscribe(
-      dataSuccess => {
-        this.listOfTemplates = dataSuccess;
-        console.log(this.listOfTemplates);
-      }
-    )
+
 
   }
 
@@ -106,6 +101,38 @@ export class ResultsComponent implements OnInit {
   // }
 
 
+  ngAfterViewInit() {
+    this.templateService.index().subscribe(
+      dataSuccess => {
+        this.listOfTemplates = dataSuccess;
+        console.log(this.listOfTemplates);
+        this.hideNav();
+      }
+    )
+
+  }
+
+  showNav(){
+    let sliders =  document.getElementsByClassName("slider");
+    for(let i = 0; i < sliders.length;i++){
+      sliders[i].classList.add("active");
+    }
+  }
+  hideNav(){
+    let sliders =  document.getElementsByClassName("slider");
+    for(let i = 0; i < sliders.length;i++){
+      sliders[i].classList.remove("active");
+    }
+  }
+
+  toggleNav(){
+    let sliders =  document.getElementsByClassName("slider");
+    if(sliders[0].classList.contains("active")){
+      this.hideNav();
+    }else{
+      this.showNav();
+    }
+  }
 
 
 }

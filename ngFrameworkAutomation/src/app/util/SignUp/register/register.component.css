@@ -1,5 +1,4 @@
-#mainBody{
-
+#mainBody {
   overflow-x: hidden;
 }
 input:focus {
@@ -8,6 +7,9 @@ input:focus {
   border: none;
   outline-width: 0px;
   outline-color: transparent;
+  border-bottom: 2px solid black;
+  box-shadow: 0 0.2px 0 0 black;
+  border-radius: 0;
 }
 
 input:active {
@@ -17,68 +19,76 @@ input:active {
   border: none;
   outline-width: 0px;
   outline-color: transparent;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
 }
 
-textarea:focus{
-  outline:none;
-  outline-color: transparent;
-}
-
-select:focus{
-  outline:none;
-  outline-color: transparent;
-}
-
-input{
-  background-color: transparent;
-  border: 0px;
+textarea:focus {
   outline: none;
   outline-color: transparent;
 }
 
+select:focus {
+  outline: none;
+  outline-color: transparent;
+}
+
+input {
+  background-color: transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  outline: none;
+  outline-color: transparent;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+}
+
 img {
-height: 100%;
-width: 100%;
-opacity: 95%;
+  height: 100%;
+  width: 100%;
+  opacity: 95%;
 }
 a {
   text-decoration: none;
   color: #085ff7;
 }
 
-.inputClass{
-    font-family: SoDoSans, sans-serif;
-    background-color: transparent;
-    border: transparent;
-    border-radius: 0;
-    color: rgba(0,0,0,.9);
-    font-size: 1.4rem;
-    font-weight: 400;
-    line-height: .1;
-    letter-spacing: -.01em;
-    padding: 1px 0 6px;
-    -webkit-font-smoothing: antialiased;
-    font-feature-settings: "calt";
-    border-bottom: 1px solid rgba(0,0,0, .2);
-    outline: none;
-    outline-color: transparent;
+.inputClass {
+  font-family: SoDoSans, sans-serif;
+  background-color: transparent;
+  border: transparent;
+  border-radius: 0;
+  color: rgba(0, 0, 0, 0.9);
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 0.1;
+  letter-spacing: -0.01em;
+  padding: 1px 0 6px;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "calt";
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.2); */
+  outline: none;
+  outline-color: transparent;
 }
 
- #leftColumn{
+#leftColumn {
   height: 100vh;
   background-image: url("https://images.unsplash.com/photo-1565313842307-7ef5f013b669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80");
   border-right: none 1px;
-  box-shadow: 0 1px 1px rgba(0,0,0,.24), 0 4px 4px rgba(0,0,0,.12);
-
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.24), 0 4px 4px rgba(0, 0, 0, 0.12);
 }
 
-#rightColumn{
+#rightColumn {
   height: 100vh;
-  background: linear-gradient(to right, rgb(230, 230, 230) 0%, rgb(204, 204, 206) 100%);
-
+  background: linear-gradient(
+    to right,
+    rgb(230, 230, 230) 0%,
+    rgb(204, 204, 206) 100%
+  );
 }
 
-#middleColumn{
+#middleColumn {
   margin-top: 1vh;
 }
 
@@ -86,7 +96,6 @@ h1 {
   font-family: sans-serif;
   font-size: xx-large;
   text-align: left;
-
 }
 
 #logo {
@@ -97,7 +106,6 @@ h1 {
 
 #lowerLeft {
   display: flex;
-
 }
 #createAccountBox {
   margin-top: 15em;
@@ -129,8 +137,6 @@ h1 {
     border-image: initial;
 } */
 
-
-
 .submit-btn {
   width: 400px;
   background-color: #085ff7;
@@ -148,4 +154,3 @@ h1 {
   color: #fff;
   border-radius: 5px;
 } */
-

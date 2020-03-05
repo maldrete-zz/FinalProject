@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -25,12 +27,13 @@ public class Rating {
 	@Column(name = "create_date")
 	private String createDate;
 
-
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "user_username")
 	private User user;
 
-
+	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "template_id")
 	private Template template;

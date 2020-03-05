@@ -1,8 +1,12 @@
 
 #tiptop{
-  height: 60px;
+  height: 10vh;
+  width:100vw;
+  padding:0;
+  margin:0;
   background-color: rgb(23, 33, 45);
-  color: white
+  color: white;
+
 }
 
 #fwa{
@@ -12,7 +16,7 @@
   align-items: center;
   padding-top: 10px;
   font-family: Trade Winds;
-  font-size: xx-large;
+  font-size: 50px;
 }
 
 #bigRadiantDiv {
@@ -24,14 +28,14 @@
   color: white;
 
 }
- .container{
-  width: 100%;
+ .container-mine{
+  width: 100vw;
   padding-right: 15px;
   padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
+
   margin-top: -20px;
  }
+
 
 
 
@@ -90,7 +94,7 @@
 
 
 img {
-padding: 30px;
+
 width: 100%;
 }
 
@@ -136,7 +140,7 @@ h4{
 
 .skewedPeice{
   padding-left: 20px;
-  height: 100vh;
+  height: 90vh;
   width: 50vw;
   z-index: 10;
   background-color: #ddd0;
@@ -151,7 +155,7 @@ color: #fff;
   padding: 0px;
   margin: 0px;
   width:100vw;
-  height: 100vh;
+  height: 90vh;
   background-image: url(https://images.unsplash.com/photo-1555099962-4199c345e5dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);
   background-size: cover;
   background-position: center;
@@ -159,13 +163,12 @@ color: #fff;
 
 }
 #bottomBanner{
-  height: 33vh;
+  height: 30vh;
   background: linear-gradient(to right, rgba(83,160,253,1) 0%, rgba(7, 27, 91,.8) 100%);
   padding: 2em 0;
-  margin-right: auto;
-  margin-left: auto;
+  width: 100%;
   color: white;
-  position: relative;
-  top: 67vh;
+  position: absolute;
+  bottom: 0vh;
   z-index: 20;
 }

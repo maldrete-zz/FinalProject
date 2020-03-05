@@ -6,11 +6,11 @@
   <li><a [routerLink]="['/creator']"> create a template </a></li>
   <li><a [routerLink]="['/register']"> Register </a></li>
 </ul> -->
-
+<!--
 <nav class="navbar navbar-expand-xl fixed">
 
   <div class="d-flex flex-grow-1">
-    <!-- will get replace with favicon icon -->
+
     <a class="navbar-brand mr-5" href="#/home" id="FALOGO">F W A</a
     >
     <button
@@ -97,4 +97,43 @@
       </form>
     </div>
   </div>
-</nav>
+</nav> -->
+<div class="menu-button" (click)="toggleNav()">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<div class="home-slider slider active" (click)="gotoLandingPage()">
+  <!-- <button (click)="hideNav()">Back</button> -->
+  <div class="round-icon-holder">
+    <img class="nav-icon" src="/assets/home.png" alt="">
+  </div>
+  <div class="nav-text">
+    HOME
+  </div>
+</div>
+<div class="register-slider slider active" (click)="gotoRegisterPage()">
+  <div class="round-icon-holder">
+    <img class="nav-icon" src="/assets/register.png" alt="">
+  </div>
+  <div class="nav-text">
+    SETTINGS
+  </div>
+</div>
+<div class="search-slider slider active" (click)="gotoSearchPage()">
+  <div class="round-icon-holder">
+    <img class="nav-icon" src="/assets/search.png" alt="">
+  </div>
+  <div class="nav-text">
+    SEARCH
+  </div>
+</div>
+<div class="create-slider slider active" (click)="gotoCreatePage()">
+  <div class="round-icon-holder">
+    <img class="nav-icon" src="/assets/create.png" alt="">
+  </div>
+  <div class="nav-text">
+    CREATE
+  </div>
+</div>

@@ -22,6 +22,9 @@
           <div class="card_image">
             <img src="{{ selectTemplateImage(template) }}" />
           </div>
+          <div class="heartIcon" *ngIf="template.ratings">
+            {{ template.ratings }}
+          </div>
           <div class="card_title title-white">
             <p>{{ template.name }}</p>
           </div>
