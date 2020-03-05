@@ -9,7 +9,7 @@
     
 		<class>com.skilldistillery.frameworkautomation.entities.User</class>
 		<class>com.skilldistillery.frameworkautomation.entities.Template</class>
-		<class>com.skilldistillery.frameworkautomation.entities.Comments</class>
+		<class>com.skilldistillery.frameworkautomation.entities.Comment</class>
 		<class>com.skilldistillery.frameworkautomation.entities.Rating</class>
 
 		
