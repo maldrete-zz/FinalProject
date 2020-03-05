@@ -232,6 +232,7 @@ export class GenerateComponent implements OnInit {
     }
   }
 
+
   toggleNav(){
     let sliders =  document.getElementsByClassName("slider");
     if(sliders[0].classList.contains("active")){
@@ -259,6 +260,7 @@ export class GenerateComponent implements OnInit {
     )
 
     return this.rating;
+
   }
 
 
