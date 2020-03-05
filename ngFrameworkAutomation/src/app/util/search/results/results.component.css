@@ -41,6 +41,8 @@ input {
   border-left-style: hidden;
   border-radius: 0px;
   color: white;
+  font-size: 80px;
+
 }
 
 ::placeholder {
