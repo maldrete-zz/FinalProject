@@ -390,7 +390,12 @@ gotoCP(){
 }
 
 
-
+deleteMyTemp(){
+  this.svc.destroy(this.template.id).subscribe(
+    data => {
+    this.router.navigateByUrl("search");
+  },this.myError);
+}
 
 
 
