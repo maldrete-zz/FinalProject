@@ -1,7 +1,7 @@
 import { TextEditorComponent } from './../text-editor/text-editor.component';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TemplateService } from 'src/app/services/template.service';
 import { Template } from 'src/app/entities/template/template';
 
@@ -125,6 +125,7 @@ export class GenerateComponent implements OnInit {
     private svc: TemplateService,
     private parser: ParseTemplateHelperService,
     private pipeManager: PipeManagerService,
+    private router           : Router,
     private authSvc: AuthService
   ) { }
 
@@ -261,6 +262,58 @@ export class GenerateComponent implements OnInit {
     return this.rating;
 
   }
+
+getUserName(){
+  if(this.tempInfo){
+  return this.tempInfo["userName"];
+  }else{
+    return "";
+  }
+}
+gotoCP(){
+  this.router.navigateByUrl("template/edit/" + this.template.id);
+}
+
+
+
+isMine(){
+  return (this.authSvc.username == this.getUserName());
+}
+
+
+  currentSideEditorPage = 0;
+
+
+  showInstructions(){
+    this.currentSideEditorPage  = 2;
+  }
+  showDesciption(){
+    console.log(this.template)
+    this.currentSideEditorPage  = 1;
+  }
+  showForm(){
+    this.currentSideEditorPage  = 0;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
