@@ -1,50 +1,50 @@
-
 <div class="main-container">
   <div class="row">
     <div class="col-sm-5">
       <section class="form-section page-section">
-        <div>
-          <form #fieldForm="ngForm" class="field-form row">
-            <h3 class="form-prompt">Fill out the form to generate code</h3>
+        <div *ngIf="currentSideEditorPage == 0">
+          <form #fieldForm="ngForm" class="field-form">
+            <div class = row>
+              <h3 class="form-prompt">Fill out the form to generate code</h3>
 
-            <button
-              *ngIf="rating"
-              (click)="addLike(template.id)"
-              type="button"
-              class="btn btn-outline-info"
-            >
-              Like
-            </button>
+              <button
+                *ngIf="rating"
+                (click)="addLike(template.id)"
+                type="button"
+                class="btn btn-outline-info"
+              >
+                Like
+              </button>
 
-            <button
-              *ngIf="!rating"
-              (click)="addLike(template.id)"
-              type="button"
-              class="btn btn-outline-info"
-            >
-              Unlike
-            </button>
-
-            <div>
+              <button
+                *ngIf="!rating"
+                (click)="addLike(template.id)"
+                type="button"
+                class="btn btn-outline-info"
+              >
+                Unlike
+              </button>
+            </div>
+            <div class="row">
               <div
-              class="form-group col-sm-6"
-              *ngFor="let key of getKeys(); let i = index"
-            >
-              <div class="form-entry">
-                <label for="key" class="form-prompt">
-                  {{ key | form }}
-                </label>
-                <input
-                  class="form-control"
-                  type="text"
-                  [name]="key"
-                  placeholder="{{ formPlaceholders[key] }}"
-                  [(ngModel)]="formMap[key]"
-                  (keyup)="assembleFullContent()"
-                />
+                class="form-group col-sm-6"
+                *ngFor="let key of getKeys(); let i = index"
+              >
+                <div class="form-entry">
+                  <label for="key" class="form-prompt">
+                    {{ key | form }}
+                  </label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    [name]="key"
+                    placeholder="{{ formPlaceholders[key] }}"
+                    [(ngModel)]="formMap[key]"
+                    (keyup)="assembleFullContent()"
+                  />
+                </div>
               </div>
             </div>
-          </div>
             <div *ngFor="let key of getAddButtons()">
               <input
                 type="button"
@@ -55,6 +55,22 @@
             </div>
           </form>
         </div>
+        <div *ngIf="currentSideEditorPage == 1">
+          <div class="option-window-title">
+            Description:
+          </div>
+          <div class="option-window-content">
+            <pre style="color: aliceblue;" name="qwe">{{template.description}}</pre>
+          </div>
+        </div>
+        <div *ngIf="currentSideEditorPage == 2">
+          <div class="option-window-title">
+            Instructions:
+          </div>
+          <div class="option-window-content">
+            <pre style="color: aliceblue;" name="qwe">{{template.instructions}}</pre>
+          </div>
+        </div>
       </section>
     </div>
     <div class="col-sm-7">
@@ -63,6 +79,7 @@
         <div class="editor-navigator col-sm-3">
           <div class="editor-navigator-title">Templates</div>
           <div class="accordion">
+            <button *ngIf="isMine()" (click)="gotoCP()" style="background-color: aliceblue;" >Edit</button>
             <div>
               <div
                 class="editor-nav-header"
@@ -80,57 +97,9 @@
                 data-parent="#accordionExample"
               >
                 <div class="card-body">
-                  <div class="editor-nav-content">Form</div>
-                  <div class="editor-nav-content">Description</div>
-                  <div class="editor-nav-content">Instructions</div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div
-                class="editor-nav-header"
-                data-toggle="collapse"
-                data-target="#collapseOne"
-                aria-expanded="true"
-                aria-controls="collapseOne"
-              >
-                My Templates
-              </div>
-              <div
-                id="collapseOne"
-                class="collapse"
-                aria-labelledby="headingOne"
-                data-parent="#accordionExample"
-              >
-                <div class="card-body">
-                  <div class="editor-nav-content">template1</div>
-                  <div class="editor-nav-content">template1</div>
-                  <div class="editor-nav-content">template1</div>
-                  <div class="editor-nav-content">template1</div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div
-                class="editor-nav-header"
-                data-toggle="collapse"
-                data-target="#collapseTwo"
-                aria-expanded="true"
-                aria-controls="collapseTwo"
-              >
-                Liked Templates
-              </div>
-              <div
-                id="collapseTwo"
-                class="collapse"
-                aria-labelledby="headingOne"
-                data-parent="#accordionExample"
-              >
-                <div class="card-body">
-                  <div class="editor-nav-content">template2</div>
-                  <div class="editor-nav-content">template2</div>
-                  <div class="editor-nav-content">template2</div>
-                  <div class="editor-nav-content">template2</div>
+                  <div class="editor-nav-content" (click)="showForm()">Form</div>
+                  <div class="editor-nav-content" (click)="showDesciption()">Description</div>
+                  <div class="editor-nav-content" (click)="showInstructions()">Instructions</div>
                 </div>
               </div>
             </div>

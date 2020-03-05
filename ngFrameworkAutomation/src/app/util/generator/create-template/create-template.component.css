@@ -4,8 +4,9 @@
   right:0;
   left:0;
   bottom:0;
-  background-color: #111166cc;
+  background-color: #000027cc;
   z-index: 10;
+  color:#000;
 }
 
 .subtemplatePopUpForm{
@@ -16,6 +17,11 @@
   padding: 30px;
   background-color: oldlace;
   border-radius: 20px;
+  color:#000;
+}
+.subtemplatePopUpForm .form-group label{
+
+  color:#000;
 }
 
 
@@ -28,7 +34,14 @@
 
 
 
+.fill-out-form{
+width: 80%;
+margin: auto;
+}
 
+.fill-out-form textarea{
+  width: 100%;
+  }
 
 
 
