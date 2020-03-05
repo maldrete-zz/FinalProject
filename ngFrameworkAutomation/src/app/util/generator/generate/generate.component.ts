@@ -47,7 +47,7 @@ export class GenerateComponent implements OnInit {
     this.svc.getRating(parseInt(templateId)).subscribe(
       data => {
         console.log(data);
-        if (data == 0) {
+        if (data['ratings']) {
           this.rating = false;
         } else {
           this.rating = true;
