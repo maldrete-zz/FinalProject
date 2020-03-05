@@ -19,7 +19,7 @@ export class UserProfileComponent implements OnInit {
 
 
   constructor(private http: HttpClient, private svc: UserService,
-              private currentroute: ActivatedRoute, private router: Router) { }
+    private currentroute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.svc.getUser().subscribe(
@@ -30,8 +30,16 @@ export class UserProfileComponent implements OnInit {
     )
   }
 
-  getUserFromDB(){
+  getUserFromDB() {
 
+  }
+
+  checkIfAdmin(): boolean {
+    if (this.user.role == 'admin') {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }

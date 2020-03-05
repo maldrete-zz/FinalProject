@@ -14,6 +14,8 @@ export class UpdateUserComponent implements OnInit {
 
   //fields
   user = new User();
+  users = [];
+
   constructor(private authSvc: AuthService,
     private route: ActivatedRoute,
     private router: Router,
@@ -21,6 +23,8 @@ export class UpdateUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.retrieveUser();
+    this.retrieveUsers();
+
   }
 
   updateUser() {
@@ -44,7 +48,7 @@ export class UpdateUserComponent implements OnInit {
     );
   }
 
-  retrieveUser(){
+  retrieveUser() {
     this.userService.getUser().subscribe(
       user => {
         this.user = user;
@@ -54,6 +58,80 @@ export class UpdateUserComponent implements OnInit {
         console.error("failed to retrieve user");
       }
     )
+  }
+
+  retrieveUsers() {
+    this.userService.getAllUsers().subscribe(
+      users => {
+        this.users = users;
+      },
+      bad => {
+        console.error("failed to retrieve users");
+      }
+    )
+  }
+
+  changeUserStatus(user: User) {
+    if (user.enabled) {
+      this.userService.deactivateUser(user).subscribe(
+        good => {
+
+        },
+        bad => {
+          console.error("failed to deactivate user");
+
+        }
+      )
+
+    } else {
+      this.userService.activateUser(user).subscribe(
+        good => {
+
+        },
+        bad => {
+          console.error("failed to activate user");
+
+        }
+      )
+
+
+    }
+
+  }
+
+  checkIfAdmin(): boolean {
+    if (this.user.role == 'admin') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  ngAfterViewInit() {
+    this.hideNav();
+  }
+
+
+  showNav() {
+    let sliders = document.getElementsByClassName("slider");
+    for (let i = 0; i < sliders.length; i++) {
+      sliders[i].classList.add("active");
+    }
+  }
+  hideNav() {
+    let sliders = document.getElementsByClassName("slider");
+    for (let i = 0; i < sliders.length; i++) {
+      sliders[i].classList.remove("active");
+    }
+  }
+
+  toggleNav() {
+    let sliders = document.getElementsByClassName("slider");
+    if (sliders[0].classList.contains("active")) {
+      this.hideNav();
+    } else {
+      this.showNav();
+    }
   }
 
 }
