@@ -264,5 +264,5 @@ export class GenerateComponent implements OnInit {
   }
 
 
-
 }
+
