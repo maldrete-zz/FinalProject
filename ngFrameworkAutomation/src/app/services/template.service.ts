@@ -192,8 +192,8 @@ export class TemplateService {
         Authorization: 'Basic ' + credentials
       }
     };
-    console.log(environment.baseUrl + 'api/rating/' + id);
-    return this.http.get<Rating>(environment.baseUrl + 'api/rating/' + id, options).pipe(
+    console.log(environment.baseUrl + 'api/me/rating/' + id);
+    return this.http.get<Rating>(environment.baseUrl + 'api/me/rating/' + id, options).pipe(
       catchError((err: any) => {
         console.log('getRating(): Error adding like to rating');
         console.error(err);

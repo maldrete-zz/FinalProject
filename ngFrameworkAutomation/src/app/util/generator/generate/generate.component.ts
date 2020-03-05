@@ -33,9 +33,9 @@ export class GenerateComponent implements OnInit {
     this.svc.show(parseInt(templateId)).subscribe(
       data => {
         this.template = data;
-        console.log("getTempInfo() executing");
+
         this.getTempInfo(this.template.id);
-        console.log(this.tempInfo);
+
         this.compileTemplates();
         this.hideNav();
       },
@@ -45,17 +45,7 @@ export class GenerateComponent implements OnInit {
     );
 
 
-    this.svc.getRating(parseInt(templateId)).subscribe(
-      data => {
-        console.log(data);
-        if (data == 0) {
-          this.rating = false;
-        } else {
-          this.rating = true;
-        }
-
-      }
-    )
+    this.getRating(parseInt(templateId));
 
 
   }
@@ -73,7 +63,7 @@ export class GenerateComponent implements OnInit {
 
   currentIncrementalsCount = {};
   tempInfo: TemplateInfo = new TemplateInfo();
-  rating: boolean = true;
+  rating;
 
 
 
@@ -185,9 +175,9 @@ export class GenerateComponent implements OnInit {
   getTempInfo(id: number) {
     this.svc.getTemplateInformation(this.template.id).subscribe(
       data => {
-        console.log('getTempInfo() executing');
+
         this.tempInfo = data;
-        console.log(this.tempInfo)
+
       },
       err => {
         console.error(err);
@@ -199,7 +189,7 @@ export class GenerateComponent implements OnInit {
   addLike(id: number) {
     this.svc.likeTemplate(this.template.id).subscribe(
       data => {
-        console.log(data);
+
         if (!data['ratings']) {
           this.rating = true;
         } else {
@@ -246,11 +236,10 @@ export class GenerateComponent implements OnInit {
 
   }
 
-  getRating(id: number): boolean {
-    this.svc.getRating(this.template.id).subscribe(
+  getRating(id: number) {
+    this.svc.getRating(id).subscribe(
       data => {
-        console.log(data);
-        if (data) {
+        if (data["rating"]) {
           this.rating = false;
         } else {
           this.rating = true;
@@ -258,8 +247,6 @@ export class GenerateComponent implements OnInit {
 
       }
     )
-
-    return this.rating;
 
   }
 
@@ -274,10 +261,21 @@ gotoCP(){
   this.router.navigateByUrl("template/edit/" + this.template.id);
 }
 
+getMyRating(){
+  if(this.rating){
+    return this.rating;
+  }else{
+    return false;
+  }
+}
 
 
 isMine(){
-  return (this.authSvc.username == this.getUserName());
+  if(this.authSvc){
+    return (this.authSvc.getUsername() == this.getUserName());
+  }else{
+    return false;
+  }
 }
 
 
