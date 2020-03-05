@@ -45,7 +45,9 @@ export class GenerateComponent implements OnInit {
     );
 
 
+
     this.getRating(parseInt(templateId));
+
 
 
   }
