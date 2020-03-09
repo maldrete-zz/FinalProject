@@ -2,7 +2,7 @@
 
 ## Framework Automation
 
-# Home, Template Generator Page & Navigation bar
+### Home, Template Generator Page & Navigation bar
 <img src="images/homePage.png" height="275">
 <img src="images/templateGenerator.png" height="275">
 <img src="images/navigationBar.png" height="275">
