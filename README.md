@@ -1,6 +1,6 @@
-## Final Project - Framework Automation
-
 ## Final Team Project for Skill Distillery 16-week Full Stack Boot Camp
+
+## Framework Automation
 
 ## Home, Template Generator Page & Navigation bar
 <img src="images/homePage.png" height="275">
@@ -19,7 +19,7 @@ An  easy  to use, full stack, REST  based, web application allowing   programmer
 ## How To Use
 Select the Navigation dropdown menu and click search. Find the template you are looking for fill out form input fields and copy code  created in text editor and paste into your application for more help click on the template's instructions.
 
-- To Create a new template create an account by navigating to the register page through the dropdown navigation bar.
+To Create a new template create an account by navigating to the register page through the dropdown navigation bar.
 
 ## Technologies Used
 * Java,
