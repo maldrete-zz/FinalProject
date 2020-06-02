@@ -1,6 +1,7 @@
 ## Final Team Project for Skill Distillery 16-week Full Stack Boot Camp
 
 ## Framework Automation
+http://mattaldrete.com:8080/FrameworkAutomation/#/home
 
 ### Home, Template Generator Page & Navigation bar
 <img src="images/homePage.png" height="275">
